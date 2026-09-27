@@ -23,6 +23,15 @@ export const DEFAULT_SETTINGS = {
   direction: 'it-cs',
   newPerDay: 10,
   goal: 30,
+  // Ladí se přes obrazovku Přizpůsobit (přání v přirozené řeči):
+  intervalScale: 1,       // < 1 = karty se vracejí dřív
+  extraReview: 0,         // kolik už naučených karet přidat do dnešní lekce navíc
+  autoSpeak: true,
+  giuliaLevel: 'A1–A2',
+  giuliaLength: 'kratke',
+  giuliaCorrections: 'vse',
+  giuliaHints: true,
+  giuliaPokyny: [],       // vlastní pokyny pro Giulii
 };
 
 export function settings() {

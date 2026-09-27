@@ -7,6 +7,7 @@ Nepotřebuje App Store ani Xcode.
 - **Kartičky**: slovíčka (215), vazby (43), fráze (55). Opakují se v intervalech: co nevíš, uvidíš brzy znovu, co umíš, až za dny či týdny.
 - **Časy**: dril časování 20 nejčastějších sloves (presente, passato prossimo, imperfetto, futuro), tabulky a vysvětlení.
 - **Mluvení s Giulií**: konverzace nahlas s avatarkou v 7 situacích. Opraví chyby a přeloží, co řekla.
+- **✨ Přizpůsobit**: přání česky („dávej mi častěji opakování“, „Giulia ať mluví delšími větami“). Claude ho převede na změny nastavení nebo na pokyny pro Giulii. Změny se ukážou předem, dají se vrátit a co aplikace neumí, uloží se do seznamu přání pro další verzi.
 
 Postup, slovíčka i nastavení se ukládají jen v telefonu. Kartičky a časy fungují i offline.
 
@@ -46,6 +47,7 @@ a otevřít http://localhost:8765.
 - `js/data.js` – veškerý obsah (slovíčka, vazby, fráze, slovesa, scénáře konverzace)
 - `js/app.js` – obrazovky, kartičky, dril časů, nastavení
 - `js/chat.js` – konverzace s Giulií, avatar, volání Claude API, počítání útraty
+- `js/prizpusobit.js` – úpravy aplikace přáním; seznam laditelných parametrů je `PARAMS`
 - `js/speech.js` – předčítání a rozpoznání řeči
 - `js/store.js` – ukládání v telefonu
 - `sw.js` – offline režim

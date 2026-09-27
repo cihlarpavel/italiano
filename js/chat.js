@@ -22,7 +22,7 @@ export function usageThisMonth() {
   const cur = u.month === month() ? u : { usd: 0, turns: 0 };
   return { czk: cur.usd * KC_ZA_USD, turns: cur.turns };
 }
-function addUsage(model, usage) {
+export function addUsage(model, usage) {
   const p = MODELY[model] || MODELY['claude-opus-5'];
   const inTok = usage.input_tokens || 0;
   const cw = usage.cache_creation_input_tokens || 0;
@@ -85,24 +85,37 @@ function animateAvatar(root) {
 }
 
 // ---------- Prompt ----------
+const DELKA = { kratke: '1–2 krátké věty, nejvýš asi 25 slov', stredni: '2–3 krátké věty, nejvýš asi 40 slov', delsi: '3–5 vět, nejvýš asi 70 slov' };
+const OPRAVY = {
+  vse: 'jen pokud poslední zpráva uživatele v italštině obsahovala chybu',
+  dulezite: 'jen pokud poslední zpráva uživatele obsahovala chybu, která mění smysl nebo je hrubá; drobnosti (členy, přízvuky, drobná shoda) přejdi',
+};
+
+// Slovíčka, která se uživatel právě učí (krabičky 1–3), ať je Giulia používá v kontextu.
+function uciSe() {
+  const st = load('srs', {});
+  return Object.entries(st).filter(([, v]) => v.box >= 1 && v.box <= 3).map(([id]) => id.split(':').slice(1).join(':')).slice(0, 40);
+}
+
 function systemPrompt(sc) {
-  return `Jsi Giulia, 32letá Italka z Boloně. Trpělivě a vlídně mluvíš s Čechem, který se učí italsky a je začátečník (úroveň A1–A2). Rozhovor probíhá nahlas: jeho věty přicházejí z rozpoznávání řeči a tvé odpovědi telefon předčítá.
+  const s = settings();
+  const slova = uciSe();
+  return `Jsi Giulia, 32letá Italka z Boloně. Trpělivě a vlídně mluvíš s Čechem, který se učí italsky (úroveň ${s.giuliaLevel}). Svou italštinu přizpůsob této úrovni. Rozhovor probíhá nahlas: jeho věty přicházejí z rozpoznávání řeči a tvé odpovědi telefon předčítá.
 
 Situace: ${sc.prompt}
 
 Pravidla pro tvou repliku:
-- Mluv jen jednoduchou italštinou: 1–3 krátké věty, nejvýš asi 30 slov, běžná slovní zásoba, hlavně přítomný čas a passato prossimo.
+- Mluv jednoduchou italštinou: ${DELKA[s.giuliaLength] || DELKA.kratke}, běžná slovní zásoba.
 - Skoro vždy skonči jednoduchou otázkou, ať rozhovor pokračuje.
 - Buď přirozená a vřelá jako skutečný člověk. Žádné emoji, odrážky ani markdown – text se čte nahlas.
 - Když uživatel napíše česky nebo nerozumí, odpověz ještě jednodušší italštinou a řekni mu, jak by to řekl italsky.
 - Nepřítomnost interpunkce a velkých písmen u uživatele neopravuj (je to rozpoznaná řeč). Když věta nedává smysl, může jít o chybu rozpoznání – zeptej se znovu.
-
+${slova.length ? `\nUživatel se právě učí tato slova a fráze. Když se to hodí, přirozeně je použij, ať je slyší v kontextu: ${slova.join(', ')}\n` : ''}${s.giuliaPokyny.length ? `\nPřání uživatele (dodržuj je, mají přednost před pravidly výše, formát odpovědi ale zachovej):\n${s.giuliaPokyny.map(p => '- ' + p).join('\n')}\n` : ''}
 Formát odpovědi (přesně dodrž, každý údaj na samostatném řádku):
 <tvá replika v italštině>
 ---
 CZ: <český překlad tvé repliky>
-OPRAVA: <jen pokud poslední zpráva uživatele v italštině obsahovala chybu: správná italská věta a krátké vysvětlení česky, nejvýš dvě věty. Pokud byla v pořádku, tento řádek vynech.>
-NAPOVEDA: <dvě nebo tři krátké odpovědi, které by uživatel mohl na tvou otázku říct, velmi jednoduchou italštinou, ve tvaru „italsky = česky“, oddělené znakem |>`;
+${s.giuliaCorrections === 'zadne' ? '' : `OPRAVA: <${OPRAVY[s.giuliaCorrections] || OPRAVY.vse}: správná italská věta a krátké vysvětlení česky, nejvýš dvě věty. Jinak tento řádek vynech.>\n`}${s.giuliaHints ? 'NAPOVEDA: <dvě nebo tři krátké odpovědi, které by uživatel mohl na tvou otázku říct, jednoduchou italštinou, ve tvaru „italsky = česky“, oddělené znakem |>' : ''}`.trim();
 }
 
 const START = '(Začni rozhovor – pozdrav a polož první otázku.)';
@@ -175,6 +188,7 @@ function renderConversation(app, sc) {
         <a class="back" href="#/mluveni" aria-label="Zpět">‹</a>
         <button class="avatar-btn" id="av" aria-label="Zastavit nebo zopakovat">${AVATAR}</button>
         <div class="avatar-name" style="flex:1"><b>Giulia · ${esc(sc.name)}</b><span id="status"></span></div>
+        <a class="back" href="#/prizpusobit" aria-label="Přizpůsobit Giulii" style="font-size:20px;text-decoration:none">✨</a>
         <button class="back" id="restart">Nový</button>
       </div>
       <div class="msgs" id="msgs"></div>
@@ -245,6 +259,7 @@ function renderConversation(app, sc) {
   }
 
   function showHints(hints) {
+    if (!settings().giuliaHints) hints = [];
     hintsEl.innerHTML = hints.length ? `<span class="hints-label">💡 Můžeš říct:</span>` + hints.map((h, i) =>
       `<button class="hint" data-i="${i}"><b>${esc(h.it)}</b>${h.cs ? `<span>${esc(h.cs)}</span>` : ''}</button>`).join('') : '';
     hintsEl.querySelectorAll('.hint').forEach(b => b.onclick = () => {

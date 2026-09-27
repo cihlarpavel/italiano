@@ -7,3 +7,5 @@ Popis a nasazení viz README.md.
 - Konverzace volá Claude API přímo z prohlížeče (`dangerouslyAllowBrowser`). Klíč zadává uživatel v aplikaci, nikdy ho nevkládej do kódu.
 - Po každé změně souborů zvyš `CACHE` v `sw.js`, jinak telefon drží starou verzi.
 - Lokální test: `python3 -m http.server 8765`. Service worker při testování maže mezipaměť, jinak se ukazují staré soubory.
+- Laditelné parametry jsou v `PARAMS` (`js/prizpusobit.js`) a jejich výchozí hodnoty v `DEFAULT_SETTINGS` (`js/store.js`). Nový parametr = obojí + použití v kódu. Hodnoty od modelu se vždy validují.
+- Uživatel posílá „přání na další verzi“ z obrazovky Přizpůsobit. To jsou požadavky na nové funkce.

@@ -335,3 +335,12 @@ body.focus #app { padding-bottom: calc(env(safe-area-inset-bottom) + 24px); }
 body.chat .chat-pad { height: 170px; }
 .ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 12px; color: var(--muted); }
 .chat-head #restart { font-size: 15px; }
+
+.seg { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
+.diff { display: flex; flex-direction: column; padding: 8px 10px; border-radius: 10px; background: var(--surface-2); margin-bottom: 6px; }
+.diff span { font-size: 13px; color: var(--muted); }
+#prani { font-size: 17px; resize: vertical; }
+.chips .chip { font-size: 14px; }
+.chips.scroll { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.chips.scroll .chip { white-space: nowrap; flex: none; }
+#dikt { flex: 0 0 auto; white-space: nowrap; }

@@ -3,6 +3,7 @@ import { load, save, settings, setSettings, logActivity, streak, todayCount, tod
 import { speak, unlockSpeech, italianVoices, stopSpeaking } from './speech.js';
 import { renderChat, MODELY, usageThisMonth } from './chat.js';
 import { toast } from './ui.js';
+import { renderPrizpusobit } from './prizpusobit.js';
 
 const app = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -56,16 +57,25 @@ function mixedQueue() {
   const due = qs.flatMap(q => q.filter(c => !c.fresh));
   const fresh = [];
   for (let i = 0; qs.some(q => q.filter(c => c.fresh)[i]); i++) qs.forEach(q => { const c = q.filter(c => c.fresh)[i]; if (c) fresh.push(c); });
-  return [...shuffle(due), ...fresh];
+  // Procvičení naučeného navíc (nastavuje se přáním): nejslabší karty, které ještě nejsou na řadě.
+  const st = srs();
+  const now = Date.now();
+  const extra = Object.keys(DECKS).flatMap(deck => DECKS[deck].items
+    .filter(it => st[cardId(deck, it)] && st[cardId(deck, it)].due > now)
+    .map(it => ({ deck, it, fresh: false, s: st[cardId(deck, it)] })))
+    .sort((a, b) => a.s.box - b.s.box || a.s.due - b.s.due)
+    .slice(0, settings().extraReview);
+  return [...shuffle(due), ...fresh, ...shuffle(extra)];
 }
 
 // Kam se karta posune po odpovědi – stejná logika pro výpočet i pro popisky tlačítek.
 function nextStep(card, g) {
   const cur = srs()[cardId(card.deck, card.it)] || { box: 0 };
   if (g === 'znovu') return { box: 0, days: 0 };
-  if (g === 'tezke') return { box: cur.box, days: Math.max(1, Math.round(INTERVALY[cur.box] / 2)) };
+  const k = settings().intervalScale;
+  if (g === 'tezke') return { box: cur.box, days: Math.max(1, Math.round(INTERVALY[cur.box] / 2 * k)) };
   const box = Math.min((card.fresh ? 1 : cur.box) + 1, INTERVALY.length - 1);
-  return { box, days: INTERVALY[box] };
+  return { box, days: Math.max(1, Math.round(INTERVALY[box] * k)) };
 }
 
 function kdy(days) {
@@ -199,6 +209,7 @@ function viewHome() {
     </div>
     <h2>Balíčky kartiček</h2>
     ${Object.keys(DECKS).map(deckTile).join('')}
+    <a class="tile card scen" href="#/prizpusobit"><span class="emoji">✨</span><div><b>Přizpůsobit aplikaci</b><span>Napiš, co chceš jinak – třeba „víc opakování“</span></div></a>
   `);
   bindSay(app);
 }
@@ -227,8 +238,9 @@ function viewDecks() {
       <div class="seg" style="margin-top:10px">
         <button class="${dir === 'it-cs' ? 'on' : ''}" data-dir="it-cs">🇮🇹 → 🇨🇿</button>
         <button class="${dir === 'cs-it' ? 'on' : ''}" data-dir="cs-it">🇨🇿 → 🇮🇹</button>
+        <button class="${dir === 'mix' ? 'on' : ''}" data-dir="mix">střídavě</button>
       </div>
-      <p class="muted small" style="margin-top:8px">${dir === 'it-cs' ? 'Vidíš italsky, vybavuješ si význam. Snazší, dobré na začátek.' : 'Vidíš česky, vybavuješ si italsky. Těžší, ale víc to naučí.'}</p>
+      <p class="muted small" style="margin-top:8px">${{ 'it-cs': 'Vidíš italsky, vybavuješ si význam. Snazší, dobré na začátek.', 'cs-it': 'Vidíš česky, vybavuješ si italsky. Těžší, ale víc to naučí.', mix: 'Směr se u každé kartičky náhodně střídá.' }[dir]}</p>
     </div>
     <h2>Procházet seznam</h2>
     <div class="chips">${Object.keys(DECKS).map(k => `<a class="chip" href="#/seznam/${k}">${DECKS[k].name}</a>`).join('')}</div>
@@ -255,7 +267,7 @@ function viewList(deck) {
 }
 
 function viewSession(queue, title, backHash) {
-  const dir = settings().direction;
+  const dirSetting = settings().direction;
   const total = queue.length;
   let done = 0, known = 0;
 
@@ -283,6 +295,7 @@ function viewSession(queue, title, backHash) {
     if (!queue.length) return finish();
     const card = queue[0];
     const { it } = card;
+    const dir = dirSetting === 'mix' ? (Math.random() < 0.5 ? 'it-cs' : 'cs-it') : dirSetting;
     const front = dir === 'it-cs' ? it.it : it.cs;
     const back = dir === 'it-cs' ? it.cs : it.it;
     const lbl = g => kdy(nextStep(card, g).days);
@@ -308,7 +321,7 @@ function viewSession(queue, title, backHash) {
       </div>
     `);
     bindSay(app);
-    if (dir === 'it-cs') speak(it.it);
+    if (dir === 'it-cs' && settings().autoSpeak) speak(it.it);
     const reveal = () => {
       if (!$('back').hidden) return;
       $('flash').classList.add('flipped');
@@ -316,7 +329,7 @@ function viewSession(queue, title, backHash) {
       $('hint').hidden = true;
       $('show').hidden = true;
       $('answers').hidden = false;
-      if (dir === 'cs-it') { stopSpeaking(); speak(it.it); }
+      if (dir === 'cs-it' && settings().autoSpeak) { stopSpeaking(); speak(it.it); }
     };
     $('flash').onclick = reveal;
     $('show').onclick = reveal;
@@ -468,6 +481,7 @@ function viewNastaveni() {
   const u = usageThisMonth();
   h(`
     <h1>Nastavení</h1>
+    <a class="tile card scen" href="#/prizpusobit"><span class="emoji">✨</span><div><b>Přizpůsobit vlastními slovy</b><span>Např. „Giulia ať mluví delšími větami“</span></div></a>
 
     <h2>Giulia (konverzace)</h2>
     <div class="card">
@@ -551,7 +565,7 @@ function route() {
   stopSpeaking();
   const [, view = '', arg] = location.hash.split('/');
   if (!load('onboarded', false) && view !== 'vitej' && view !== 'nastaveni') return (location.hash = '#/vitej');
-  const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', casy: 'casy', dril: 'casy', sloveso: 'casy', mluveni: 'mluveni', nastaveni: 'nastaveni' }[view] || 'home';
+  const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', casy: 'casy', dril: 'casy', sloveso: 'casy', mluveni: 'mluveni', nastaveni: 'nastaveni', prizpusobit: 'nastaveni' }[view] || 'home';
   document.querySelectorAll('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab));
   // Při lekci a drilu lišta ruší – schová se, zavírá se křížkem.
   document.body.classList.toggle('focus', ['lekce', 'dril', 'vitej'].includes(view) || (view === 'karticky' && !!arg));
@@ -566,6 +580,7 @@ function route() {
     case 'sloveso': return viewSloveso(decodeURIComponent(arg || ''));
     case 'mluveni': return renderChat(app, arg);
     case 'nastaveni': return viewNastaveni();
+    case 'prizpusobit': return renderPrizpusobit(app);
     default: return viewHome();
   }
 }

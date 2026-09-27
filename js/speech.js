@@ -62,11 +62,11 @@ export const isSpeaking = () => !!synth?.speaking;
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 export const canListen = !!Recognition;
 
-export function listen({ onInterim } = {}) {
+export function listen({ onInterim, lang = 'it-IT' } = {}) {
   let rec;
   const promise = new Promise((resolve, reject) => {
     rec = new Recognition();
-    rec.lang = 'it-IT';
+    rec.lang = lang;
     rec.interimResults = true;
     rec.continuous = false;
     rec.maxAlternatives = 1;
