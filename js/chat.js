@@ -85,7 +85,7 @@ function animateAvatar(root) {
 
 // ---------- Prompt ----------
 function systemPrompt(sc) {
-  return `Jsi Giulia, 32letá Italka z Bologni. Trpělivě a vlídně mluvíš s Čechem, který se učí italsky a je začátečník (úroveň A1–A2). Rozhovor probíhá nahlas: jeho věty přicházejí z rozpoznávání řeči a tvé odpovědi telefon předčítá.
+  return `Jsi Giulia, 32letá Italka z Boloně. Trpělivě a vlídně mluvíš s Čechem, který se učí italsky a je začátečník (úroveň A1–A2). Rozhovor probíhá nahlas: jeho věty přicházejí z rozpoznávání řeči a tvé odpovědi telefon předčítá.
 
 Situace: ${sc.prompt}
 
@@ -123,7 +123,7 @@ function renderScenarios(app) {
   const hasKey = !!settings().apiKey;
   app.innerHTML = `
     <div class="avatar-box">${AVATAR}
-      <div class="avatar-name"><b>Giulia</b><span>z Bologni · mluví pomalu a opraví tě</span></div>
+      <div class="avatar-name"><b>Giulia</b><span>z Boloně · mluví pomalu a opraví tě</span></div>
     </div>
     ${hasKey ? '' : `<div class="card"><b>Nejdřív vlož klíč k Claude API</b>
       <p class="small" style="margin-top:6px">Giulia potřebuje jazykový model. Klíč vytvoříš na console.anthropic.com (API Keys) a vložíš ho v Nastavení. Jedna odpověď stojí kolem 0,3 Kč.</p>

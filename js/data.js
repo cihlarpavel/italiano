@@ -11,7 +11,7 @@ export const VOCAB = [
     ['forse', 'možná'], ['certo', 'jistě'], ['allora', 'tak / takže'], ['anche', 'také'],
     ['ma', 'ale'], ['perché', 'proč / protože'], ['quando', 'kdy'], ['dove', 'kde'],
     ['come', 'jak'], ['che cosa', 'co'], ['chi', 'kdo'], ['quanto', 'kolik'],
-    ['molto', 'velmi / hodně'], ['poco', 'málo'], ['sempre', 'vždy'], ['mai', 'nikdy'],
+    ['molto', 'velmi / hodně'], ['poco', 'málo'], ['sempre', 'vždy'], ['mai', 'nikdy (se záporem: non bevo mai)'],
     ['oggi', 'dnes'], ['domani', 'zítra'], ['ieri', 'včera'], ['adesso', 'teď'],
     ['dopo', 'potom'], ['prima', 'předtím / nejdřív'], ['qui', 'tady'], ['lì', 'tam'],
   ]),
@@ -23,7 +23,7 @@ export const VOCAB = [
   ]),
   ...t('Jídlo a pití', [
     ['il pane', 'chléb'], ["l'acqua", 'voda'], ['il vino', 'víno'], ['la birra', 'pivo'],
-    ['il caffè', 'káva'], ['il latte', 'mléko'], ['lo zucchero', 'cukr'], ['il sale', 'sůl'],
+    ['il caffè', 'káva (v baru = espresso)'], ['il latte', 'mléko'], ['lo zucchero', 'cukr'], ['il sale', 'sůl'],
     ["l'olio", 'olej'], ['il formaggio', 'sýr'], ['la carne', 'maso'], ['il pesce', 'ryba'],
     ['il pollo', 'kuře'], ['la verdura', 'zelenina'], ['la frutta', 'ovoce'], ['la mela', 'jablko'],
     ['il pomodoro', 'rajče'], ["l'uovo", 'vejce (mn. č. le uova)'], ['la pasta', 'těstoviny'],
@@ -36,7 +36,7 @@ export const VOCAB = [
     ['la sorella', 'sestra'], ['il figlio', 'syn'], ['la figlia', 'dcera'], ['il marito', 'manžel'],
     ['la moglie', 'manželka'], ['il nonno', 'dědeček'], ['la nonna', 'babička'],
     ["l'amico", 'kamarád'], ["l'amica", 'kamarádka'], ['il ragazzo', 'kluk / přítel'],
-    ['la ragazza', 'holka / přítelkyně'], ['il bambino', 'dítě (chlapec)'], ['la gente', 'lidé'],
+    ['la ragazza', 'holka / přítelkyně'], ['il bambino', 'dítě (chlapec)'], ['la gente', 'lidé (it. jednotné číslo: la gente è…)'],
     ["l'uomo", 'muž (mn. č. gli uomini)'], ['la donna', 'žena'],
   ]),
   ...t('Město a cestování', [
@@ -89,7 +89,7 @@ export const VAZBY = [
   ]),
   ...t('avere', [
     ['avere fame', 'mít hlad'], ['avere sete', 'mít žízeň'], ['avere sonno', 'být ospalý'],
-    ['avere freddo', 'je mi zima'], ['avere caldo', 'je mi horko'], ['avere fretta', 'spěchat'],
+    ['avere freddo', 'být (někomu) zima – ho freddo'], ['avere caldo', 'být (někomu) horko – ho caldo'], ['avere fretta', 'spěchat'],
     ['avere ragione', 'mít pravdu'], ['avere torto', 'nemít pravdu'], ['avere bisogno di', 'potřebovat'],
     ['avere voglia di', 'mít chuť na'], ['avere paura di', 'bát se'], ["ho trent'anni", 'je mi třicet let'],
   ]),
@@ -97,13 +97,13 @@ export const VAZBY = [
     ['prendere il treno', 'jet vlakem'], ['prendere un caffè', 'dát si kávu'], ['prendere il sole', 'opalovat se'],
     ['prendere una decisione', 'rozhodnout se'], ['andare a casa', 'jít domů'], ['andare in vacanza', 'jet na dovolenou'],
     ['andare a piedi', 'jít pěšky'], ['andare in macchina', 'jet autem'], ["andare d'accordo", 'vycházet spolu, rozumět si'],
-    ['stare bene', 'mít se dobře'], ['stare per', 'právě se chystat (něco udělat)'], ['stare zitto', 'mlčet'],
+    ['stare bene', 'mít se dobře'], ['stare per', 'právě se chystat (něco udělat)'], ['stare zitto', 'mlčet (shoda: stai zitta, state zitti)'],
   ]),
   ...t('další', [
     ['dare una mano', 'pomoct'], ['dare fastidio', 'obtěžovat, vadit'], ["essere d'accordo", 'souhlasit'],
     ['essere in ritardo', 'mít zpoždění'], ['mi piace', 'líbí se mi / chutná mi (jedna věc)'],
-    ['mi piacciono', 'líbí se mi (více věcí)'], ["ci vuole un'ora", 'trvá to hodinu'],
-    ['avere a che fare con', 'mít co dělat s'], ['vale la pena', 'stojí to za to'],
+    ['mi piacciono', 'líbí se mi / chutnají mi (více věcí)'], ["ci vuole un'ora", 'trvá to hodinu'],
+    ['avere a che fare con', 'mít co do činění s'], ['vale la pena', 'stojí to za to'],
   ]),
 ];
 
@@ -140,7 +140,7 @@ export const FRAZE = [
     ['Che bello!', 'To je krása!'], ['Dai!', 'No tak! / Ale jdi!'], ['Magari!', 'Kéž by!'],
     ['Figurati!', 'To nic! / Není zač!'], ['Non fa niente.', 'To nevadí.'], ['Meno male!', 'Ještě že tak!'],
     ['Ci vediamo!', 'Uvidíme se!'], ['A dopo!', 'Zatím! (uvidíme se později)'], ['Buona giornata!', 'Hezký den!'],
-    ['In bocca al lupo! – Crepi!', 'Zlom vaz! – Díky!'], ['Che ne dici?', 'Co ty na to?'],
+    ['In bocca al lupo! – Crepi!', 'Zlom vaz! – Ať chcípne! (ustálená odpověď, „grazie“ se neříká)'], ['Che ne dici?', 'Co ty na to?'],
     ["Non vedo l'ora!", 'Nemůžu se dočkat!'], ['Mi dispiace.', 'Je mi líto.'],
     ['Tutto a posto?', 'Všechno v pořádku?'], ['Ho capito.', 'Rozumím. / Chápu.'], ['Non lo so.', 'Nevím.'],
     ['Aspetta un attimo.', 'Počkej chvilku.'],
@@ -164,7 +164,7 @@ export const CASY = {
   },
   passato: {
     name: 'Minulý čas (passato prossimo)',
-    info: 'Dokončený děj v minulosti: „Ieri ho mangiato la pizza.“ Tvoří se pomocným slovesem avere/essere + příčestím. S essere (pohyb, změna stavu: andare, venire, uscire, stare, essere) se příčestí shoduje v rodě a čísle: sono andato / andata.',
+    info: 'Dokončený děj v minulosti: „Ieri ho mangiato la pizza.“ Tvoří se pomocným slovesem avere/essere + příčestím. Essere berou většina sloves pohybu a změny stavu (andare, venire, uscire, tornare), dále essere, stare, piacere a všechna zvratná slovesa (mi sono chiamato). Pak se příčestí shoduje v rodě a čísle: sono andato / andata. Pozor, ne každé sloveso pohybu: ho camminato, ho viaggiato.',
   },
   imperfetto: {
     name: 'Minulý čas průběhový (imperfetto)',
@@ -235,9 +235,9 @@ export const SCENARE = [
   { id: 'volne', name: 'Volné povídání', desc: 'Giulia se zeptá, jak se máš, a povídáte si.',
     prompt: 'Volný rozhovor. Zeptej se uživatele, jak se má a co dnes dělal, a nech konverzaci plynout.' },
   { id: 'seznameni', name: 'Seznámení', desc: 'Jméno, odkud jsi, práce, koníčky.',
-    prompt: 'Právě jste se seznámili na večírku v Bologni. Ptej se na jméno, odkud je, co dělá a co ho baví.' },
+    prompt: 'Právě jste se seznámili na večírku v Boloni. Ptej se na jméno, odkud je, co dělá a co ho baví.' },
   { id: 'kavarna', name: 'V kavárně', desc: 'Giulia je baristka, objednáváš si.',
-    prompt: 'Jsi baristka v kavárně v centru Bologni. Uživatel je host a objednává si. Nabídni kávu, cornetto, zeptej se, jestli si sedne, a na konci řekni cenu.' },
+    prompt: 'Jsi baristka v kavárně v centru Boloně. Uživatel je host a objednává si. Nabídni kávu, cornetto, zeptej se, jestli si sedne, a na konci řekni cenu.' },
   { id: 'nadrazi', name: 'Na nádraží', desc: 'Kupuješ jízdenku do Florencie.',
     prompt: 'Pracuješ u přepážky na nádraží Bologna Centrale. Uživatel chce jízdenku. Ptej se kam, kdy, jednosměrná nebo zpáteční, a řekni nástupiště a cenu.' },
   { id: 'hotel', name: 'V hotelu', desc: 'Check-in a otázky na recepci.',
