@@ -211,3 +211,127 @@ nav.tabs a.on { color: var(--accent); }
 .back { background: none; border: 0; color: var(--accent); font-weight: 600; padding: 8px 0; cursor: pointer; font-size: 16px; }
 [hidden] { display: none !important; }
 .answers .btn.olive small { color: rgba(255,255,255,.85); }
+
+/* ===== Přepracované UX ===== */
+.btn.big { min-height: 56px; font-size: 18px; border-radius: 16px; }
+.btn.danger { color: var(--bad); }
+.center { text-align: center; }
+.lead { font-size: 18px; color: var(--muted); margin-bottom: 18px; }
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--muted); vertical-align: middle; }
+.pill.ok { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+
+/* Domů */
+.greet { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.greet h1 { margin-top: 4px; }
+.ring { flex: none; }
+.card.today b { font-size: 20px; }
+.card.today .btn { margin-top: 12px; }
+.card.phrase { background: var(--accent-soft); border-color: transparent; }
+.label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.phrase-it { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+.tile.square { display: flex; flex-direction: column; gap: 2px; margin: 0; min-height: 110px; }
+.tile .emoji { font-size: 28px; margin-bottom: 4px; }
+.bar { height: 5px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: 8px 0 6px; max-width: 220px; }
+.bar > i { display: block; height: 100%; background: var(--accent-2); }
+.badge.done { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+
+/* Segmentový přepínač */
+.seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--surface-2); border-radius: 12px; padding: 4px; gap: 4px; }
+.seg button { border: 0; background: none; min-height: 40px; border-radius: 9px; font-weight: 600; cursor: pointer; }
+.seg button.on { background: var(--surface); box-shadow: var(--shadow); }
+
+.list { padding: 4px 16px; }
+.list-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.list-row:last-child { border-bottom: 0; }
+
+/* Lekce */
+.session-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.session-top .progress { flex: 1; margin: 0; height: 10px; }
+.flash { position: relative; min-height: 300px; transition: transform .25s; }
+.flash.flipped { animation: flip .3s ease; }
+@keyframes flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(80deg); } 100% { transform: rotateX(0); } }
+.flash .front { font-size: 32px; }
+.flash .back { font-size: 22px; font-weight: 600; }
+.flip-hint { font-size: 14px; color: var(--muted); }
+.flash-say { position: absolute; right: 12px; bottom: 12px; }
+.new { color: var(--accent); font-weight: 700; }
+.answers { margin-top: 4px; }
+.answers .btn { min-height: 64px; }
+
+/* Časy */
+.check { display: flex; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.check:last-child { border-bottom: 0; }
+.check input { width: 24px; height: 24px; accent-color: var(--accent); flex: none; }
+.check b, .check span { display: block; }
+details.card summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+details.card summary::after { content: '＋'; color: var(--muted); }
+details.card[open] summary::after { content: '－'; }
+details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+table.conj tr.hl td { background: var(--accent-soft); }
+table.conj tr.hl td:first-child { border-radius: 8px 0 0 8px; }
+table.conj tr.hl td:last-child { border-radius: 0 8px 8px 0; }
+.score { display: flex; gap: 12px; font-weight: 700; }
+.score .ok { color: var(--ok); } .score .bad { color: var(--bad); }
+.steps { padding-left: 20px; margin: 10px 0; }
+.steps li { margin-bottom: 6px; }
+
+/* Oznámení */
+.toast {
+  position: fixed; left: 50%; bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 90px);
+  transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 999px;
+  font-size: 15px; font-weight: 600; transition: all .25s; z-index: 50; max-width: calc(100% - 32px); text-align: center;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Soustředěný režim (lekce, dril, úvod): bez spodní lišty */
+body.focus nav.tabs { display: none; }
+body.focus #app { padding-bottom: calc(env(safe-area-inset-bottom) + 24px); }
+
+/* Úvod a prázdné stavy */
+.onboarding, .empty { padding-top: 12px; text-align: left; }
+.empty { text-align: center; }
+.empty .ring { margin: 8px auto; display: block; }
+.hero-emoji { font-size: 56px; line-height: 1; margin: 20px 0 8px; }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--accent); width: 22px; border-radius: 999px; }
+.feature { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
+.feature > span { font-size: 26px; width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.feature p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+.onboarding .btn.big { margin-top: 8px; }
+.choice.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+
+/* Giulia – výběr situace */
+.avatar-box.big .avatar { width: 88px; height: 88px; }
+.avatar-box.big .avatar-name span { display: block; line-height: 1.35; margin-top: 2px; }
+.howto { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 4px 0 8px; }
+.howto div { font-size: 13px; color: var(--muted); text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 6px; }
+.howto span { display: flex; margin: 0 auto 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; align-items: center; justify-content: center; font-size: 13px; }
+.tile.scen { display: flex; gap: 14px; align-items: center; }
+.tile.scen .emoji { font-size: 28px; margin: 0; width: 48px; height: 48px; flex: none; display: flex; align-items: center; justify-content: center; background: var(--surface-2); border-radius: 14px; }
+.card.setup { border-color: var(--accent); }
+
+/* Giulia – rozhovor */
+.chat-head { position: sticky; top: 0; z-index: 3; background: var(--bg); display: flex; align-items: center; gap: 10px; padding: 4px 0 10px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.chat-head a.back { font-size: 30px; line-height: 1; padding: 0 4px; text-decoration: none; }
+.avatar-btn { border: 0; background: none; padding: 0; cursor: pointer; flex: none; }
+.chat-head .avatar { width: 64px; height: 64px; }
+.chat-head .avatar-name b { font-size: 16px; }
+#status { display: block; font-size: 13px; color: var(--muted); }
+#status.live { color: var(--bad); font-weight: 600; }
+.typing { display: inline-flex; gap: 4px; padding: 6px 0; }
+.typing i { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: dot 1s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 0%, 100% { opacity: .25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+.hints { max-width: 640px; margin: 0 auto 8px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; align-items: center; }
+.hints:empty { display: none; }
+.hints-label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.hint { flex: none; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 6px 12px; cursor: pointer; max-width: 240px; }
+.hint b { display: block; font-size: 15px; }
+.hint span { display: block; font-size: 12px; color: var(--muted); }
+.composer .mic { width: 52px; height: 52px; }
+.composer .mic[disabled] { opacity: .45; }
+body.chat .chat-pad { height: 170px; }
+.ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 12px; color: var(--muted); }
+.chat-head #restart { font-size: 15px; }

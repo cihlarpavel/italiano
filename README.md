@@ -3,6 +3,7 @@
 Webová aplikace pro iPhone, která se připne na plochu a pak se chová jako normální aplikace.
 Nepotřebuje App Store ani Xcode.
 
+- **Dnešní lekce**: jedno tlačítko na úvodní obrazovce smíchá, co je dnes na řadě ze všech balíčků.
 - **Kartičky**: slovíčka (215), vazby (43), fráze (55). Opakují se v intervalech: co nevíš, uvidíš brzy znovu, co umíš, až za dny či týdny.
 - **Časy**: dril časování 20 nejčastějších sloves (presente, passato prossimo, imperfetto, futuro), tabulky a vysvětlení.
 - **Mluvení s Giulií**: konverzace nahlas s avatarkou v 7 situacích. Opraví chyby a přeloží, co řekla.

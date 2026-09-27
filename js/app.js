@@ -1,11 +1,20 @@
-import { DECKS, SLOVESA, OSOBY, CASY, tvary } from './data.js';
+import { DECKS, FRAZE, SLOVESA, OSOBY, CASY, tvary } from './data.js';
 import { load, save, settings, setSettings, logActivity, streak, todayCount, today } from './store.js';
 import { speak, unlockSpeech, italianVoices, stopSpeaking } from './speech.js';
 import { renderChat, MODELY, usageThisMonth } from './chat.js';
+import { toast } from './ui.js';
 
 const app = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const h = html => { app.innerHTML = html; window.scrollTo(0, 0); };
+const $ = id => document.getElementById(id);
+const sayBtn = (text, label = 'Přehrát') => `<button class="icon-btn" data-say="${esc(text)}" aria-label="${label}">${ICON.speaker}</button>`;
+const bindSay = root => root.querySelectorAll('[data-say]').forEach(b => b.onclick = e => { e.stopPropagation(); stopSpeaking(); speak(b.dataset.say); });
+
+const ICON = {
+  speaker: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  close: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+};
 
 document.addEventListener('pointerdown', unlockSpeech, { once: true });
 
@@ -13,8 +22,7 @@ document.addEventListener('pointerdown', unlockSpeech, { once: true });
 const INTERVALY = [0, 1, 3, 7, 14, 30, 60]; // dny podle krabičky
 const DAY = 86400000;
 const cardId = (deck, item) => `${deck}:${item.it}`;
-
-function srs() { return load('srs', {}); }
+const srs = () => load('srs', {});
 
 function deckStatus(deck) {
   const st = srs();
@@ -39,23 +47,45 @@ function buildQueue(deck) {
     .sort((a, b) => st[cardId(deck, a)].due - st[cardId(deck, b)].due);
   const { newAvail } = deckStatus(deck);
   const fresh = items.filter(it => !st[cardId(deck, it)]).slice(0, newAvail);
-  return [...due, ...shuffle(fresh)].map(it => ({ it, fresh: !st[cardId(deck, it)] }));
+  return [...due, ...fresh].map(it => ({ deck, it, fresh: !st[cardId(deck, it)] }));
 }
 
-function grade(deck, item, g, wasFresh) {
+// Dnešní lekce: opakování ze všech balíčků napřed, nové karty prostřídané.
+function mixedQueue() {
+  const qs = Object.keys(DECKS).map(buildQueue);
+  const due = qs.flatMap(q => q.filter(c => !c.fresh));
+  const fresh = [];
+  for (let i = 0; qs.some(q => q.filter(c => c.fresh)[i]); i++) qs.forEach(q => { const c = q.filter(c => c.fresh)[i]; if (c) fresh.push(c); });
+  return [...shuffle(due), ...fresh];
+}
+
+// Kam se karta posune po odpovědi – stejná logika pro výpočet i pro popisky tlačítek.
+function nextStep(card, g) {
+  const cur = srs()[cardId(card.deck, card.it)] || { box: 0 };
+  if (g === 'znovu') return { box: 0, days: 0 };
+  if (g === 'tezke') return { box: cur.box, days: Math.max(1, Math.round(INTERVALY[cur.box] / 2)) };
+  const box = Math.min((card.fresh ? 1 : cur.box) + 1, INTERVALY.length - 1);
+  return { box, days: INTERVALY[box] };
+}
+
+function kdy(days) {
+  if (days === 0) return 'za chvíli';
+  if (days === 1) return 'zítra';
+  if (days < 5) return `za ${days} dny`;
+  if (days < 7) return `za ${days} dní`;
+  if (days < 28) { const w = Math.round(days / 7); return w === 1 ? 'za týden' : `za ${w} týdny`; }
+  const m = Math.round(days / 30); return m === 1 ? 'za měsíc' : `za ${m} měsíce`;
+}
+
+function grade(card, g) {
   const st = srs();
-  const id = cardId(deck, item);
-  const cur = st[id] || { box: 0 };
-  let box = cur.box;
-  if (g === 'znovu') box = 0;
-  else if (g === 'umim') box = Math.min(box + 1, INTERVALY.length - 1);
-  const days = g === 'tezke' ? Math.max(1, Math.round(INTERVALY[box] / 2)) : INTERVALY[box];
-  st[id] = { box, due: Date.now() + days * DAY - 3600000 };
+  const { box, days } = nextStep(card, g);
+  st[cardId(card.deck, card.it)] = { box, due: Date.now() + days * DAY - 3600000 };
   save('srs', st);
-  if (wasFresh) {
+  if (card.fresh) {
     const n = load('newToday', {});
     const fresh = n.date === today() ? n : { date: today() };
-    fresh[deck] = (fresh[deck] || 0) + 1;
+    fresh[card.deck] = (fresh[card.deck] || 0) + 1;
     save('newToday', fresh);
   }
   logActivity('karty');
@@ -67,55 +97,143 @@ function shuffle(a) {
   return a;
 }
 
+const goal = () => settings().goal;
+
+function ring(value, max, size = 76) {
+  const r = size / 2 - 6, c = 2 * Math.PI * r, p = Math.min(1, max ? value / max : 0);
+  return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="var(--surface-2)" stroke-width="8" fill="none"/>
+    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="${p >= 1 ? 'var(--accent-2)' : 'var(--accent)'}" stroke-width="8" fill="none"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p)}" transform="rotate(-90 ${size / 2} ${size / 2})"/>
+    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="${p >= 1 ? 26 : 17}" font-weight="700" fill="var(--text)">${p >= 1 ? '✓' : `${Math.round(p * 100)}%`}</text>
+  </svg>`;
+}
+
+// ---------- Úvod při prvním spuštění ----------
+function viewUvod(step = 0) {
+  const dots = `<div class="dots">${[0, 1, 2, 3].map(i => `<i class="${i === step ? 'on' : ''}"></i>`).join('')}</div>`;
+  const next = () => viewUvod(step + 1);
+  const steps = [
+    () => `
+      <div class="hero-emoji">🇮🇹</div>
+      <h1>Benvenuto!</h1>
+      <p class="lead">Italštinu se tu naučíš ve třech krocích, na každý stačí pár minut denně.</p>
+      <div class="feature"><span>🃏</span><div><b>Kartičky</b><p>Slovíčka, vazby a fráze. Co nevíš, uvidíš brzy znovu, co umíš, až za pár dní.</p></div></div>
+      <div class="feature"><span>⏱️</span><div><b>Časy</b><p>Časování nejčastějších sloves s okamžitou kontrolou.</p></div></div>
+      <div class="feature"><span>💬</span><div><b>Giulia</b><p>Mluvíš nahlas s Italkou. Ona odpoví, přeloží a opraví tě.</p></div></div>
+      <button class="btn primary block big" id="go">Pokračovat</button>`,
+    () => `
+      <div class="hero-emoji">🎯</div>
+      <h1>Kolik času denně?</h1>
+      <p class="lead">Podle toho ti nachystám dávku nových slovíček. Změnit to můžeš kdykoli v Nastavení.</p>
+      ${[[5, 15, 'Pohodově', '5 minut · 5 nových denně'], [10, 30, 'Pravidelně', '10 minut · 10 nových denně'], [20, 60, 'Intenzivně', '20 minut · 20 nových denně']]
+        .map(([n, g, t, d]) => `<button class="tile card choice ${settings().newPerDay === n ? 'on' : ''}" data-n="${n}" data-g="${g}"><b>${t}</b><span>${d}</span></button>`).join('')}`,
+    () => `
+      <div class="hero-emoji">🔊</div>
+      <h1>Poslechni si výslovnost</h1>
+      <p class="lead">Všechno ti telefon přečte italsky. Zkus, jestli slyšíš zvuk (vypni tichý režim).</p>
+      <button class="btn block big" id="play">${ICON.speaker} Pustit ukázku</button>
+      <p class="note" style="margin-top:14px">Tip: hezčí hlas stáhneš v iPhonu: Nastavení → Zpřístupnění → Předčítaný obsah → Hlasy → Italština → „Alice (vylepšený)“.</p>
+      <button class="btn primary block big" id="go">Slyším, pokračovat</button>`,
+    () => `
+      <div class="hero-emoji">💬</div>
+      <h1>Mluvení s Giulií</h1>
+      <p class="lead">Giulia potřebuje připojení k umělé inteligenci Claude. Stačí vložit klíč a jedna její odpověď pak stojí kolem 0,3 Kč.</p>
+      <p class="muted small">Kartičky a časy fungují i bez klíče, zdarma a offline.</p>
+      <a class="btn primary block big" href="#/nastaveni" id="done1">Nastavit klíč teď</a>
+      <p></p>
+      <a class="btn block big" href="#/" id="done2">Později, jdu na kartičky</a>`,
+  ];
+  h(`<div class="onboarding">${dots}${steps[step]()}</div>`);
+  $('go') && ($('go').onclick = next);
+  $('play') && ($('play').onclick = () => { stopSpeaking(); speak('Ciao! Io sono Giulia. Benvenuto! Impariamo insieme l’italiano.'); });
+  app.querySelectorAll('.choice').forEach(b => b.onclick = () => { setSettings({ newPerDay: +b.dataset.n, goal: +b.dataset.g }); next(); });
+  ['done1', 'done2'].forEach(id => $(id) && $(id).addEventListener('click', () => save('onboarded', true)));
+}
+
 // ---------- Domů ----------
+function frazeDne() {
+  const d = today();
+  let n = 0;
+  for (const ch of d) n = (n * 31 + ch.charCodeAt(0)) >>> 0;
+  return FRAZE[n % FRAZE.length];
+}
+
 function viewHome() {
-  const decks = Object.keys(DECKS).map(k => ({ k, ...deckStatus(k) }));
-  const toDo = decks.reduce((n, d) => n + d.due + d.newAvail, 0);
+  const queue = mixedQueue();
+  const done = todayCount('karty');
+  const hour = new Date().getHours();
+  const f = frazeDne();
+  const s = streak();
   h(`
-    <h1>Ciao! 👋</h1>
-    <p class="muted">${toDo ? `Dnes tě čeká ${toDo} kartiček.` : 'Na dnešek máš kartičky hotové. Bravo!'}</p>
-    <div class="stats">
-      <div class="stat"><b>${streak()}</b><span>dní v řadě</span></div>
-      <div class="stat"><b>${todayCount('karty')}</b><span>kartiček dnes</span></div>
-      <div class="stat"><b>${todayCount('vety')}</b><span>vět s Giulií</span></div>
+    <div class="greet">
+      <div>
+        <h1>${hour < 18 ? 'Buongiorno!' : 'Buonasera!'}</h1>
+        <p class="muted">${s ? `🔥 ${s} ${s === 1 ? 'den' : s < 5 ? 'dny' : 'dní'} v řadě` : 'Dnes začínáš sérii'}</p>
+      </div>
+      <div class="ring-wrap">${ring(done, goal())}<span>denní cíl</span></div>
     </div>
-    <h2>Pokračovat</h2>
-    ${decks.map(d => `
-      <a class="tile card" href="#/karticky/${d.k}">
-        <div class="row" style="justify-content:space-between">
-          <div><b>${DECKS[d.k].name}</b><span>${d.learned} z ${d.total} rozpracováno</span></div>
-          <span class="badge">${d.due + d.newAvail}</span>
-        </div>
-      </a>`).join('')}
-    <a class="tile card" href="#/casy"><b>Časování sloves</b><span>presente, passato prossimo, imperfetto, futuro</span></a>
-    <a class="tile card" href="#/mluveni"><b>Mluvení s Giulií</b><span>Konverzace nahlas – kavárna, nádraží, seznámení…</span></a>
+
+    <div class="card today">
+      ${queue.length ? `
+        <b>Dnešní lekce</b>
+        <p class="muted small">${queue.length} kartiček · asi ${Math.max(1, Math.round(queue.length * 0.25))} min</p>
+        <a class="btn primary block big" href="#/lekce">Začít</a>` : `
+        <b>Kartičky máš na dnešek hotové 🎉</b>
+        <p class="muted small">Teď je ideální chvíle si popovídat nebo procvičit časy.</p>
+        <a class="btn primary block big" href="#/mluveni">Popovídat si s Giulií</a>`}
+    </div>
+
+    <div class="card phrase">
+      <div class="label">Fráze dne</div>
+      <div class="row" style="justify-content:space-between;align-items:flex-start">
+        <div><div class="phrase-it">${esc(f.it)}</div><div class="muted">${esc(f.cs)}</div></div>
+        ${sayBtn(f.it)}
+      </div>
+    </div>
+
+    <h2>Procvičování</h2>
+    <div class="grid2">
+      <a class="tile card square" href="#/mluveni"><span class="emoji">💬</span><b>Mluvení</b><span>s Giulií</span></a>
+      <a class="tile card square" href="#/casy"><span class="emoji">⏱️</span><b>Časy</b><span>časování sloves</span></a>
+    </div>
+    <h2>Balíčky kartiček</h2>
+    ${Object.keys(DECKS).map(deckTile).join('')}
   `);
+  bindSay(app);
+}
+
+function deckTile(k) {
+  const d = deckStatus(k);
+  const n = d.due + d.newAvail;
+  return `<a class="tile card" href="#/karticky/${k}">
+    <div class="row" style="justify-content:space-between">
+      <div style="flex:1"><b>${DECKS[k].name}</b>
+        <div class="bar"><i style="width:${(d.learned / d.total) * 100}%"></i></div>
+        <span>${d.learned} z ${d.total} slov rozpracováno</span></div>
+      ${n ? `<span class="badge">${n}</span>` : '<span class="badge done">✓</span>'}
+    </div></a>`;
 }
 
 // ---------- Kartičky ----------
 function viewDecks() {
+  const dir = settings().direction;
   h(`
     <h1>Kartičky</h1>
-    <p class="muted">Klepni na kartu pro otočení. Podle odpovědi se ti vrátí za den, za týden nebo za měsíc.</p>
-    ${Object.keys(DECKS).map(k => {
-      const d = deckStatus(k);
-      return `<a class="tile card" href="#/karticky/${k}">
-        <div class="row" style="justify-content:space-between">
-          <div><b>${DECKS[k].name}</b><span>${d.due} k opakování · ${d.newAvail} nových · ${d.learned}/${d.total}</span></div>
-          <span class="badge">${d.due + d.newAvail}</span>
-        </div></a>`;
-    }).join('')}
+    <p class="muted">Vyber balíček. Číslo ukazuje, kolik kartiček tě v něm dnes čeká.</p>
+    ${Object.keys(DECKS).map(deckTile).join('')}
     <div class="card">
-      <div class="toggle"><span>Směr: ${settings().direction === 'it-cs' ? 'italsky → česky' : 'česky → italsky'}</span>
-      <button class="btn" id="dir">Otočit</button></div>
+      <b>Směr zkoušení</b>
+      <div class="seg" style="margin-top:10px">
+        <button class="${dir === 'it-cs' ? 'on' : ''}" data-dir="it-cs">🇮🇹 → 🇨🇿</button>
+        <button class="${dir === 'cs-it' ? 'on' : ''}" data-dir="cs-it">🇨🇿 → 🇮🇹</button>
+      </div>
+      <p class="muted small" style="margin-top:8px">${dir === 'it-cs' ? 'Vidíš italsky, vybavuješ si význam. Snazší, dobré na začátek.' : 'Vidíš česky, vybavuješ si italsky. Těžší, ale víc to naučí.'}</p>
     </div>
-    <h2>Procházet</h2>
+    <h2>Procházet seznam</h2>
     <div class="chips">${Object.keys(DECKS).map(k => `<a class="chip" href="#/seznam/${k}">${DECKS[k].name}</a>`).join('')}</div>
   `);
-  document.getElementById('dir').onclick = () => {
-    setSettings({ direction: settings().direction === 'it-cs' ? 'cs-it' : 'it-cs' });
-    viewDecks();
-  };
+  app.querySelectorAll('[data-dir]').forEach(b => b.onclick = () => { setSettings({ direction: b.dataset.dir }); viewDecks(); });
 }
 
 function viewList(deck) {
@@ -126,67 +244,89 @@ function viewList(deck) {
     <h1>${DECKS[deck].name}</h1>
     ${Object.entries(groups).map(([topic, items]) => `
       <h2>${esc(topic)}</h2>
-      <div class="card">${items.map(it => `
-        <div class="row" style="justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)">
+      <div class="card list">${items.map(it => `
+        <div class="list-row">
           <div><b>${esc(it.it)}</b><br><span class="muted small">${esc(it.cs)}</span></div>
-          <button class="icon-btn" data-say="${esc(it.it)}" aria-label="Přehrát">🔊</button>
+          ${sayBtn(it.it)}
         </div>`).join('')}
       </div>`).join('')}
   `);
-  app.querySelectorAll('[data-say]').forEach(b => b.onclick = () => { stopSpeaking(); speak(b.dataset.say); });
+  bindSay(app);
 }
 
-function viewSession(deck) {
-  const queue = buildQueue(deck);
-  const total = queue.length;
-  let done = 0;
+function viewSession(queue, title, backHash) {
   const dir = settings().direction;
+  const total = queue.length;
+  let done = 0, known = 0;
+
+  if (!total) {
+    h(`<div class="empty">
+      <div class="hero-emoji">✅</div><h1>Tady je pro dnešek hotovo</h1>
+      <p class="muted">Nové kartičky přibydou zítra. Mezitím si můžeš popovídat s Giulií.</p>
+      <a class="btn primary block big" href="#/mluveni">Popovídat si s Giulií</a><p></p>
+      <a class="btn block big" href="${backHash}">Zpět</a></div>`);
+    return;
+  }
+
+  function finish() {
+    h(`<div class="empty">
+      <div class="hero-emoji">🎉</div>
+      <h1>Bravo!</h1>
+      <p class="lead">Máš za sebou ${done} ${done === 1 ? 'kartičku' : done < 5 ? 'kartičky' : 'kartiček'}, ${known} z nich hned napoprvé.</p>
+      ${ring(todayCount('karty'), goal(), 110)}
+      <p class="muted">${todayCount('karty') >= goal() ? 'Denní cíl splněn!' : `Denní cíl: ${todayCount('karty')} z ${goal()}`}</p>
+      <a class="btn primary block big" href="#/mluveni">Vyzkoušet slovíčka v rozhovoru</a><p></p>
+      <a class="btn block big" href="#/">Domů</a></div>`);
+  }
 
   function next() {
-    if (!queue.length) {
-      h(`
-        <h1>Hotovo! 🎉</h1>
-        <p class="muted">Prošel jsi ${done} kartiček. Zítra tě čekají další.</p>
-        <a class="btn primary block" href="#/mluveni">Procvičit mluvení s Giulií</a>
-        <p></p><a class="btn block" href="#/karticky">Zpět na kartičky</a>`);
-      return;
-    }
-    const { it, fresh } = queue[0];
+    if (!queue.length) return finish();
+    const card = queue[0];
+    const { it } = card;
     const front = dir === 'it-cs' ? it.it : it.cs;
     const back = dir === 'it-cs' ? it.cs : it.it;
+    const lbl = g => kdy(nextStep(card, g).days);
     h(`
-      <button class="back" onclick="location.hash='#/karticky'">‹ ${DECKS[deck].name}</button>
-      <div class="progress"><i style="width:${total ? (done / (done + queue.length)) * 100 : 0}%"></i></div>
+      <div class="session-top">
+        <button class="icon-btn" id="close" aria-label="Ukončit">${ICON.close}</button>
+        <div class="progress"><i style="width:${(done / (done + queue.length)) * 100}%"></i></div>
+        <span class="muted small">${done + 1}/${done + queue.length}</span>
+      </div>
       <div class="card flash" id="flash">
-        <div class="topic">${esc(it.topic)}${fresh ? ' · nové' : ''}</div>
+        <div class="topic">${esc(title === 'Dnešní lekce' ? DECKS[card.deck].name : it.topic)}${card.fresh ? ' · <span class="new">nové</span>' : ''}</div>
         <div class="front">${esc(front)}</div>
         <div class="back" id="back" hidden>${esc(back)}</div>
-        <div class="muted small" id="hint">klepni pro otočení</div>
+        <div class="flip-hint" id="hint">Vybav si ${dir === 'it-cs' ? 'význam' : 'italsky'}, pak klepni</div>
+        <div class="flash-say">${sayBtn(it.it)}</div>
       </div>
-      <div class="row" style="justify-content:center;margin-bottom:12px">
-        <button class="icon-btn" id="say" aria-label="Přehrát">🔊</button>
-      </div>
+      <button class="btn primary block big" id="show">Ukázat odpověď</button>
       <div class="answers" id="answers" hidden>
-        <button class="btn" data-g="znovu">Znovu<small>nevěděl jsem</small></button>
-        <button class="btn" data-g="tezke">Těžké<small>s námahou</small></button>
-        <button class="btn olive" data-g="umim">Umím<small>hned</small></button>
+        <p class="muted small center" style="grid-column:1/-1;margin:0 0 2px">Jak to šlo?</p>
+        <button class="btn" data-g="znovu">Nevím<small>${lbl('znovu')}</small></button>
+        <button class="btn" data-g="tezke">Těžko<small>${lbl('tezke')}</small></button>
+        <button class="btn olive" data-g="umim">Vím<small>${lbl('umim')}</small></button>
       </div>
     `);
-    const say = () => { stopSpeaking(); speak(it.it); };
-    document.getElementById('say').onclick = say;
-    if (dir === 'it-cs') say();
-    document.getElementById('flash').onclick = () => {
-      document.getElementById('back').hidden = false;
-      document.getElementById('hint').hidden = true;
-      document.getElementById('answers').hidden = false;
-      if (dir === 'cs-it') say();
+    bindSay(app);
+    if (dir === 'it-cs') speak(it.it);
+    const reveal = () => {
+      if (!$('back').hidden) return;
+      $('flash').classList.add('flipped');
+      $('back').hidden = false;
+      $('hint').hidden = true;
+      $('show').hidden = true;
+      $('answers').hidden = false;
+      if (dir === 'cs-it') { stopSpeaking(); speak(it.it); }
     };
-    document.querySelectorAll('[data-g]').forEach(b => b.onclick = () => {
+    $('flash').onclick = reveal;
+    $('show').onclick = reveal;
+    $('close').onclick = () => (done ? finish() : (location.hash = backHash));
+    app.querySelectorAll('[data-g]').forEach(b => b.onclick = () => {
       const g = b.dataset.g;
-      grade(deck, it, g, fresh);
-      const card = queue.shift();
+      grade(card, g);
+      queue.shift();
       if (g === 'znovu') queue.splice(Math.min(3, queue.length), 0, { ...card, fresh: false });
-      else done++;
+      else { done++; if (g === 'umim') known++; }
       next();
     });
   }
@@ -194,29 +334,43 @@ function viewSession(deck) {
 }
 
 // ---------- Časy ----------
+const OSOBY_CZ = ['já', 'ty', 'on / ona', 'my', 'vy', 'oni'];
+
 function viewCasy() {
   const sel = load('drillCasy', ['presente']);
   h(`
-    <h1>Časování</h1>
-    <p class="muted">Vyber časy, které chceš procvičovat, a doplňuj správné tvary.</p>
-    <div class="chips" id="casy">${Object.entries(CASY).map(([k, c]) =>
-      `<button class="chip ${sel.includes(k) ? 'on' : ''}" data-k="${k}">${c.name.split(' (')[0]}</button>`).join('')}</div>
-    <p></p>
-    <button class="btn primary block" id="start">Začít procvičovat</button>
-    <h2>Kdy který čas</h2>
-    ${Object.values(CASY).map(c => `<div class="card"><b>${c.name}</b><p class="small" style="margin-top:6px">${esc(c.info)}</p></div>`).join('')}
+    <h1>Časy</h1>
+    <p class="muted">Vyber, co chceš procvičit. Doporučuji začít přítomným časem.</p>
+    <div class="card">
+      ${Object.entries(CASY).map(([k, c]) => `
+        <label class="check">
+          <input type="checkbox" data-k="${k}" ${sel.includes(k) ? 'checked' : ''}>
+          <div><b>${c.name.split(' (')[0]}</b><span class="muted small">${c.name.match(/\((.+)\)/)[1]}</span></div>
+        </label>`).join('')}
+    </div>
+    <button class="btn primary block big" id="start">Procvičovat</button>
+    <h2>Jak to funguje</h2>
+    ${Object.values(CASY).map(c => `<details class="card"><summary><b>${c.name}</b></summary><p class="small" style="margin-top:8px">${esc(c.info)}</p></details>`).join('')}
     <h2>Tabulky sloves</h2>
     <div class="chips">${SLOVESA.map(v => `<a class="chip" href="#/sloveso/${v.inf}">${v.inf}</a>`).join('')}</div>
   `);
-  document.querySelectorAll('#casy .chip').forEach(b => b.onclick = () => {
-    b.classList.toggle('on');
-    const on = [...document.querySelectorAll('#casy .chip.on')].map(x => x.dataset.k);
+  const update = () => {
+    const on = [...app.querySelectorAll('[data-k]:checked')].map(x => x.dataset.k);
     save('drillCasy', on);
-  });
-  document.getElementById('start').onclick = () => {
-    if (!load('drillCasy', ['presente']).length) save('drillCasy', ['presente']);
-    location.hash = '#/dril';
+    $('start').disabled = !on.length;
+    $('start').textContent = on.length ? 'Procvičovat' : 'Vyber aspoň jeden čas';
   };
+  app.querySelectorAll('[data-k]').forEach(b => b.onchange = update);
+  update();
+  $('start').onclick = () => (location.hash = '#/dril');
+}
+
+function conjTable(v, cas, highlight) {
+  return `<table class="conj">${OSOBY.map((o, i) => {
+    const f = tvary(v, cas, i)[0];
+    return `<tr class="${i === highlight ? 'hl' : ''}"><td>${o}<br><span class="muted small">${OSOBY_CZ[i]}</span></td><td><b>${esc(f)}</b></td>
+      <td style="width:48px">${sayBtn(o.split('/')[0] + ' ' + f.replace(/\/\w$/, ''))}</td></tr>`;
+  }).join('')}</table>`;
 }
 
 function viewSloveso(inf) {
@@ -225,15 +379,9 @@ function viewSloveso(inf) {
   h(`
     <button class="back" onclick="history.back()">‹ Zpět</button>
     <h1>${v.inf} <span class="muted" style="font-size:18px;font-weight:400">– ${esc(v.cs)}</span></h1>
-    ${Object.entries(CASY).map(([k, c]) => `
-      <div class="card"><b>${c.name}</b>
-        <table class="conj">${OSOBY.map((o, i) => {
-          const f = tvary(v, k, i)[0];
-          return `<tr><td>${o}</td><td><b>${esc(f)}</b></td><td style="width:44px"><button class="icon-btn" data-say="${esc(o.split('/')[0] + ' ' + f.replace(/\/\w$/, ''))}">🔊</button></td></tr>`;
-        }).join('')}</table>
-      </div>`).join('')}
+    ${Object.entries(CASY).map(([k, c]) => `<div class="card"><b>${c.name}</b>${conjTable(v, k, -1)}</div>`).join('')}
   `);
-  app.querySelectorAll('[data-say]').forEach(b => b.onclick = () => { stopSpeaking(); speak(b.dataset.say); });
+  bindSay(app);
 }
 
 const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’`]/g, "'").replace(/\s+/g, ' ').trim();
@@ -241,7 +389,8 @@ const normKeepAccents = s => s.toLowerCase().normalize('NFC').replace(/[’`]/g,
 
 function viewDril() {
   const casy = load('drillCasy', ['presente']);
-  let score = { ok: 0, all: 0 };
+  if (!casy.length) return (location.hash = '#/casy');
+  const score = { ok: 0, bad: 0 };
   let last = '';
 
   function ask() {
@@ -255,43 +404,58 @@ function viewDril() {
     last = key;
     const answers = tvary(v, cas, i);
     h(`
-      <button class="back" onclick="location.hash='#/casy'">‹ Časy</button>
-      <div class="muted small" style="text-align:right">${score.ok} / ${score.all} správně</div>
+      <div class="session-top">
+        <button class="icon-btn" id="close" aria-label="Ukončit">${ICON.close}</button>
+        <div style="flex:1"></div>
+        <span class="score"><span class="ok">✓ ${score.ok}</span><span class="bad">✗ ${score.bad}</span></span>
+      </div>
       <div class="card">
         <div class="drill-q">${CASY[cas].name}</div>
-        <div class="drill-verb">${v.inf} <span class="muted" style="font-size:16px;font-weight:400">(${esc(v.cs)})</span></div>
-        <div class="drill-person">${OSOBY[i]} …</div>
+        <div class="drill-verb">${v.inf} <span class="muted" style="font-size:16px;font-weight:400">${esc(v.cs)}</span></div>
+        <div class="drill-person"><b>${OSOBY[i]}</b> <span class="muted">(${OSOBY_CZ[i]})</span> …</div>
       </div>
       <form id="f" autocomplete="off">
-        <input type="text" id="ans" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="napiš tvar" enterkeyhint="done">
+        <input type="text" id="ans" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Napiš tvar slovesa" enterkeyhint="done">
         <div class="accents">${['à', 'è', 'é', 'ì', 'ò', 'ù'].map(a => `<button type="button" data-a="${a}">${a}</button>`).join('')}</div>
-        <button class="btn primary block" id="check">Zkontrolovat</button>
+        <div class="row">
+          <button type="button" class="btn" id="dunno">Nevím</button>
+          <button class="btn primary" id="check">Zkontrolovat</button>
+        </div>
       </form>
       <div id="fb"></div>
     `);
-    const input = document.getElementById('ans');
+    const input = $('ans');
     input.focus();
-    document.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { input.value += b.dataset.a; input.focus(); });
+    $('close').onclick = () => (location.hash = '#/casy');
+    app.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { input.value += b.dataset.a; input.focus(); });
     let checked = false;
-    document.getElementById('f').onsubmit = e => {
-      e.preventDefault();
-      if (checked) return ask();
-      const val = input.value;
-      if (!val.trim()) return;
+    const evaluate = gaveUp => {
       checked = true;
-      score.all++;
-      const exact = answers.some(a => normKeepAccents(a) === normKeepAccents(val));
-      const loose = answers.some(a => norm(a) === norm(val));
-      const fb = document.getElementById('fb');
-      if (exact || loose) {
-        score.ok++;
-        fb.innerHTML = `<div class="feedback ok">Giusto! ${exact ? '' : `<br><span style="font-weight:400">Jen pozor na přízvuk: <b>${esc(answers[0])}</b></span>`}</div>`;
-      } else {
-        fb.innerHTML = `<div class="feedback bad">Správně je: ${esc(answers[0])}</div>`;
-      }
+      const val = input.value;
+      const exact = !gaveUp && answers.some(a => normKeepAccents(a) === normKeepAccents(val));
+      const loose = !gaveUp && answers.some(a => norm(a) === norm(val));
+      if (exact || loose) score.ok++; else score.bad++;
+      app.querySelector('.score').innerHTML = `<span class="ok">✓ ${score.ok}</span><span class="bad">✗ ${score.bad}</span>`;
+      input.readOnly = true;
+      app.querySelector('.accents').hidden = true;
+      $('dunno').hidden = true;
+      $('check').textContent = 'Další ›';
+      $('fb').innerHTML = `
+        ${exact || loose
+          ? `<div class="feedback ok">Giusto! 👏${exact ? '' : `<br><span style="font-weight:400">Jen pozor na přízvuk: <b>${esc(answers[0])}</b></span>`}</div>`
+          : `<div class="feedback bad">${gaveUp ? 'Správně je' : 'Skoro. Správně je'}: ${esc(answers[0])}</div>`}
+        <div class="card" style="margin-top:12px"><b class="small muted">${v.inf} · ${CASY[cas].name}</b>${conjTable(v, cas, i)}</div>`;
+      bindSay(app);
       logActivity('tvary');
       speak(`${OSOBY[i].split('/')[0]} ${answers[answers.length > 1 ? 1 : 0]}`);
-      document.getElementById('check').textContent = 'Další';
+      $('check').focus();
+    };
+    $('dunno').onclick = () => evaluate(true);
+    $('f').onsubmit = e => {
+      e.preventDefault();
+      if (checked) return ask();
+      if (!input.value.trim()) { input.focus(); return; }
+      evaluate(false);
     };
   }
   ask();
@@ -304,24 +468,35 @@ function viewNastaveni() {
   const u = usageThisMonth();
   h(`
     <h1>Nastavení</h1>
-    <h2>Konverzace s Giulií</h2>
+
+    <h2>Giulia (konverzace)</h2>
     <div class="card">
       <div class="field">
-        <label for="key">Klíč k Claude API</label>
-        <input type="password" id="key" value="${esc(s.apiKey)}" placeholder="sk-ant-…" autocomplete="off" autocapitalize="off" spellcheck="false">
-        <p class="note" style="margin-top:8px">Klíč zůstává jen v tomto telefonu a posílá se výhradně na api.anthropic.com. Vytvoříš ho na console.anthropic.com → API Keys. Doporučuji tam nastavit měsíční limit útraty.</p>
+        <label for="key">Klíč k Claude API ${s.apiKey ? '<span class="pill ok">✓ uložen</span>' : '<span class="pill">chybí</span>'}</label>
+        <div class="row">
+          <input type="password" id="key" value="${esc(s.apiKey)}" placeholder="sk-ant-…" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <button class="icon-btn" id="eye" aria-label="Zobrazit klíč">👁</button>
+        </div>
       </div>
-      <div class="field">
+      <details ${s.apiKey ? '' : 'open'}>
+        <summary>Jak klíč získat (5 minut)</summary>
+        <ol class="small steps">
+          <li>Otevři <b>console.anthropic.com</b> a přihlas se (e-mailem).</li>
+          <li><b>Billing</b> → dobij kredit, stačí 5 USD na měsíce.</li>
+          <li><b>Billing → Limits</b> → nastav měsíční limit (např. 5 USD), ať máš útratu pod kontrolou.</li>
+          <li><b>API Keys → Create Key</b> → zkopíruj ho a vlož sem.</li>
+        </ol>
+        <p class="note small">Klíč zůstává jen v tomto telefonu a posílá se výhradně na api.anthropic.com.</p>
+      </details>
+      <div class="field" style="margin-top:14px">
         <label for="model">Model</label>
         <select id="model">${Object.entries(MODELY).map(([id, m]) =>
           `<option value="${id}" ${id === s.model ? 'selected' : ''}>${m.name}</option>`).join('')}</select>
       </div>
-      <div class="field toggle">
-        <label for="cz" style="margin:0">Ukazovat český překlad Giuliiných vět</label>
-        <input type="checkbox" id="cz" ${s.showCz ? 'checked' : ''}>
-      </div>
-      <p class="small muted">Útrata tento měsíc: <b>${u.czk.toFixed(1)} Kč</b> (${u.turns} odpovědí). Orientační přepočet 1 USD ≈ 22 Kč.</p>
+      <label class="toggle"><span>Ukazovat český překlad hned</span><input type="checkbox" id="cz" ${s.showCz ? 'checked' : ''}></label>
+      <p class="small muted" style="margin-top:12px">Útrata tento měsíc: <b>${u.czk.toFixed(1).replace('.', ',')} Kč</b> · ${u.turns} odpovědí (orientačně, 1 USD ≈ 22 Kč)</p>
     </div>
+
     <h2>Hlas</h2>
     <div class="card">
       <div class="field">
@@ -329,33 +504,43 @@ function viewNastaveni() {
         <select id="voice">${voices.length ? voices.map(v =>
           `<option value="${esc(v.voiceURI)}" ${v.voiceURI === s.voice ? 'selected' : ''}>${esc(v.name)}</option>`).join('')
           : '<option value="">Výchozí</option>'}</select>
-        <p class="note" style="margin-top:8px">Hezčí hlasy stáhneš v iPhonu: Nastavení → Zpřístupnění → Předčítaný obsah → Hlasy → Italština (vyber „vylepšený“ nebo „prémiový“).</p>
       </div>
       <div class="field">
-        <label for="rate">Rychlost řeči: <span id="rateV">${s.rate.toFixed(2)}</span></label>
-        <input type="range" id="rate" min="0.6" max="1.2" step="0.05" value="${s.rate}" style="width:100%">
+        <label for="rate">Rychlost řeči</label>
+        <div class="row"><span class="small">🐢</span><input type="range" id="rate" min="0.6" max="1.2" step="0.05" value="${s.rate}" style="flex:1"><span class="small">🐇</span></div>
       </div>
-      <button class="btn block" id="test">Vyzkoušet hlas</button>
+      <button class="btn block" id="test">${ICON.speaker} Vyzkoušet</button>
+      <p class="note small" style="margin-top:12px">Hezčí hlas: Nastavení iPhonu → Zpřístupnění → Předčítaný obsah → Hlasy → Italština → „vylepšený“.</p>
     </div>
-    <h2>Kartičky</h2>
+
+    <h2>Učení</h2>
     <div class="card">
       <div class="field">
         <label for="npd">Nových kartiček denně (v každém balíčku)</label>
         <select id="npd">${[5, 10, 15, 20, 30].map(n => `<option ${n === s.newPerDay ? 'selected' : ''}>${n}</option>`).join('')}</select>
       </div>
-      <button class="btn block" id="reset" style="color:var(--bad)">Smazat postup v kartičkách</button>
+      <div class="field">
+        <label for="goal">Denní cíl (počet kartiček)</label>
+        <select id="goal">${[15, 30, 45, 60, 100].map(n => `<option ${n === s.goal ? 'selected' : ''}>${n}</option>`).join('')}</select>
+      </div>
+      <button class="btn block" id="intro">Znovu projít úvod</button>
+      <p></p>
+      <button class="btn block danger" id="reset">Smazat postup v kartičkách</button>
     </div>
   `);
-  const $ = id => document.getElementById(id);
-  $('key').onchange = e => setSettings({ apiKey: e.target.value.trim() });
-  $('model').onchange = e => setSettings({ model: e.target.value });
-  $('cz').onchange = e => setSettings({ showCz: e.target.checked });
-  $('voice').onchange = e => setSettings({ voice: e.target.value });
-  $('rate').oninput = e => { setSettings({ rate: +e.target.value }); $('rateV').textContent = (+e.target.value).toFixed(2); };
-  $('npd').onchange = e => setSettings({ newPerDay: +e.target.value });
+  const saved = () => toast('Uloženo ✓');
+  $('key').onchange = e => { setSettings({ apiKey: e.target.value.trim() }); saved(); viewNastaveni(); };
+  $('eye').onclick = () => { $('key').type = $('key').type === 'password' ? 'text' : 'password'; };
+  $('model').onchange = e => { setSettings({ model: e.target.value }); saved(); };
+  $('cz').onchange = e => { setSettings({ showCz: e.target.checked }); saved(); };
+  $('voice').onchange = e => { setSettings({ voice: e.target.value }); stopSpeaking(); speak('Ciao, sono Giulia!'); };
+  $('rate').onchange = e => { setSettings({ rate: +e.target.value }); stopSpeaking(); speak('Piacere di conoscerti.'); };
+  $('npd').onchange = e => { setSettings({ newPerDay: +e.target.value }); saved(); };
+  $('goal').onchange = e => { setSettings({ goal: +e.target.value }); saved(); };
   $('test').onclick = () => { stopSpeaking(); speak('Ciao! Sono Giulia. Come stai oggi?'); };
+  $('intro').onclick = () => (location.hash = '#/vitej');
   $('reset').onclick = () => {
-    if (confirm('Opravdu smazat postup ve všech kartičkách?')) { save('srs', {}); save('newToday', {}); viewNastaveni(); }
+    if (confirm('Opravdu smazat postup ve všech kartičkách? Nejde to vrátit.')) { save('srs', {}); save('newToday', {}); toast('Postup smazán'); }
   };
   // Hlasy se v Safari načítají se zpožděním.
   if (!voices.length) setTimeout(() => italianVoices().length && location.hash.includes('nastaveni') && viewNastaveni(), 800);
@@ -365,11 +550,16 @@ function viewNastaveni() {
 function route() {
   stopSpeaking();
   const [, view = '', arg] = location.hash.split('/');
-  const tab = { '': 'home', karticky: 'karticky', seznam: 'karticky', casy: 'casy', dril: 'casy', sloveso: 'casy', mluveni: 'mluveni', nastaveni: 'nastaveni' }[view] || 'home';
+  if (!load('onboarded', false) && view !== 'vitej' && view !== 'nastaveni') return (location.hash = '#/vitej');
+  const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', casy: 'casy', dril: 'casy', sloveso: 'casy', mluveni: 'mluveni', nastaveni: 'nastaveni' }[view] || 'home';
   document.querySelectorAll('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab));
-  document.body.classList.toggle('chat', view === 'mluveni');
+  // Při lekci a drilu lišta ruší – schová se, zavírá se křížkem.
+  document.body.classList.toggle('focus', ['lekce', 'dril', 'vitej'].includes(view) || (view === 'karticky' && !!arg));
+  document.body.classList.toggle('chat', view === 'mluveni' && !!arg);
   switch (view) {
-    case 'karticky': return arg && DECKS[arg] ? viewSession(arg) : viewDecks();
+    case 'vitej': return viewUvod();
+    case 'lekce': return viewSession(mixedQueue(), 'Dnešní lekce', '#/');
+    case 'karticky': return arg && DECKS[arg] ? viewSession(buildQueue(arg), DECKS[arg].name, '#/karticky') : viewDecks();
     case 'seznam': return DECKS[arg] ? viewList(arg) : viewDecks();
     case 'casy': return viewCasy();
     case 'dril': return viewDril();

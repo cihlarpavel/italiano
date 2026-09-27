@@ -22,6 +22,7 @@ export const DEFAULT_SETTINGS = {
   showCz: true,
   direction: 'it-cs',
   newPerDay: 10,
+  goal: 30,
 };
 
 export function settings() {
