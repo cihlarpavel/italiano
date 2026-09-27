@@ -25,6 +25,10 @@ Na console.anthropic.com doporučuji nastavit měsíční limit útraty.
 
 ## Nasazení
 
+Běží na **https://cihlarpavel.github.io/italiano/** (GitHub Pages z větve `main`). Aktualizace: zvýšit `CACHE` v `sw.js`, commit, `git push`.
+
+Obecně:
+
 Aplikace je statická (HTML/CSS/JS bez sestavování). Mikrofon a instalace na plochu vyžadují
 HTTPS, takže ji musí servírovat hosting s HTTPS, například **GitHub Pages**:
 

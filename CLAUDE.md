@@ -9,3 +9,4 @@ Popis a nasazení viz README.md.
 - Lokální test: `python3 -m http.server 8765`. Service worker při testování maže mezipaměť, jinak se ukazují staré soubory.
 - Laditelné parametry jsou v `PARAMS` (`js/prizpusobit.js`) a jejich výchozí hodnoty v `DEFAULT_SETTINGS` (`js/store.js`). Nový parametr = obojí + použití v kódu. Hodnoty od modelu se vždy validují.
 - Uživatel posílá „přání na další verzi“ z obrazovky Přizpůsobit. To jsou požadavky na nové funkce.
+- Nasazení: GitHub Pages z větve `main` (repo cihlarpavel/italiano, https://cihlarpavel.github.io/italiano/). Aktualizace = zvýšit `CACHE` v `sw.js`, commit, `git push`; Pages se sestaví samy do ~1 min. `gh` je v `~/.local/bin/gh`.
