@@ -1,38 +1,12 @@
 // Konverzace s Giulií: rozpoznání řeči (iPhone) → Claude → předčítání (iPhone).
-import Anthropic from 'https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@0.128.0/+esm';
+import { client, modelParams, addUsage, errorText } from './claude.js';
+export { MODELY, usageThisMonth } from './claude.js';
 import { SCENARE } from './data.js';
 import { load, save, settings, logActivity } from './store.js';
-import { toast } from './ui.js';
+import { toast, ICON, ic } from './ui.js';
 import { speak, stopSpeaking, onSpeechActivity, isSpeaking, canListen, listen } from './speech.js';
 
-// Ceny v USD za milion tokenů (vstup / výstup).
-export const MODELY = {
-  'claude-opus-5': { name: 'Opus 5 – nejlepší · ≈ 0,3 Kč', in: 5, out: 25 },
-  'claude-sonnet-5': { name: 'Sonnet 5 – levnější · ≈ 0,12 Kč', in: 2, out: 10 },
-  'claude-haiku-4-5': { name: 'Haiku 4.5 – nejlevnější · ≈ 0,06 Kč', in: 1, out: 5 },
-};
-const KC_ZA_USD = 22;
-
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-// ---------- Útrata ----------
-const month = () => new Date().toLocaleDateString('sv').slice(0, 7);
-export function usageThisMonth() {
-  const u = load('usage', {});
-  const cur = u.month === month() ? u : { usd: 0, turns: 0 };
-  return { czk: cur.usd * KC_ZA_USD, turns: cur.turns };
-}
-export function addUsage(model, usage) {
-  const p = MODELY[model] || MODELY['claude-opus-5'];
-  const inTok = usage.input_tokens || 0;
-  const cw = usage.cache_creation_input_tokens || 0;
-  const cr = usage.cache_read_input_tokens || 0;
-  const usd = (inTok * p.in + cw * p.in * 1.25 + cr * p.in * 0.1 + (usage.output_tokens || 0) * p.out) / 1e6;
-  const u = load('usage', {});
-  const cur = u.month === month() ? u : { month: month(), usd: 0, turns: 0 };
-  cur.usd += usd; cur.turns++;
-  save('usage', cur);
-}
 
 // ---------- Avatar ----------
 const AVATAR = `
@@ -144,30 +118,32 @@ export function renderChat(app, id) {
   renderConversation(app, sc);
 }
 
-const KEY_CARD = `<div class="card setup">
-  <b>Giulia potřebuje klíč k Claude API</b>
-  <p class="small" style="margin:6px 0 12px">Jednorázové nastavení na 5 minut. Pak jedna její odpověď stojí kolem 0,3 Kč.</p>
-  <a class="btn primary block big" href="#/nastaveni">Nastavit klíč</a></div>`;
+const KEY_CARD = `<a class="card setup-card" href="#/nastaveni">${ic('sparkles', 'violet')}
+  <div><b>Giulia potřebuje klíč k Claude API</b><span>Nastavení na 5 minut, pak jedna odpověď stojí kolem 0,3 Kč.</span></div></a>`;
 
 const IKONY = { volne: '☕️', seznameni: '👋', kavarna: '🥐', nadrazi: '🚆', hotel: '🏨', trh: '🍅', vcera: '⏪' };
 
 function renderScenarios(app) {
+  const scen = SCENARE.map((s, i) => {
+    const saved = load('chat:' + s.id, []).filter(m => !m.hidden).length;
+    return `<a class="list-row" href="#/mluveni/${s.id}">
+      <span class="emoji-ic">${IKONY[s.id] || '💬'}</span>
+      <div class="grow"><b>${s.name}${i === 1 && !saved ? ' <span class="pill ok">na začátek</span>' : ''}</b>
+      <span class="muted small">${saved ? `Pokračovat · ${saved} zpráv` : s.desc}</span></div>
+      ${ICON.chevron}</a>`;
+  }).join('');
   app.innerHTML = `
-    <div class="avatar-box big">${AVATAR}
-      <div class="avatar-name"><b>Giulia</b><span>Italka z Boloně. Mluví pomalu, přeloží ti, co řekla, a opraví tvé chyby.</span></div>
-    </div>
+    <header class="page-head"><h1>Giulia</h1></header>
+    <section class="hero green giulia-hero">
+      ${AVATAR}
+      <div><h2>Ciao, sono Giulia!</h2><p>Italka z Boloně. Mluví pomalu, přeloží ti, co řekla, a opraví tvé chyby.</p></div>
+    </section>
     ${settings().apiKey ? '' : KEY_CARD}
-    <div class="howto">
-      <div><span>1</span>Vyber situaci</div><div><span>2</span>Poslouchej Giulii</div><div><span>3</span>Klepni na 🎤 a odpověz</div>
+    <div class="steps-row">
+      <div><span>1</span>Vyber situaci</div><div><span>2</span>Poslouchej</div><div><span>3</span>Odpověz hlasem</div>
     </div>
     <h2>O čem si popovídáte?</h2>
-    ${SCENARE.map((s, i) => {
-      const saved = load('chat:' + s.id, []).filter(m => !m.hidden).length;
-      return `<a class="tile card scen" href="#/mluveni/${s.id}">
-        <span class="emoji">${IKONY[s.id] || '💬'}</span>
-        <div><b>${s.name}${i === 1 && !saved ? ' <span class="pill ok">na začátek</span>' : ''}</b>
-        <span>${saved ? `Pokračovat · ${saved} zpráv` : s.desc}</span></div></a>`;
-    }).join('')}`;
+    <div class="card list">${scen}</div>`;
   animateAvatar(app.querySelector('.avatar'));
   window.scrollTo(0, 0);
 }
@@ -185,10 +161,10 @@ function renderConversation(app, sc) {
   app.innerHTML = `
     <div class="chat-wrap">
       <div class="chat-head">
-        <a class="back" href="#/mluveni" aria-label="Zpět">‹</a>
+        <a class="icon-btn plain" href="#/mluveni" aria-label="Zpět">${ICON.back}</a>
         <button class="avatar-btn" id="av" aria-label="Zastavit nebo zopakovat">${AVATAR}</button>
         <div class="avatar-name" style="flex:1"><b>Giulia · ${esc(sc.name)}</b><span id="status"></span></div>
-        <a class="back" href="#/prizpusobit" aria-label="Přizpůsobit Giulii" style="font-size:20px;text-decoration:none">✨</a>
+        <a class="icon-btn plain" href="#/prizpusobit" aria-label="Přizpůsobit Giulii">${ICON.sparkles}</a>
         <button class="back" id="restart">Nový</button>
       </div>
       <div class="msgs" id="msgs"></div>
@@ -288,18 +264,14 @@ function renderConversation(app, sc) {
     fillHer(el, '', true);
     scrollDown();
 
-    const client = new Anthropic({ apiKey: s.apiKey, dangerouslyAllowBrowser: true });
-    const model = s.model in MODELY ? s.model : 'claude-opus-5';
     const params = {
-      model,
+      ...modelParams('low'), // krátké repliky, rychlá odezva
       max_tokens: 8000,
       system: systemPrompt(sc),
       cache_control: { type: 'ephemeral' },
       // Posíláme jen posledních 30 zpráv, ať delší rozhovor nezdražuje.
       messages: trimHistory(history).map(m => ({ role: m.role, content: m.text })),
     };
-    if (model !== 'claude-haiku-4-5') params.output_config = { effort: 'low' }; // krátké repliky, rychlá odezva
-    if (model === 'claude-opus-5') { params.betas = ['server-side-fallback-2026-07-01']; params.fallbacks = 'default'; }
 
     let spoken = 0;
     const speakReady = (snapshot, final) => {
@@ -317,13 +289,13 @@ function renderConversation(app, sc) {
     };
 
     try {
-      const stream = client.beta.messages.stream(params);
+      const stream = client().beta.messages.stream(params);
       stream.on('text', (_, snapshot) => { fillHer(el, snapshot, true); speakReady(snapshot, false); });
       const msg = await stream.finalMessage();
       if (msg.stop_reason === 'refusal') throw new Error('Model tuto odpověď odmítl. Zkus to formulovat jinak.');
       const text = msg.content.filter(b => b.type === 'text').map(b => b.text).join('').trim();
       speakReady(text, true);
-      addUsage(msg.model || model, msg.usage || {});
+      addUsage(msg.model || params.model, msg.usage || {});
       history.push({ role: 'assistant', text });
       save(key, history);
       showHints(fillHer(el, text).hints);
@@ -343,18 +315,6 @@ function renderConversation(app, sc) {
     let t = h.slice(-30);
     while (t.length && t[0].role !== 'user') t = t.slice(1);
     return t;
-  }
-
-  function errorText(e) {
-    if (e instanceof Anthropic.AuthenticationError) return 'Klíč k API je neplatný. Zkontroluj ho v Nastavení.';
-    if (e instanceof Anthropic.PermissionDeniedError) return 'Klíč nemá oprávnění – zkontroluj účet na console.anthropic.com.';
-    if (e instanceof Anthropic.RateLimitError) return 'Příliš mnoho dotazů najednou, zkus to za chvilku.';
-    if (e instanceof Anthropic.APIConnectionError) return 'Nepodařilo se spojit se serverem. Jsi online?';
-    if (e instanceof Anthropic.APIError) {
-      if (/credit balance/i.test(e.message)) return 'Na účtu Anthropic došel kredit – dobij ho na console.anthropic.com (Billing).';
-      return `Chyba API (${e.status ?? '?'}): ${e.message}`;
-    }
-    return e?.message || String(e);
   }
 
   function bubbleNote(text, retry) {

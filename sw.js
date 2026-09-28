@@ -1,8 +1,8 @@
 // Offline režim: aplikace se načte i bez signálu (kartičky a časy fungují, konverzace potřebuje internet).
 // Soubory se servírují z mezipaměti a na pozadí se obnovují, takže nová verze se projeví při dalším spuštění.
-const CACHE = 'italiano-v6';
+const CACHE = 'italiano-v7';
 const SHELL = ['./', 'index.html', 'styles.css', 'manifest.webmanifest', 'js/app.js', 'js/data.js',
-  'js/store.js', 'js/speech.js', 'js/chat.js', 'js/ui.js', 'js/prizpusobit.js', 'icons/icon-180.png', 'icons/icon-192.png'];
+  'js/store.js', 'js/speech.js', 'js/chat.js', 'js/ui.js', 'js/prizpusobit.js', 'js/claude.js', 'js/preklad.js', 'icons/icon-180.png', 'icons/icon-192.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

@@ -1,5 +1,7 @@
 // Obsah kurzu – úroveň A1–A2. Podstatná jména se učí se členem.
 
+import { load } from './store.js';
+
 const t = (topic, pairs) => pairs.map(([it, cs]) => ({ it, cs, topic }));
 
 export const VOCAB = [
@@ -152,6 +154,8 @@ export const DECKS = {
   vazby: { name: 'Vazby', items: VAZBY },
   fraze: { name: 'Fráze', items: FRAZE },
 };
+// Vlastní balíček z Překladače (tlačítko „Do kartiček“), čte se vždy čerstvě.
+Object.defineProperty(DECKS, 'moje', { enumerable: true, get: () => ({ name: 'Moje slovíčka', items: load('moje', []) }) });
 
 // ---- Slovesa a časy ----
 

@@ -1,10 +1,9 @@
 // Přizpůsobení aplikace přáním v přirozené řeči („dávej mi častěji opakování“).
 // Claude převede přání na změny povolených parametrů, uživatel je vidí předem a potvrdí.
-import Anthropic from 'https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@0.128.0/+esm';
 import { load, save, settings, setSettings, DEFAULT_SETTINGS } from './store.js';
-import { MODELY, addUsage } from './chat.js';
+import { MODELY, callJSON, errorText } from './claude.js';
 import { canListen, listen, stopSpeaking } from './speech.js';
-import { toast } from './ui.js';
+import { toast, ICON } from './ui.js';
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const num = (min, max, int) => v => { const n = Number(String(v).replace(',', '.')); return Number.isFinite(n) ? Math.min(max, Math.max(min, int ? Math.round(n) : Math.round(n * 100) / 100)) : undefined; };
@@ -80,22 +79,7 @@ Pravidla:
 
 async function navrh(text) {
   const s = settings();
-  const client = new Anthropic({ apiKey: s.apiKey, dangerouslyAllowBrowser: true });
-  const model = s.model in MODELY ? s.model : 'claude-opus-5';
-  const params = {
-    model,
-    max_tokens: 16000,
-    system: systemPokyny(),
-    messages: [{ role: 'user', content: text }],
-    output_config: { format: { type: 'json_schema', schema: SCHEMA } },
-  };
-  if (model !== 'claude-haiku-4-5') params.output_config.effort = 'medium';
-  if (model === 'claude-opus-5') { params.betas = ['server-side-fallback-2026-07-01']; params.fallbacks = 'default'; }
-  const msg = await client.beta.messages.create(params);
-  addUsage(msg.model || model, msg.usage || {});
-  if (msg.stop_reason === 'refusal') throw new Error('Model tento požadavek odmítl. Zkus ho formulovat jinak.');
-  const raw = msg.content.filter(b => b.type === 'text').map(b => b.text).join('');
-  const out = JSON.parse(raw);
+  const out = await callJSON({ system: systemPokyny(), content: text, schema: SCHEMA, effort: 'medium' });
 
   // Validace: nikdy nevěř hodnotám slepě, drž je v povolených mezích.
   const zmeny = [];
@@ -144,9 +128,8 @@ export function renderPrizpusobit(app) {
   const prani = load('prani', []);
   const zmeneno = Object.keys(PARAMS).filter(k => s[k] !== DEFAULT_SETTINGS[k]);
   app.innerHTML = `
-    <button class="back" onclick="history.back()">‹ Zpět</button>
-    <h1>✨ Přizpůsobit</h1>
-    <p class="muted">Napiš nebo řekni česky, co chceš jinak. Ukážu ti, co změním, a použiju to až po tvém potvrzení.</p>
+    <button class="back" onclick="history.back()">${ICON.back} Zpět</button>
+    <header class="page-head"><h1>Přizpůsobit</h1><p class="muted">Napiš nebo řekni česky, co chceš jinak. Ukážu ti, co změním, a použiju to až po tvém potvrzení.</p></header>
     ${s.apiKey ? '' : '<p class="note">Potřebuje klíč k Claude API (Nastavení). Jedna úprava stojí zhruba 0,1–0,3 Kč.</p>'}
     <div class="card">
       <textarea id="prani" rows="3" placeholder="Např. dávej mi častěji opakování toho, co už jsme se učili"></textarea>
@@ -224,7 +207,7 @@ export function renderPrizpusobit(app) {
       $('zrusit').onclick = () => { box.innerHTML = ''; $('odeslat').disabled = false; };
       $('pouzit').onclick = () => { pouzij(n); toast(nic ? 'Přání uloženo' : 'Hotovo, aplikace je upravená ✓'); rerender(); };
     } catch (e) {
-      box.innerHTML = `<p class="note">${esc(e instanceof Anthropic.AuthenticationError ? 'Klíč k API je neplatný.' : e instanceof Anthropic.APIConnectionError ? 'Nepodařilo se spojit se serverem.' : e.message || String(e))}</p>`;
+      box.innerHTML = `<p class="note">${esc(errorText(e))}</p>`;
       $('odeslat').disabled = false;
     }
   };

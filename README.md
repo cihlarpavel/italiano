@@ -6,6 +6,7 @@ Nepotřebuje App Store ani Xcode.
 - **Dnešní lekce**: jedno tlačítko na úvodní obrazovce smíchá, co je dnes na řadě ze všech balíčků.
 - **Kartičky**: slovíčka (215), vazby (43), fráze (55). Opakují se v intervalech: co nevíš, uvidíš brzy znovu, co umíš, až za dny či týdny.
 - **Časy**: dril časování 20 nejčastějších sloves (presente, passato prossimo, imperfetto, futuro), tabulky a vysvětlení.
+- **Překladač**: řekneš větu česky nebo italsky a dostaneš ji přeloženou textem; nebo vyfotíš italský text (menu, cedule) a dostaneš překlad i slovíčka. Cokoli jde jedním klepnutím přidat do balíčku Moje slovíčka.
 - **Mluvení s Giulií**: konverzace nahlas s avatarkou v 7 situacích. Opraví chyby a přeloží, co řekla.
 - **✨ Přizpůsobit**: přání česky („dávej mi častěji opakování“, „Giulia ať mluví delšími větami“). Claude ho převede na změny nastavení nebo na pokyny pro Giulii. Změny se ukážou předem, dají se vrátit a co aplikace neumí, uloží se do seznamu přání pro další verzi.
 
@@ -50,6 +51,9 @@ a otevřít http://localhost:8765.
 
 - `js/data.js` – veškerý obsah (slovíčka, vazby, fráze, slovesa, scénáře konverzace)
 - `js/app.js` – obrazovky, kartičky, dril časů, nastavení
+- `js/claude.js` – společné volání Claude API (model, útrata, chybové hlášky)
+- `js/preklad.js` – překladač hlasem, textem a z fotky; balíček Moje slovíčka
+- `js/ui.js` – ikony a sdílené prvky rozhraní
 - `js/chat.js` – konverzace s Giulií, avatar, volání Claude API, počítání útraty
 - `js/prizpusobit.js` – úpravy aplikace přáním; seznam laditelných parametrů je `PARAMS`
 - `js/speech.js` – předčítání a rozpoznání řeči
