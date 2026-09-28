@@ -10,6 +10,7 @@ Nepotřebuje App Store ani Xcode.
 - **Paměť a doporučení**: aplikace si zapisuje, které kartičky, časy a slovesa ti nejdou a jaké chyby ti Giulia opravila. Claude z toho sestaví profil (slabiny, silné stránky, co jsi Giulii řekl o sobě) a navrhuje 3 kroky na dnešek. Giulia si pamatuje, co jsi jí vyprávěl, a nenápadně procvičuje tvoje slabiny. Dril časů častěji dává kombinace, ve kterých chybuješ.
 - **Přehled**: týden a měsíc, graf aktivity, hodnocení od Giulie a profil „Co o tobě vím“, ze kterého jde cokoli smazat.
 - **Záloha**: postup, paměť i rozhovory do souboru (bez klíčů k API) a obnova z něj.
+- **Klepací slovníček**: klepnutím na kterékoli italské slovo se ukáže jeho význam v dané větě, základní tvar a gramatika. U obsahu kurzu offline, jinde přes Claude (výsledek se ukládá).
 - **Moje mapa**: navštívená místa v Itálii s datem (stačí rok), poznámkou a fotkami; statistika regionů, deník cest po letech. Zajímavosti z Top 1000 jsou na mapě jako průvodce, tlačítko „Poblíž“ ukáže nejbližší. Mapa: OpenStreetMap + Leaflet, hledání míst: Nominatim.
 - **Itálie**: Top 1000 zajímavostí ve 13 kategoriích s delším popisem česky i italsky a praktické tipy **Na cestu** (auto, mýtné, palivo, pravidla, vlaky, ceny v obchodech a restauracích, pláže, zdraví). Údaje jsou ke dni 28. 9. 2026 a u každé sekce je zdroj.
 - **Mluvení s Giulií**: konverzace nahlas s avatarkou v 7 situacích. Opraví chyby a přeloží, co řekla.

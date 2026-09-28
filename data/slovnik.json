@@ -1,0 +1,3588 @@
+{
+ "fare colazione": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dělat (snídani)",
+   "g": "sloveso v infinitivu; fare colazione = snídat"
+  },
+  {
+   "w": "colazione",
+   "z": "colazione",
+   "cs": "snídaně",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "fare la spesa": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dělat (nákup)",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "spesa",
+   "z": "spesa",
+   "cs": "nákup",
+   "g": "podst. jméno, ž. r.; fare la spesa = nakupovat jídlo"
+  }
+ ],
+ "fare una passeggiata": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dělat (procházku)",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "una",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod"
+  },
+  {
+   "w": "passeggiata",
+   "z": "passeggiata",
+   "cs": "procházka",
+   "g": "podst. jméno, ž. r.; = jít na procházku"
+  }
+ ],
+ "fare la doccia": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dělat (sprchu)",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "doccia",
+   "z": "doccia",
+   "cs": "sprcha",
+   "g": "podst. jméno, ž. r.; fare la doccia = osprchovat se"
+  }
+ ],
+ "fare una domanda": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dělat → položit",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "una",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod"
+  },
+  {
+   "w": "domanda",
+   "z": "domanda",
+   "cs": "otázka",
+   "g": "podst. jméno, ž. r.; = položit otázku"
+  }
+ ],
+ "fa caldo": [
+  {
+   "w": "fa",
+   "z": "fare",
+   "cs": "je (doslova dělá)",
+   "g": "sloveso fare, 3. os. j. č.; u počasí = „je“"
+  },
+  {
+   "w": "caldo",
+   "z": "caldo",
+   "cs": "horko",
+   "g": "podst. jméno, m. r.; fa caldo = je horko"
+  }
+ ],
+ "fa freddo": [
+  {
+   "w": "fa",
+   "z": "fare",
+   "cs": "je (doslova dělá)",
+   "g": "sloveso fare, 3. os. j. č.; u počasí = „je“"
+  },
+  {
+   "w": "freddo",
+   "z": "freddo",
+   "cs": "zima (chlad)",
+   "g": "podst. jméno, m. r.; fa freddo = je zima"
+  }
+ ],
+ "fare una foto": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dělat (fotku)",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "una",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod"
+  },
+  {
+   "w": "foto",
+   "z": "foto",
+   "cs": "fotka",
+   "g": "podst. jméno, ž. r. (zkráceně z fotografia); nemění se"
+  }
+ ],
+ "fare attenzione": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dávat (doslova dělat)",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "attenzione",
+   "z": "attenzione",
+   "cs": "pozornost, pozor",
+   "g": "podst. jméno, ž. r.; fare attenzione = dávat pozor"
+  }
+ ],
+ "fare la fila": [
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "stát (doslova dělat)",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "fila",
+   "z": "fila",
+   "cs": "fronta, řada",
+   "g": "podst. jméno, ž. r.; fare la fila = stát ve frontě"
+  }
+ ],
+ "avere fame": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "fame",
+   "z": "fame",
+   "cs": "hlad",
+   "g": "podst. jméno, ž. r.; avere fame = mít hlad"
+  }
+ ],
+ "avere sete": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "sete",
+   "z": "sete",
+   "cs": "žízeň",
+   "g": "podst. jméno, ž. r.; avere sete = mít žízeň"
+  }
+ ],
+ "avere sonno": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "sonno",
+   "z": "sonno",
+   "cs": "spánek",
+   "g": "podst. jméno, m. r.; avere sonno = být ospalý"
+  }
+ ],
+ "avere freddo": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "freddo",
+   "z": "freddo",
+   "cs": "zima (chlad)",
+   "g": "podst. jméno, m. r.; avere freddo = je mi zima"
+  }
+ ],
+ "avere caldo": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "caldo",
+   "z": "caldo",
+   "cs": "horko",
+   "g": "podst. jméno, m. r.; avere caldo = je mi horko"
+  }
+ ],
+ "avere fretta": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "fretta",
+   "z": "fretta",
+   "cs": "spěch",
+   "g": "podst. jméno, ž. r.; avere fretta = spěchat"
+  }
+ ],
+ "avere ragione": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + podst. jméno = ustálené spojení (česky často jiným slovesem)"
+  },
+  {
+   "w": "ragione",
+   "z": "ragione",
+   "cs": "pravda (rozum)",
+   "g": "podst. jméno, ž. r.; avere ragione = mít pravdu"
+  }
+ ],
+ "avere torto": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + podst. jméno = ustálené spojení (česky často jiným slovesem)"
+  },
+  {
+   "w": "torto",
+   "z": "torto",
+   "cs": "křivda, nepravda",
+   "g": "podst. jméno, m. r.; avere torto = nemít pravdu"
+  }
+ ],
+ "avere bisogno di": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + podst. jméno = ustálené spojení (česky často jiným slovesem)"
+  },
+  {
+   "w": "bisogno",
+   "z": "bisogno",
+   "cs": "potřeba",
+   "g": "podst. jméno, m. r.; avere bisogno di = potřebovat"
+  },
+  {
+   "w": "di",
+   "z": "di",
+   "cs": "(čeho) – z, o",
+   "g": "předložka; připojuje, co potřebuji"
+  }
+ ],
+ "avere voglia di": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "voglia",
+   "z": "voglia",
+   "cs": "chuť",
+   "g": "podst. jméno, ž. r.; avere voglia di = mít chuť na"
+  },
+  {
+   "w": "di",
+   "z": "di",
+   "cs": "na (co)",
+   "g": "předložka; připojuje, na co mám chuť"
+  }
+ ],
+ "avere paura di": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu; avere + pocit = „mít“ (být …)"
+  },
+  {
+   "w": "paura",
+   "z": "paura",
+   "cs": "strach",
+   "g": "podst. jméno, ž. r.; avere paura di = bát se"
+  },
+  {
+   "w": "di",
+   "z": "di",
+   "cs": "(čeho) – z",
+   "g": "předložka; připojuje, čeho se bojím"
+  }
+ ],
+ "ho trent’anni": [
+  {
+   "w": "ho",
+   "z": "avere",
+   "cs": "mám",
+   "g": "sloveso avere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "trent'",
+   "z": "trenta",
+   "cs": "třicet",
+   "g": "číslovka; zkrácená před samohláskou (trenta → trent’)"
+  },
+  {
+   "w": "anni",
+   "z": "anno",
+   "cs": "let (roky)",
+   "g": "podst. jméno, m. r., množné číslo; věk se říká „mám“"
+  }
+ ],
+ "prendere il treno": [
+  {
+   "w": "prendere",
+   "z": "prendere",
+   "cs": "jet (doslova vzít)",
+   "g": "sloveso v infinitivu; prendere + dopravní prostředek = jet"
+  },
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "treno",
+   "z": "treno",
+   "cs": "vlak",
+   "g": "podst. jméno, m. r."
+  }
+ ],
+ "prendere un caffè": [
+  {
+   "w": "prendere",
+   "z": "prendere",
+   "cs": "dát si (doslova vzít)",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "un",
+   "z": "un",
+   "cs": "jeden, nějaký",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "caffè",
+   "z": "caffè",
+   "cs": "káva, kafe",
+   "g": "podst. jméno, m. r.; v mn. č. se nemění"
+  }
+ ],
+ "prendere il sole": [
+  {
+   "w": "prendere",
+   "z": "prendere",
+   "cs": "chytat (doslova brát)",
+   "g": "sloveso v infinitivu; prendere il sole = opalovat se"
+  },
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "sole",
+   "z": "sole",
+   "cs": "slunce",
+   "g": "podst. jméno, m. r."
+  }
+ ],
+ "prendere una decisione": [
+  {
+   "w": "prendere",
+   "z": "prendere",
+   "cs": "udělat (doslova vzít)",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "una",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod"
+  },
+  {
+   "w": "decisione",
+   "z": "decisione",
+   "cs": "rozhodnutí",
+   "g": "podst. jméno, ž. r.; = rozhodnout se"
+  }
+ ],
+ "andare a casa": [
+  {
+   "w": "andare",
+   "z": "andare",
+   "cs": "jít",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "do (domů)",
+   "g": "předložka (směr); a casa = domů"
+  },
+  {
+   "w": "casa",
+   "z": "casa",
+   "cs": "domov, dům",
+   "g": "podst. jméno, ž. r.; bez členu = domů"
+  }
+ ],
+ "andare in vacanza": [
+  {
+   "w": "andare",
+   "z": "andare",
+   "cs": "jet",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "in",
+   "z": "in",
+   "cs": "na, do",
+   "g": "předložka"
+  },
+  {
+   "w": "vacanza",
+   "z": "vacanza",
+   "cs": "dovolená",
+   "g": "podst. jméno, ž. r.; = jet na dovolenou"
+  }
+ ],
+ "andare a piedi": [
+  {
+   "w": "andare",
+   "z": "andare",
+   "cs": "jít",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "(pěšky)",
+   "g": "předložka; a piedi = pěšky"
+  },
+  {
+   "w": "piedi",
+   "z": "piede",
+   "cs": "nohy (chodidla)",
+   "g": "podst. jméno, m. r., množné číslo"
+  }
+ ],
+ "andare in macchina": [
+  {
+   "w": "andare",
+   "z": "andare",
+   "cs": "jet",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "in",
+   "z": "in",
+   "cs": "(čím) – v",
+   "g": "předložka; in + dopravní prostředek = jet čím"
+  },
+  {
+   "w": "macchina",
+   "z": "macchina",
+   "cs": "auto",
+   "g": "podst. jméno, ž. r.; andare in macchina = jet autem"
+  }
+ ],
+ "andare d’accordo": [
+  {
+   "w": "andare",
+   "z": "andare",
+   "cs": "vycházet (doslova jít)",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "d'",
+   "z": "di",
+   "cs": "ve (shodě)",
+   "g": "předložka di, zkrácená před samohláskou"
+  },
+  {
+   "w": "accordo",
+   "z": "accordo",
+   "cs": "shoda",
+   "g": "podst. jméno, m. r.; andare d’accordo = rozumět si"
+  }
+ ],
+ "stare bene": [
+  {
+   "w": "stare",
+   "z": "stare",
+   "cs": "mít se",
+   "g": "sloveso v infinitivu; stare bene = mít se dobře"
+  },
+  {
+   "w": "bene",
+   "z": "bene",
+   "cs": "dobře",
+   "g": "příslovce"
+  }
+ ],
+ "stare per": [
+  {
+   "w": "stare",
+   "z": "stare",
+   "cs": "chystat se (doslova stát)",
+   "g": "sloveso v infinitivu; stare per + infinitiv = právě se chystat"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "k (tomu)",
+   "g": "předložka; stare per = chystat se něco udělat"
+  }
+ ],
+ "stare zitto": [
+  {
+   "w": "stare",
+   "z": "stare",
+   "cs": "být (zůstat)",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "zitto",
+   "z": "zitto",
+   "cs": "zticha",
+   "g": "přídavné jméno, m. r.; stare zitto = mlčet"
+  }
+ ],
+ "dare una mano": [
+  {
+   "w": "dare",
+   "z": "dare",
+   "cs": "dát",
+   "g": "sloveso v infinitivu; dare una mano = pomoct"
+  },
+  {
+   "w": "una",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod"
+  },
+  {
+   "w": "mano",
+   "z": "mano",
+   "cs": "ruka",
+   "g": "podst. jméno, ž. r. (i když končí na -o)"
+  }
+ ],
+ "dare fastidio": [
+  {
+   "w": "dare",
+   "z": "dare",
+   "cs": "dávat (působit)",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "fastidio",
+   "z": "fastidio",
+   "cs": "obtíž, mrzutost",
+   "g": "podst. jméno, m. r.; dare fastidio = obtěžovat, vadit"
+  }
+ ],
+ "essere d’accordo": [
+  {
+   "w": "essere",
+   "z": "essere",
+   "cs": "být",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "d'",
+   "z": "di",
+   "cs": "ve (shodě)",
+   "g": "předložka di, zkrácená před samohláskou"
+  },
+  {
+   "w": "accordo",
+   "z": "accordo",
+   "cs": "shoda, souhlas",
+   "g": "podst. jméno, m. r.; essere d’accordo = souhlasit"
+  }
+ ],
+ "essere in ritardo": [
+  {
+   "w": "essere",
+   "z": "essere",
+   "cs": "být",
+   "g": "sloveso v infinitivu, nepravidelné"
+  },
+  {
+   "w": "in",
+   "z": "in",
+   "cs": "v",
+   "g": "předložka"
+  },
+  {
+   "w": "ritardo",
+   "z": "ritardo",
+   "cs": "zpoždění",
+   "g": "podst. jméno, m. r.; essere in ritardo = mít zpoždění"
+  }
+ ],
+ "mi piace": [
+  {
+   "w": "mi",
+   "z": "mi",
+   "cs": "mně",
+   "g": "nepřízvučné zájmeno, 3. pád (komu?)"
+  },
+  {
+   "w": "piace",
+   "z": "piacere",
+   "cs": "líbí se, chutná",
+   "g": "sloveso piacere, 3. os. j. č.; podmětem je to, co se líbí"
+  }
+ ],
+ "mi piacciono": [
+  {
+   "w": "mi",
+   "z": "mi",
+   "cs": "mně",
+   "g": "nepřízvučné zájmeno, 3. pád (komu?)"
+  },
+  {
+   "w": "piacciono",
+   "z": "piacere",
+   "cs": "líbí se, chutnají",
+   "g": "sloveso piacere, 3. os. mn. č.; líbí se víc věcí"
+  }
+ ],
+ "ci vuole un’ora": [
+  {
+   "w": "ci",
+   "z": "ci",
+   "cs": "(částice)",
+   "g": "částice ci; ci vuole = je potřeba, trvá to"
+  },
+  {
+   "w": "vuole",
+   "z": "volere",
+   "cs": "trvá (doslova chce)",
+   "g": "sloveso volere, 3. os. j. č.; volerci = být potřeba"
+  },
+  {
+   "w": "un'",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "ora",
+   "z": "ora",
+   "cs": "hodina",
+   "g": "podst. jméno, ž. r."
+  }
+ ],
+ "avere a che fare con": [
+  {
+   "w": "avere",
+   "z": "avere",
+   "cs": "mít",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "(nepřekládá se samostatně)",
+   "g": "předložka"
+  },
+  {
+   "w": "che",
+   "z": "che",
+   "cs": "co",
+   "g": "zájmeno"
+  },
+  {
+   "w": "fare",
+   "z": "fare",
+   "cs": "dělat",
+   "g": "sloveso v infinitivu; avere a che fare con = mít co do činění s"
+  },
+  {
+   "w": "con",
+   "z": "con",
+   "cs": "s",
+   "g": "předložka"
+  }
+ ],
+ "vale la pena": [
+  {
+   "w": "vale",
+   "z": "valere",
+   "cs": "stojí (za to)",
+   "g": "sloveso valere, 3. os. j. č. přítomného času"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "pena",
+   "z": "pena",
+   "cs": "námaha (trest)",
+   "g": "podst. jméno, ž. r.; vale la pena = stojí to za to"
+  }
+ ],
+ "Come ti chiami?": [
+  {
+   "w": "Come",
+   "z": "come",
+   "cs": "jak",
+   "g": "tázací příslovce"
+  },
+  {
+   "w": "ti",
+   "z": "ti",
+   "cs": "se (tebe)",
+   "g": "zvratné zájmeno, 2. os. j. č. (tykání)"
+  },
+  {
+   "w": "chiami",
+   "z": "chiamarsi",
+   "cs": "jmenuješ (se)",
+   "g": "zvratné sloveso chiamarsi, 2. os. j. č. přítomného času"
+  }
+ ],
+ "Mi chiamo Marco.": [
+  {
+   "w": "Mi",
+   "z": "mi",
+   "cs": "se (mě)",
+   "g": "zvratné zájmeno, 1. os. j. č."
+  },
+  {
+   "w": "chiamo",
+   "z": "chiamarsi",
+   "cs": "jmenuji (se)",
+   "g": "zvratné sloveso chiamarsi, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "Marco",
+   "z": "Marco",
+   "cs": "Marek",
+   "g": "vlastní jméno (mužské)"
+  }
+ ],
+ "Piacere!": [
+  {
+   "w": "Piacere",
+   "z": "piacere",
+   "cs": "těší mě (doslova potěšení)",
+   "g": "podst. jméno, m. r.; při seznámení = těší mě"
+  }
+ ],
+ "Di dove sei?": [
+  {
+   "w": "Di",
+   "z": "di",
+   "cs": "z, od",
+   "g": "předložka; di dove = odkud"
+  },
+  {
+   "w": "dove",
+   "z": "dove",
+   "cs": "kde",
+   "g": "tázací příslovce"
+  },
+  {
+   "w": "sei",
+   "z": "essere",
+   "cs": "jsi",
+   "g": "sloveso essere, 2. os. j. č. (tykání)"
+  }
+ ],
+ "Sono ceco. / Sono ceca.": [
+  {
+   "w": "Sono",
+   "z": "essere",
+   "cs": "jsem",
+   "g": "sloveso essere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "ceco",
+   "z": "ceco",
+   "cs": "Čech (český)",
+   "g": "přídavné jméno, m. r.; národnost se píše malým písmenem"
+  },
+  {
+   "w": "Sono",
+   "z": "essere",
+   "cs": "jsem",
+   "g": "sloveso essere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "ceca",
+   "z": "ceco",
+   "cs": "Češka (česká)",
+   "g": "přídavné jméno, ženský tvar; říká žena"
+  }
+ ],
+ "Come stai?": [
+  {
+   "w": "Come",
+   "z": "come",
+   "cs": "jak",
+   "g": "tázací příslovce"
+  },
+  {
+   "w": "stai",
+   "z": "stare",
+   "cs": "se máš",
+   "g": "sloveso stare, 2. os. j. č.; tykání"
+  }
+ ],
+ "Come sta?": [
+  {
+   "w": "Come",
+   "z": "come",
+   "cs": "jak",
+   "g": "tázací příslovce"
+  },
+  {
+   "w": "sta",
+   "z": "stare",
+   "cs": "se máte",
+   "g": "sloveso stare, 3. os. j. č.; tady zdvořilé vykání (Lei)"
+  }
+ ],
+ "Bene, grazie, e tu?": [
+  {
+   "w": "Bene",
+   "z": "bene",
+   "cs": "dobře",
+   "g": "příslovce"
+  },
+  {
+   "w": "grazie",
+   "z": "grazie",
+   "cs": "děkuji (díky)",
+   "g": "poděkování; z podst. jména grazia"
+  },
+  {
+   "w": "e",
+   "z": "e",
+   "cs": "a",
+   "g": "spojka"
+  },
+  {
+   "w": "tu",
+   "z": "tu",
+   "cs": "ty",
+   "g": "osobní zájmeno, 2. os. j. č."
+  }
+ ],
+ "Parlo un po’ di italiano.": [
+  {
+   "w": "Parlo",
+   "z": "parlare",
+   "cs": "mluvím",
+   "g": "sloveso parlare, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "un",
+   "z": "un",
+   "cs": "(trochu)",
+   "g": "člen neurčitý; un po’ = trochu"
+  },
+  {
+   "w": "po'",
+   "z": "poco",
+   "cs": "trochu (málo)",
+   "g": "zkrácené poco; un po’ = trochu"
+  },
+  {
+   "w": "di",
+   "z": "di",
+   "cs": "(čeho) – z",
+   "g": "předložka; un po’ di = trochu čeho"
+  },
+  {
+   "w": "italiano",
+   "z": "italiano",
+   "cs": "italsky (italština)",
+   "g": "podst. jméno, m. r.; název jazyka"
+  }
+ ],
+ "Non capisco.": [
+  {
+   "w": "Non",
+   "z": "non",
+   "cs": "ne",
+   "g": "záporka, stojí před slovesem"
+  },
+  {
+   "w": "capisco",
+   "z": "capire",
+   "cs": "rozumím",
+   "g": "sloveso capire, 1. os. j. č.; vkládá -isc-"
+  }
+ ],
+ "Può ripetere, per favore?": [
+  {
+   "w": "Può",
+   "z": "potere",
+   "cs": "můžete",
+   "g": "sloveso, 3. os. j. č.; tady zdvořilé vykání (Lei)"
+  },
+  {
+   "w": "ripetere",
+   "z": "ripetere",
+   "cs": "zopakovat",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "Più piano, per favore.": [
+  {
+   "w": "Più",
+   "z": "più",
+   "cs": "víc",
+   "g": "příslovce; tvoří 2. stupeň"
+  },
+  {
+   "w": "piano",
+   "z": "piano",
+   "cs": "pomalu (tiše)",
+   "g": "příslovce; più piano = pomaleji"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "Come si dice … in italiano?": [
+  {
+   "w": "Come",
+   "z": "come",
+   "cs": "jak",
+   "g": "tázací příslovce"
+  },
+  {
+   "w": "si",
+   "z": "si",
+   "cs": "se",
+   "g": "neosobní si; si dice = říká se"
+  },
+  {
+   "w": "dice",
+   "z": "dire",
+   "cs": "říká",
+   "g": "sloveso dire, 3. os. j. č., nepravidelné"
+  },
+  {
+   "w": "in",
+   "z": "in",
+   "cs": "v (italsky)",
+   "g": "předložka; in italiano = italsky"
+  },
+  {
+   "w": "italiano",
+   "z": "italiano",
+   "cs": "italština",
+   "g": "podst. jméno, m. r.; název jazyka"
+  }
+ ],
+ "Che cosa significa?": [
+  {
+   "w": "Che",
+   "z": "che",
+   "cs": "co",
+   "g": "tázací zájmeno"
+  },
+  {
+   "w": "cosa",
+   "z": "cosa",
+   "cs": "věc (co)",
+   "g": "podst. jméno, ž. r.; che cosa = co"
+  },
+  {
+   "w": "significa",
+   "z": "significare",
+   "cs": "znamená",
+   "g": "sloveso significare, 3. os. j. č."
+  }
+ ],
+ "Un caffè, per favore.": [
+  {
+   "w": "Un",
+   "z": "un",
+   "cs": "jedno, jeden",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "caffè",
+   "z": "caffè",
+   "cs": "káva, kafe",
+   "g": "podst. jméno, m. r.; v mn. č. se nemění"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "Vorrei un cappuccino.": [
+  {
+   "w": "Vorrei",
+   "z": "volere",
+   "cs": "chtěl(a) bych",
+   "g": "sloveso volere, podmiňovací způsob, 1. os. j. č."
+  },
+  {
+   "w": "un",
+   "z": "un",
+   "cs": "jeden, nějaký",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "cappuccino",
+   "z": "cappuccino",
+   "cs": "kapučíno",
+   "g": "podst. jméno, m. r."
+  }
+ ],
+ "Il conto, per favore.": [
+  {
+   "w": "Il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "conto",
+   "z": "conto",
+   "cs": "účet",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "Quanto costa?": [
+  {
+   "w": "Quanto",
+   "z": "quanto",
+   "cs": "kolik",
+   "g": "tázací příslovce"
+  },
+  {
+   "w": "costa",
+   "z": "costare",
+   "cs": "stojí",
+   "g": "sloveso costare, 3. os. j. č. přítomného času"
+  }
+ ],
+ "Avete un tavolo per due?": [
+  {
+   "w": "Avete",
+   "z": "avere",
+   "cs": "máte",
+   "g": "sloveso avere, 2. os. mn. č. (vy – podnik)"
+  },
+  {
+   "w": "un",
+   "z": "un",
+   "cs": "jeden, nějaký",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "tavolo",
+   "z": "tavolo",
+   "cs": "stůl",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro",
+   "g": "předložka"
+  },
+  {
+   "w": "due",
+   "z": "due",
+   "cs": "dva",
+   "g": "číslovka"
+  }
+ ],
+ "Cosa mi consiglia?": [
+  {
+   "w": "Cosa",
+   "z": "cosa",
+   "cs": "co",
+   "g": "tázací zájmeno (zkrácené che cosa)"
+  },
+  {
+   "w": "mi",
+   "z": "mi",
+   "cs": "mi (mně)",
+   "g": "nepřízvučné zájmeno, 3. pád (komu?)"
+  },
+  {
+   "w": "consiglia",
+   "z": "consigliare",
+   "cs": "doporučujete",
+   "g": "sloveso, 3. os. j. č.; tady zdvořilé vykání (Lei)"
+  }
+ ],
+ "Sono vegetariano. / Sono vegetariana.": [
+  {
+   "w": "Sono",
+   "z": "essere",
+   "cs": "jsem",
+   "g": "sloveso essere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "vegetariano",
+   "z": "vegetariano",
+   "cs": "vegetarián",
+   "g": "přídavné jméno, m. r.; říká muž"
+  },
+  {
+   "w": "Sono",
+   "z": "essere",
+   "cs": "jsem",
+   "g": "sloveso essere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "vegetariana",
+   "z": "vegetariano",
+   "cs": "vegetariánka",
+   "g": "přídavné jméno, ženský tvar; říká žena"
+  }
+ ],
+ "È buonissimo!": [
+  {
+   "w": "È",
+   "z": "essere",
+   "cs": "je (to)",
+   "g": "sloveso essere, 3. os. j. č.; podmět se vynechává"
+  },
+  {
+   "w": "buonissimo",
+   "z": "buono",
+   "cs": "výborné, moc dobré",
+   "g": "přídavné jméno, m. r., nejvyšší míra (-issimo)"
+  }
+ ],
+ "Posso pagare con la carta?": [
+  {
+   "w": "Posso",
+   "z": "potere",
+   "cs": "můžu",
+   "g": "sloveso potere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "pagare",
+   "z": "pagare",
+   "cs": "zaplatit",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "con",
+   "z": "con",
+   "cs": "s (čím → kartou)",
+   "g": "předložka"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "carta",
+   "z": "carta",
+   "cs": "karta (papír)",
+   "g": "podst. jméno, ž. r.; tady platební karta"
+  }
+ ],
+ "Dov’è la stazione?": [
+  {
+   "w": "Dov'",
+   "z": "dove",
+   "cs": "kde",
+   "g": "tázací příslovce, zkrácené před è"
+  },
+  {
+   "w": "è",
+   "z": "essere",
+   "cs": "je",
+   "g": "sloveso essere, 3. os. j. č. přítomného času"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "stazione",
+   "z": "stazione",
+   "cs": "nádraží",
+   "g": "podst. jméno, ž. r."
+  }
+ ],
+ "Scusi, come arrivo in centro?": [
+  {
+   "w": "Scusi",
+   "z": "scusare",
+   "cs": "promiňte",
+   "g": "sloveso scusare, rozkaz pro zdvořilé vykání (Lei) – tvar spojovacího způsobu, 3. os. j. č."
+  },
+  {
+   "w": "come",
+   "z": "come",
+   "cs": "jak",
+   "g": "tázací příslovce"
+  },
+  {
+   "w": "arrivo",
+   "z": "arrivare",
+   "cs": "se dostanu",
+   "g": "sloveso arrivare, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "in",
+   "z": "in",
+   "cs": "do",
+   "g": "předložka"
+  },
+  {
+   "w": "centro",
+   "z": "centro",
+   "cs": "centrum",
+   "g": "podst. jméno, m. r."
+  }
+ ],
+ "A che ora parte il treno per Roma?": [
+  {
+   "w": "A",
+   "z": "a",
+   "cs": "v",
+   "g": "předložka; a che ora = v kolik"
+  },
+  {
+   "w": "che",
+   "z": "che",
+   "cs": "jaká, která",
+   "g": "tázací zájmeno"
+  },
+  {
+   "w": "ora",
+   "z": "ora",
+   "cs": "hodina",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "parte",
+   "z": "partire",
+   "cs": "odjíždí",
+   "g": "sloveso partire, 3. os. j. č. přítomného času"
+  },
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "treno",
+   "z": "treno",
+   "cs": "vlak",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "do",
+   "g": "předložka; per + cíl cesty = do"
+  },
+  {
+   "w": "Roma",
+   "z": "Roma",
+   "cs": "Řím",
+   "g": "vlastní jméno (město)"
+  }
+ ],
+ "Un biglietto per Firenze, andata e ritorno.": [
+  {
+   "w": "Un",
+   "z": "un",
+   "cs": "jeden",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "biglietto",
+   "z": "biglietto",
+   "cs": "jízdenka",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "do",
+   "g": "předložka; per + cíl cesty = do"
+  },
+  {
+   "w": "Firenze",
+   "z": "Firenze",
+   "cs": "Florencie",
+   "g": "vlastní jméno (město)"
+  },
+  {
+   "w": "andata",
+   "z": "andata",
+   "cs": "cesta tam",
+   "g": "podst. jméno, ž. r.; od slovesa andare"
+  },
+  {
+   "w": "e",
+   "z": "e",
+   "cs": "a",
+   "g": "spojka"
+  },
+  {
+   "w": "ritorno",
+   "z": "ritorno",
+   "cs": "návrat, zpět",
+   "g": "podst. jméno, m. r.; andata e ritorno = zpáteční"
+  }
+ ],
+ "È lontano?": [
+  {
+   "w": "È",
+   "z": "essere",
+   "cs": "je (to)",
+   "g": "sloveso essere, 3. os. j. č.; podmět se vynechává"
+  },
+  {
+   "w": "lontano",
+   "z": "lontano",
+   "cs": "daleko",
+   "g": "přídavné jméno, m. r. (doslova daleký)"
+  }
+ ],
+ "Posso andarci a piedi?": [
+  {
+   "w": "Posso",
+   "z": "potere",
+   "cs": "můžu",
+   "g": "sloveso potere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "andarci",
+   "z": "andare",
+   "cs": "jít tam",
+   "g": "infinitiv andare + ci (= tam) připojené na konec"
+  },
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "(pěšky)",
+   "g": "předložka; a piedi = pěšky"
+  },
+  {
+   "w": "piedi",
+   "z": "piede",
+   "cs": "nohy (chodidla)",
+   "g": "podst. jméno, m. r., množné číslo"
+  }
+ ],
+ "Dov’è il bagno?": [
+  {
+   "w": "Dov'",
+   "z": "dove",
+   "cs": "kde",
+   "g": "tázací příslovce, zkrácené před è"
+  },
+  {
+   "w": "è",
+   "z": "essere",
+   "cs": "je",
+   "g": "sloveso essere, 3. os. j. č. přítomného času"
+  },
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "bagno",
+   "z": "bagno",
+   "cs": "záchod (koupelna)",
+   "g": "podst. jméno, m. r.; tady toaleta"
+  }
+ ],
+ "Mi sono perso. / Mi sono persa.": [
+  {
+   "w": "Mi",
+   "z": "mi",
+   "cs": "se",
+   "g": "zvratné zájmeno, 1. os. j. č."
+  },
+  {
+   "w": "sono",
+   "z": "essere",
+   "cs": "(jsem)",
+   "g": "pomocné sloveso essere, 1. os. j. č.; tvoří minulý čas"
+  },
+  {
+   "w": "perso",
+   "z": "perdersi",
+   "cs": "ztratil (jsem se)",
+   "g": "příčestí minulé od perdersi, m. r.; říká muž"
+  },
+  {
+   "w": "Mi",
+   "z": "mi",
+   "cs": "se",
+   "g": "zvratné zájmeno, 1. os. j. č."
+  },
+  {
+   "w": "sono",
+   "z": "essere",
+   "cs": "(jsem)",
+   "g": "pomocné sloveso essere, 1. os. j. č.; tvoří minulý čas"
+  },
+  {
+   "w": "persa",
+   "z": "perdersi",
+   "cs": "ztratila (jsem se)",
+   "g": "příčestí minulé od perdersi, ženský tvar; říká žena"
+  }
+ ],
+ "Ho una prenotazione a nome Novák.": [
+  {
+   "w": "Ho",
+   "z": "avere",
+   "cs": "mám",
+   "g": "sloveso avere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "una",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod"
+  },
+  {
+   "w": "prenotazione",
+   "z": "prenotazione",
+   "cs": "rezervace",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "na",
+   "g": "předložka; a nome = na jméno"
+  },
+  {
+   "w": "nome",
+   "z": "nome",
+   "cs": "jméno",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "Novák",
+   "z": "Novák",
+   "cs": "Novák",
+   "g": "vlastní jméno (příjmení)"
+  }
+ ],
+ "Una camera doppia, per favore.": [
+  {
+   "w": "Una",
+   "z": "una",
+   "cs": "jeden",
+   "g": "člen neurčitý, ženský rod (camera je ž. r.)"
+  },
+  {
+   "w": "camera",
+   "z": "camera",
+   "cs": "pokoj",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "doppia",
+   "z": "doppio",
+   "cs": "dvoulůžkový (dvojitý)",
+   "g": "přídavné jméno, ž. r.; stojí za podst. jménem"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "La colazione è inclusa?": [
+  {
+   "w": "La",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "colazione",
+   "z": "colazione",
+   "cs": "snídaně",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "è",
+   "z": "essere",
+   "cs": "je",
+   "g": "sloveso essere, 3. os. j. č. přítomného času"
+  },
+  {
+   "w": "inclusa",
+   "z": "incluso",
+   "cs": "zahrnutá (v ceně)",
+   "g": "přídavné jméno (příčestí), ž. r."
+  }
+ ],
+ "Sto solo guardando, grazie.": [
+  {
+   "w": "Sto",
+   "z": "stare",
+   "cs": "(právě) jsem",
+   "g": "sloveso stare, 1. os. j. č.; stare + gerundium = děj právě probíhá"
+  },
+  {
+   "w": "solo",
+   "z": "solo",
+   "cs": "jen",
+   "g": "příslovce"
+  },
+  {
+   "w": "guardando",
+   "z": "guardare",
+   "cs": "dívám se",
+   "g": "gerundium od guardare; sto guardando = právě se dívám"
+  },
+  {
+   "w": "grazie",
+   "z": "grazie",
+   "cs": "děkuji (díky)",
+   "g": "poděkování; z podst. jména grazia"
+  }
+ ],
+ "Ce l’ha in un’altra taglia?": [
+  {
+   "w": "Ce",
+   "z": "ci",
+   "cs": "(částice)",
+   "g": "částice ci (před l’ → ce); hovorově u avere, nepřekládá se"
+  },
+  {
+   "w": "l'",
+   "z": "lo/la",
+   "cs": "to (ho / ji)",
+   "g": "předmětové zájmeno lo/la, zkrácené před ha"
+  },
+  {
+   "w": "ha",
+   "z": "avere",
+   "cs": "máte",
+   "g": "sloveso avere, 3. os. j. č.; tady zdvořilé vykání (Lei)"
+  },
+  {
+   "w": "in",
+   "z": "in",
+   "cs": "v",
+   "g": "předložka"
+  },
+  {
+   "w": "un'",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "altra",
+   "z": "altro",
+   "cs": "jiná",
+   "g": "přídavné jméno, ž. r."
+  },
+  {
+   "w": "taglia",
+   "z": "taglia",
+   "cs": "velikost (oblečení)",
+   "g": "podst. jméno, ž. r."
+  }
+ ],
+ "Lo prendo.": [
+  {
+   "w": "Lo",
+   "z": "lo",
+   "cs": "to (ho)",
+   "g": "předmětové zájmeno, 3. os. j. č., m. r."
+  },
+  {
+   "w": "prendo",
+   "z": "prendere",
+   "cs": "beru (vezmu si)",
+   "g": "sloveso prendere, 1. os. j. č. přítomného času"
+  }
+ ],
+ "È troppo caro.": [
+  {
+   "w": "È",
+   "z": "essere",
+   "cs": "je (to)",
+   "g": "sloveso essere, 3. os. j. č.; podmět se vynechává"
+  },
+  {
+   "w": "troppo",
+   "z": "troppo",
+   "cs": "příliš",
+   "g": "příslovce"
+  },
+  {
+   "w": "caro",
+   "z": "caro",
+   "cs": "drahé",
+   "g": "přídavné jméno, m. r."
+  }
+ ],
+ "Che bello!": [
+  {
+   "w": "Che",
+   "z": "che",
+   "cs": "jak (to je)",
+   "g": "zvolací che = jak, to je ale"
+  },
+  {
+   "w": "bello",
+   "z": "bello",
+   "cs": "krásné",
+   "g": "přídavné jméno, m. r."
+  }
+ ],
+ "Dai!": [
+  {
+   "w": "Dai",
+   "z": "dare",
+   "cs": "no tak! (doslova dej!)",
+   "g": "sloveso dare, rozkaz 2. os. j. č. (tykání)"
+  }
+ ],
+ "Magari!": [
+  {
+   "w": "Magari",
+   "z": "magari",
+   "cs": "kéž by!",
+   "g": "příslovce; vyjadřuje přání (jinak též „možná“)"
+  }
+ ],
+ "Figurati!": [
+  {
+   "w": "Figurati",
+   "z": "figurarsi",
+   "cs": "není zač (doslova představ si)",
+   "g": "zvratné sloveso, rozkaz 2. os. j. č. (tykání)"
+  }
+ ],
+ "Non fa niente.": [
+  {
+   "w": "Non",
+   "z": "non",
+   "cs": "ne",
+   "g": "záporka, stojí před slovesem"
+  },
+  {
+   "w": "fa",
+   "z": "fare",
+   "cs": "dělá",
+   "g": "sloveso fare, 3. os. j. č.; non fa niente = to nevadí"
+  },
+  {
+   "w": "niente",
+   "z": "niente",
+   "cs": "nic",
+   "g": "zájmeno; zápor je dvojí jako v češtině"
+  }
+ ],
+ "Meno male!": [
+  {
+   "w": "Meno",
+   "z": "meno",
+   "cs": "méně",
+   "g": "příslovce; meno male = ještě že"
+  },
+  {
+   "w": "male",
+   "z": "male",
+   "cs": "špatně, zle",
+   "g": "příslovce"
+  }
+ ],
+ "Ci vediamo!": [
+  {
+   "w": "Ci",
+   "z": "ci",
+   "cs": "se (navzájem)",
+   "g": "zvratné zájmeno, 1. os. mn. č. (vzájemnost)"
+  },
+  {
+   "w": "vediamo",
+   "z": "vedere",
+   "cs": "uvidíme",
+   "g": "sloveso vedere, 1. os. mn. č. přítomného času; tady s významem budoucnosti"
+  }
+ ],
+ "A dopo!": [
+  {
+   "w": "A",
+   "z": "a",
+   "cs": "na",
+   "g": "předložka; a dopo = na shledanou později"
+  },
+  {
+   "w": "dopo",
+   "z": "dopo",
+   "cs": "potom, později",
+   "g": "příslovce"
+  }
+ ],
+ "Buona giornata!": [
+  {
+   "w": "Buona",
+   "z": "buono",
+   "cs": "dobrý, hezký",
+   "g": "přídavné jméno, ž. r.; buona giornata = hezký den"
+  },
+  {
+   "w": "giornata",
+   "z": "giornata",
+   "cs": "den (celý den)",
+   "g": "podst. jméno, ž. r."
+  }
+ ],
+ "In bocca al lupo! – Crepi!": [
+  {
+   "w": "In",
+   "z": "in",
+   "cs": "do",
+   "g": "předložka"
+  },
+  {
+   "w": "bocca",
+   "z": "bocca",
+   "cs": "tlama (ústa)",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "al",
+   "z": "a + il",
+   "cs": "(vlkovi) – do tlamy vlka",
+   "g": "stažená předložka a + il; al lupo = vlkovi"
+  },
+  {
+   "w": "lupo",
+   "z": "lupo",
+   "cs": "vlk",
+   "g": "podst. jméno, m. r.; celé = hodně štěstí"
+  },
+  {
+   "w": "Crepi",
+   "z": "crepare",
+   "cs": "ať chcípne",
+   "g": "sloveso crepare, 3. os. j. č. spojovacího způsobu; odpověď na přání"
+  }
+ ],
+ "Che ne dici?": [
+  {
+   "w": "Che",
+   "z": "che",
+   "cs": "co",
+   "g": "tázací zájmeno"
+  },
+  {
+   "w": "ne",
+   "z": "ne",
+   "cs": "o tom",
+   "g": "zájmenná částice ne (= o tom, z toho)"
+  },
+  {
+   "w": "dici",
+   "z": "dire",
+   "cs": "říkáš",
+   "g": "sloveso dire, 2. os. j. č. (tykání)"
+  }
+ ],
+ "Non vedo l’ora!": [
+  {
+   "w": "Non",
+   "z": "non",
+   "cs": "ne",
+   "g": "záporka, stojí před slovesem"
+  },
+  {
+   "w": "vedo",
+   "z": "vedere",
+   "cs": "vidím",
+   "g": "sloveso vedere, 1. os. j. č. přítomného času"
+  },
+  {
+   "w": "l'",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "ora",
+   "z": "ora",
+   "cs": "hodina (chvíle)",
+   "g": "podst. jméno, ž. r.; celé = nemůžu se dočkat"
+  }
+ ],
+ "Mi dispiace.": [
+  {
+   "w": "Mi",
+   "z": "mi",
+   "cs": "mně",
+   "g": "nepřízvučné zájmeno, 3. pád (komu?)"
+  },
+  {
+   "w": "dispiace",
+   "z": "dispiacere",
+   "cs": "je líto",
+   "g": "sloveso dispiacere, 3. os. j. č.; funguje jako piacere"
+  }
+ ],
+ "Tutto a posto?": [
+  {
+   "w": "Tutto",
+   "z": "tutto",
+   "cs": "všechno",
+   "g": "zájmeno, m. r."
+  },
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "na",
+   "g": "předložka"
+  },
+  {
+   "w": "posto",
+   "z": "posto",
+   "cs": "místo",
+   "g": "podst. jméno, m. r.; a posto = v pořádku"
+  }
+ ],
+ "Ho capito.": [
+  {
+   "w": "Ho",
+   "z": "avere",
+   "cs": "(jsem)",
+   "g": "pomocné sloveso avere, 1. os. j. č.; tvoří minulý čas"
+  },
+  {
+   "w": "capito",
+   "z": "capire",
+   "cs": "pochopil(a), rozuměl(a)",
+   "g": "příčestí minulé od capire"
+  }
+ ],
+ "Non lo so.": [
+  {
+   "w": "Non",
+   "z": "non",
+   "cs": "ne",
+   "g": "záporka, stojí před slovesem"
+  },
+  {
+   "w": "lo",
+   "z": "lo",
+   "cs": "to",
+   "g": "předmětové zájmeno, 3. os. j. č., m. r."
+  },
+  {
+   "w": "so",
+   "z": "sapere",
+   "cs": "vím",
+   "g": "sloveso sapere, 1. os. j. č., nepravidelné"
+  }
+ ],
+ "Aspetta un attimo.": [
+  {
+   "w": "Aspetta",
+   "z": "aspettare",
+   "cs": "počkej",
+   "g": "sloveso aspettare, rozkaz 2. os. j. č. (tykání)"
+  },
+  {
+   "w": "un",
+   "z": "un",
+   "cs": "jeden, nějaký",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "attimo",
+   "z": "attimo",
+   "cs": "okamžik",
+   "g": "podst. jméno, m. r."
+  }
+ ],
+ "per favore": [
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "va bene": [
+  {
+   "w": "va",
+   "z": "andare",
+   "cs": "jde (to)",
+   "g": "sloveso andare, 3. os. j. č.; va bene = dobře, platí"
+  },
+  {
+   "w": "bene",
+   "z": "bene",
+   "cs": "dobře",
+   "g": "příslovce"
+  }
+ ],
+ "che cosa": [
+  {
+   "w": "che",
+   "z": "che",
+   "cs": "co",
+   "g": "tázací zájmeno"
+  },
+  {
+   "w": "cosa",
+   "z": "cosa",
+   "cs": "věc",
+   "g": "podst. jméno, ž. r.; che cosa = co"
+  }
+ ],
+ "il pane": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "pane",
+   "z": "pane",
+   "cs": "chléb",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’acqua": [
+  {
+   "w": "l'",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "acqua",
+   "z": "acqua",
+   "cs": "voda",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il vino": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "vino",
+   "z": "vino",
+   "cs": "víno",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la birra": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "birra",
+   "z": "birra",
+   "cs": "pivo",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il caffè": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "caffè",
+   "z": "caffè",
+   "cs": "káva, kafe",
+   "g": "podst. jméno, mužský rod; v mn. č. se nemění"
+  }
+ ],
+ "il latte": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "latte",
+   "z": "latte",
+   "cs": "mléko",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "lo zucchero": [
+  {
+   "w": "lo",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod; před z, s + souhláska"
+  },
+  {
+   "w": "zucchero",
+   "z": "zucchero",
+   "cs": "cukr",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il sale": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "sale",
+   "z": "sale",
+   "cs": "sůl",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’olio": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "olio",
+   "z": "olio",
+   "cs": "olej",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il formaggio": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "formaggio",
+   "z": "formaggio",
+   "cs": "sýr",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la carne": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "carne",
+   "z": "carne",
+   "cs": "maso",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il pesce": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "pesce",
+   "z": "pesce",
+   "cs": "ryba",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il pollo": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "pollo",
+   "z": "pollo",
+   "cs": "kuře",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la verdura": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "verdura",
+   "z": "verdura",
+   "cs": "zelenina",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la frutta": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "frutta",
+   "z": "frutta",
+   "cs": "ovoce",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la mela": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "mela",
+   "z": "mela",
+   "cs": "jablko",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il pomodoro": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "pomodoro",
+   "z": "pomodoro",
+   "cs": "rajče",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’uovo": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "uovo",
+   "z": "uovo",
+   "cs": "vejce",
+   "g": "podst. jméno, mužský rod; mn. č. je nepravidelné: le uova"
+  }
+ ],
+ "la pasta": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "pasta",
+   "z": "pasta",
+   "cs": "těstoviny",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il gelato": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "gelato",
+   "z": "gelato",
+   "cs": "zmrzlina",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la colazione": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "colazione",
+   "z": "colazione",
+   "cs": "snídaně",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il pranzo": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "pranzo",
+   "z": "pranzo",
+   "cs": "oběd",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la cena": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "cena",
+   "z": "cena",
+   "cs": "večeře",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il conto": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "conto",
+   "z": "conto",
+   "cs": "účet",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il cameriere": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "cameriere",
+   "z": "cameriere",
+   "cs": "číšník",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il menù": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "menù",
+   "z": "menù",
+   "cs": "jídelní lístek",
+   "g": "podst. jméno, mužský rod; v mn. č. se nemění"
+  }
+ ],
+ "la famiglia": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "famiglia",
+   "z": "famiglia",
+   "cs": "rodina",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la madre": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "madre",
+   "z": "madre",
+   "cs": "matka",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il padre": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "padre",
+   "z": "padre",
+   "cs": "otec",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il fratello": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "fratello",
+   "z": "fratello",
+   "cs": "bratr",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la sorella": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "sorella",
+   "z": "sorella",
+   "cs": "sestra",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il figlio": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "figlio",
+   "z": "figlio",
+   "cs": "syn",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la figlia": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "figlia",
+   "z": "figlia",
+   "cs": "dcera",
+   "g": "podst. jméno, ženský rod; ženský tvar k figlio"
+  }
+ ],
+ "il marito": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "marito",
+   "z": "marito",
+   "cs": "manžel",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la moglie": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "moglie",
+   "z": "moglie",
+   "cs": "manželka",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il nonno": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "nonno",
+   "z": "nonno",
+   "cs": "dědeček",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la nonna": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "nonna",
+   "z": "nonna",
+   "cs": "babička",
+   "g": "podst. jméno, ženský rod; ženský tvar k nonno"
+  }
+ ],
+ "l’amico": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "amico",
+   "z": "amico",
+   "cs": "kamarád, přítel",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’amica": [
+  {
+   "w": "l'",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "amica",
+   "z": "amica",
+   "cs": "kamarádka, přítelkyně",
+   "g": "podst. jméno, ženský rod; ženský tvar k amico"
+  }
+ ],
+ "il ragazzo": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "ragazzo",
+   "z": "ragazzo",
+   "cs": "kluk, chlapec",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la ragazza": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "ragazza",
+   "z": "ragazza",
+   "cs": "holka, dívka",
+   "g": "podst. jméno, ženský rod; ženský tvar k ragazzo"
+  }
+ ],
+ "il bambino": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "bambino",
+   "z": "bambino",
+   "cs": "dítě (chlapec)",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la gente": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "gente",
+   "z": "gente",
+   "cs": "lidé",
+   "g": "podst. jméno, ženský rod; v italštině jednotné číslo!"
+  }
+ ],
+ "l’uomo": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "uomo",
+   "z": "uomo",
+   "cs": "muž, člověk",
+   "g": "podst. jméno, mužský rod; mn. č. je nepravidelné: gli uomini"
+  }
+ ],
+ "la donna": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "donna",
+   "z": "donna",
+   "cs": "žena",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la città": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "città",
+   "z": "città",
+   "cs": "město",
+   "g": "podst. jméno, ženský rod; v mn. č. se nemění"
+  }
+ ],
+ "la strada": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "strada",
+   "z": "strada",
+   "cs": "ulice, silnice",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la piazza": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "piazza",
+   "z": "piazza",
+   "cs": "náměstí",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la stazione": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "stazione",
+   "z": "stazione",
+   "cs": "nádraží",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il treno": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "treno",
+   "z": "treno",
+   "cs": "vlak",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’autobus": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "autobus",
+   "z": "autobus",
+   "cs": "autobus",
+   "g": "podst. jméno, mužský rod; v mn. č. se nemění"
+  }
+ ],
+ "la macchina": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "macchina",
+   "z": "macchina",
+   "cs": "auto",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "l’aereo": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "aereo",
+   "z": "aereo",
+   "cs": "letadlo",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’aeroporto": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "aeroporto",
+   "z": "aeroporto",
+   "cs": "letiště",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il biglietto": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "biglietto",
+   "z": "biglietto",
+   "cs": "jízdenka, lístek",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’albergo": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "albergo",
+   "z": "albergo",
+   "cs": "hotel",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la camera": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "camera",
+   "z": "camera",
+   "cs": "pokoj",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la chiave": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "chiave",
+   "z": "chiave",
+   "cs": "klíč",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il negozio": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "negozio",
+   "z": "negozio",
+   "cs": "obchod",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il mercato": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "mercato",
+   "z": "mercato",
+   "cs": "trh",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la farmacia": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "farmacia",
+   "z": "farmacia",
+   "cs": "lékárna",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "l’ospedale": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "ospedale",
+   "z": "ospedale",
+   "cs": "nemocnice",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la chiesa": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "chiesa",
+   "z": "chiesa",
+   "cs": "kostel",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il museo": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "museo",
+   "z": "museo",
+   "cs": "muzeum",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la spiaggia": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "spiaggia",
+   "z": "spiaggia",
+   "cs": "pláž",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il mare": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "mare",
+   "z": "mare",
+   "cs": "moře",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la montagna": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "montagna",
+   "z": "montagna",
+   "cs": "hora, hory",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "a destra": [
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "na (napravo)",
+   "g": "předložka"
+  },
+  {
+   "w": "destra",
+   "z": "destra",
+   "cs": "pravá strana",
+   "g": "podst. jméno, ž. r.; a destra = vpravo, doprava"
+  }
+ ],
+ "a sinistra": [
+  {
+   "w": "a",
+   "z": "a",
+   "cs": "na (nalevo)",
+   "g": "předložka"
+  },
+  {
+   "w": "sinistra",
+   "z": "sinistra",
+   "cs": "levá strana",
+   "g": "podst. jméno, ž. r.; a sinistra = vlevo, doleva"
+  }
+ ],
+ "il giorno": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "giorno",
+   "z": "giorno",
+   "cs": "den",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la settimana": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "settimana",
+   "z": "settimana",
+   "cs": "týden",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il mese": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "mese",
+   "z": "mese",
+   "cs": "měsíc",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’anno": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "anno",
+   "z": "anno",
+   "cs": "rok",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "l’ora": [
+  {
+   "w": "l'",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "ora",
+   "z": "ora",
+   "cs": "hodina",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il minuto": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "minuto",
+   "z": "minuto",
+   "cs": "minuta",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la mattina": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "mattina",
+   "z": "mattina",
+   "cs": "ráno, dopoledne",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il pomeriggio": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "pomeriggio",
+   "z": "pomeriggio",
+   "cs": "odpoledne",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la sera": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "sera",
+   "z": "sera",
+   "cs": "večer",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la notte": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "notte",
+   "z": "notte",
+   "cs": "noc",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "la casa": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "casa",
+   "z": "casa",
+   "cs": "dům, domov",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "l’appartamento": [
+  {
+   "w": "l'",
+   "z": "lo",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "appartamento",
+   "z": "appartamento",
+   "cs": "byt",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la cucina": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "cucina",
+   "z": "cucina",
+   "cs": "kuchyně",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il bagno": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "bagno",
+   "z": "bagno",
+   "cs": "koupelna",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la porta": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "porta",
+   "z": "porta",
+   "cs": "dveře",
+   "g": "podst. jméno, ženský rod; v italštině jednotné číslo"
+  }
+ ],
+ "la finestra": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "finestra",
+   "z": "finestra",
+   "cs": "okno",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "il letto": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "letto",
+   "z": "letto",
+   "cs": "postel",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "il tavolo": [
+  {
+   "w": "il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "tavolo",
+   "z": "tavolo",
+   "cs": "stůl",
+   "g": "podst. jméno, mužský rod"
+  }
+ ],
+ "la sedia": [
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "sedia",
+   "z": "sedia",
+   "cs": "židle",
+   "g": "podst. jméno, ženský rod"
+  }
+ ],
+ "Vorrei noleggiare una macchina piccola.": [
+  {
+   "w": "Vorrei",
+   "z": "volere",
+   "cs": "chtěl(a) bych",
+   "g": "sloveso volere, podmiňovací způsob, 1. os. j. č."
+  },
+  {
+   "w": "noleggiare",
+   "z": "noleggiare",
+   "cs": "pronajmout si",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "una",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod"
+  },
+  {
+   "w": "macchina",
+   "z": "macchina",
+   "cs": "auto",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "piccola",
+   "z": "piccolo",
+   "cs": "malé",
+   "g": "přídavné jméno, ž. r.; stojí za podst. jménem"
+  }
+ ],
+ "Il pieno, per favore.": [
+  {
+   "w": "Il",
+   "z": "il",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, mužský rod, jednotné číslo"
+  },
+  {
+   "w": "pieno",
+   "z": "pieno",
+   "cs": "plná nádrž (plný)",
+   "g": "podst. jméno z přídavného, m. r.; = natankovat do plna"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "Può registrare la mia targa per la ZTL?": [
+  {
+   "w": "Può",
+   "z": "potere",
+   "cs": "můžete",
+   "g": "sloveso, 3. os. j. č.; tady zdvořilé vykání (Lei)"
+  },
+  {
+   "w": "registrare",
+   "z": "registrare",
+   "cs": "zaregistrovat",
+   "g": "sloveso v infinitivu"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ž. r.; stojí i před přivlastňovacím zájmenem"
+  },
+  {
+   "w": "mia",
+   "z": "mio",
+   "cs": "moji (mou)",
+   "g": "přivlastňovací zájmeno, ž. r."
+  },
+  {
+   "w": "targa",
+   "z": "targa",
+   "cs": "SPZ (poznávací značka)",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro",
+   "g": "předložka"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "ZTL",
+   "z": "ZTL",
+   "cs": "zóna s omezeným vjezdem",
+   "g": "zkratka Zona a Traffico Limitato, ž. r."
+  }
+ ],
+ "Un biglietto per Firenze, per favore.": [
+  {
+   "w": "Un",
+   "z": "un",
+   "cs": "jeden",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "biglietto",
+   "z": "biglietto",
+   "cs": "jízdenka",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "do",
+   "g": "předložka; per + cíl cesty = do"
+  },
+  {
+   "w": "Firenze",
+   "z": "Firenze",
+   "cs": "Florencie",
+   "g": "vlastní jméno (město)"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "Un ombrellone e due lettini, per favore.": [
+  {
+   "w": "Un",
+   "z": "un",
+   "cs": "jeden",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "ombrellone",
+   "z": "ombrellone",
+   "cs": "slunečník",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "e",
+   "z": "e",
+   "cs": "a",
+   "g": "spojka"
+  },
+  {
+   "w": "due",
+   "z": "due",
+   "cs": "dvě",
+   "g": "číslovka"
+  },
+  {
+   "w": "lettini",
+   "z": "lettino",
+   "cs": "lehátka",
+   "g": "podst. jméno, m. r., množné číslo"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ],
+ "Aiuto! Chiamate un’ambulanza!": [
+  {
+   "w": "Aiuto",
+   "z": "aiuto",
+   "cs": "pomoc",
+   "g": "podst. jméno, m. r.; volání o pomoc"
+  },
+  {
+   "w": "Chiamate",
+   "z": "chiamare",
+   "cs": "zavolejte",
+   "g": "sloveso chiamare, rozkaz 2. os. mn. č. (vy)"
+  },
+  {
+   "w": "un’",
+   "z": "una",
+   "cs": "jedna, nějaká",
+   "g": "člen neurčitý, ženský rod, zkrácený před samohláskou"
+  },
+  {
+   "w": "ambulanza",
+   "z": "ambulanza",
+   "cs": "sanitka",
+   "g": "podst. jméno, ž. r."
+  }
+ ],
+ "Dov’è la farmacia più vicina?": [
+  {
+   "w": "Dov’",
+   "z": "dove",
+   "cs": "kde",
+   "g": "tázací příslovce, zkrácené před è"
+  },
+  {
+   "w": "è",
+   "z": "essere",
+   "cs": "je",
+   "g": "sloveso essere, 3. os. j. č. přítomného času"
+  },
+  {
+   "w": "la",
+   "z": "la",
+   "cs": "člen (nepřekládá se)",
+   "g": "člen určitý, ženský rod, jednotné číslo"
+  },
+  {
+   "w": "farmacia",
+   "z": "farmacia",
+   "cs": "lékárna",
+   "g": "podst. jméno, ž. r."
+  },
+  {
+   "w": "più",
+   "z": "più",
+   "cs": "nej- (víc)",
+   "g": "příslovce; la … più + příd. jm. = nejvyšší stupeň"
+  },
+  {
+   "w": "vicina",
+   "z": "vicino",
+   "cs": "blízká → nejbližší",
+   "g": "přídavné jméno, ž. r."
+  }
+ ],
+ "Un cappuccino e un cornetto, per favore.": [
+  {
+   "w": "Un",
+   "z": "un",
+   "cs": "jedno, jeden",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "cappuccino",
+   "z": "cappuccino",
+   "cs": "kapučíno",
+   "g": "podst. jméno, m. r."
+  },
+  {
+   "w": "e",
+   "z": "e",
+   "cs": "a",
+   "g": "spojka"
+  },
+  {
+   "w": "un",
+   "z": "un",
+   "cs": "jeden",
+   "g": "člen neurčitý, mužský rod"
+  },
+  {
+   "w": "cornetto",
+   "z": "cornetto",
+   "cs": "croissant (rohlíček)",
+   "g": "podst. jméno, m. r.; sladké pečivo"
+  },
+  {
+   "w": "per",
+   "z": "per",
+   "cs": "pro / za",
+   "g": "předložka"
+  },
+  {
+   "w": "favore",
+   "z": "favore",
+   "cs": "laskavost",
+   "g": "podst. jméno, m. r.; per favore = „prosím“"
+  }
+ ]
+}

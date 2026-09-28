@@ -6,6 +6,7 @@ import { ICON, esc } from './ui.js';
 import { pridejDoKarticek } from './preklad.js';
 import { nactiTop, KATEGORIE, nazevKategorie } from './top1000.js';
 import { renderMapa } from './mapa.js';
+import { klikaci } from './slova.js';
 
 export function renderItalie(app, sub) {
   const cast = ['top', 'cesta'].includes(sub) ? sub : 'mapa';
@@ -50,10 +51,10 @@ async function renderTop(box) {
     <article class="card fact">
       <div class="fact-head">
         <span class="emoji-ic">${esc(t.e || '📍')}</span>
-        <div class="grow"><span class="fact-n">#${t.n} · ${esc(nazevKategorie(t.kat))}${t.region ? ` · ${esc(t.region)}` : ''}</span><b>${esc(t.cs)}</b><i>${esc(t.it)}</i></div>
+        <div class="grow"><span class="fact-n">#${t.n} · ${esc(nazevKategorie(t.kat))}${t.region ? ` · ${esc(t.region)}` : ''}</span><b>${esc(t.cs)}</b><i>${klikaci(t.it)}</i></div>
       </div>
       <p class="fact-cs">${esc(t.dcs)}</p>
-      <details class="fact-it"><summary>🇮🇹 Italsky</summary><p>${esc(t.dit)}</p></details>
+      <details class="fact-it"><summary>🇮🇹 Italsky</summary><p>${klikaci(t.dit)}</p></details>
       <div class="fact-tools">
         <button class="pill-btn" data-say="${t.n}">${ICON.speaker} Přečíst</button>
         <button class="pill-btn" data-add="${t.n}">${ICON.plus} Do kartiček</button>
@@ -103,7 +104,7 @@ function renderCesta(box) {
       <details class="card trip" data-id="${s.id}" ${otevrene.includes(s.id) ? 'open' : ''}>
         <summary><span class="emoji-ic">${s.e}</span><b>${esc(s.nazev)}</b></summary>
         <ul class="trip-list">${s.body.map(b => `
-          <li>${b.t}${b.cena ? ` <span class="price">${esc(b.cena)}</span>` : ''}${b.it ? `<button class="say-inline" data-say="${esc(b.it)}">${ICON.speaker}<i>${esc(b.it)}</i></button>` : ''}</li>`).join('')}
+          <li>${b.t}${b.cena ? ` <span class="price">${esc(b.cena)}</span>` : ''}${b.it ? `<button class="say-inline" data-say="${esc(b.it)}">${ICON.speaker}<i>${klikaci(b.it)}</i></button>` : ''}</li>`).join('')}
         </ul>
         ${s.zdroje?.length ? `<p class="sources">Zdroje: ${s.zdroje.map(z => `<a href="${esc(z.url)}" target="_blank" rel="noopener">${esc(z.nazev)}</a>`).join(' · ')}</p>` : ''}
       </details>`).join('')}`;

@@ -6,6 +6,7 @@ import { load, save, settings, logActivity } from './store.js';
 import { toast, ICON, ic } from './ui.js';
 import { speak, stopSpeaking, onSpeechActivity, isSpeaking, canListen, listen } from './speech.js';
 import { zaznamOpravy, zaznamUdalosti, kontextProGiulii, mozna } from './pamet.js';
+import { klikaci } from './slova.js';
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -228,7 +229,7 @@ function renderConversation(app, sc) {
   function fillHer(el, raw, streaming = false) {
     const p = parse(raw);
     const showCz = settings().showCz;
-    el.innerHTML = `<div class="it">${esc(p.it) || '<span class="typing"><i></i><i></i><i></i></span>'}</div>
+    el.innerHTML = `<div class="it">${(streaming ? esc(p.it) : klikaci(p.it)) || '<span class="typing"><i></i><i></i><i></i></span>'}</div>
       ${!streaming && p.cz ? `<div class="cz" ${showCz ? '' : 'hidden'}>${esc(p.cz)}</div>` : ''}
       ${!streaming && p.fix ? `<div class="fix"><b>✏️ Oprava</b><br>${esc(p.fix)}</div>` : ''}
       ${!streaming ? `<div class="tools">

@@ -3,6 +3,7 @@ import { load, save } from './store.js';
 import { callJSON, errorText, hasKey } from './claude.js';
 import { speak, stopSpeaking, canListen, listen } from './speech.js';
 import { ICON, ic, toast, esc } from './ui.js';
+import { klikaci } from './slova.js';
 
 // ---------- Moje slovíčka (vlastní balíček z překladů) ----------
 export function pridejDoKarticek(it, cs) {
@@ -152,8 +153,8 @@ export function renderPreklad(app) {
     const doLabel = r.zdroj === 'cs' ? 'Italština' : 'Čeština';
     out.innerHTML = `
       <div class="card result">
-        <div class="res-src"><span class="label">${zLabel}</span><p>${esc(r.text)}</p></div>
-        <div class="res-dst"><span class="label">${doLabel}</span><p class="big-text">${esc(r.preklad)}</p>
+        <div class="res-src"><span class="label">${zLabel}</span><p>${r.zdroj === 'it' ? klikaci(r.text) : esc(r.text)}</p></div>
+        <div class="res-dst"><span class="label">${doLabel}</span><p class="big-text">${r.zdroj === 'cs' ? klikaci(r.preklad) : esc(r.preklad)}</p>
           ${r.varianty.length ? `<div class="variants">${r.varianty.map(v => `<span>${esc(v)}</span>`).join('')}</div>` : ''}
         </div>
         ${r.poznamka ? `<p class="tip">${ICON.sparkles}<span>${esc(r.poznamka)}</span></p>` : ''}
@@ -176,7 +177,7 @@ export function renderPreklad(app) {
         ${url ? `<img class="photo" src="${url}" alt="Vyfocený text">` : ''}
         ${!r.nalezen_text ? `<p>${esc(r.poznamka || 'Na fotce jsem nenašla žádný text.')}</p>` : `
         <div class="res-dst"><span class="label">Překlad${r.jazyk && r.jazyk !== 'italština' ? ` (${esc(r.jazyk)})` : ''}</span><p class="photo-text pre">${esc(r.preklad_cs)}</p></div>
-        <details class="orig"><summary>Původní text</summary><p class="pre">${esc(r.text_it)}</p>
+        <details class="orig" open><summary>Původní text (klepni na slovo)</summary><p class="pre">${klikaci(r.text_it)}</p>
           <button class="pill-btn" id="r-say">${ICON.speaker} Přečíst nahlas</button></details>
         ${r.poznamka ? `<p class="tip">${ICON.sparkles}<span>${esc(r.poznamka)}</span></p>` : ''}
         ${r.slovicka.length ? `<span class="label" style="margin-top:14px">Slovíčka z textu</span>

@@ -5,6 +5,7 @@ import { renderChat, MODELY, usageThisMonth } from './chat.js';
 import { toast, ICON, ic } from './ui.js';
 import { renderPreklad } from './preklad.js';
 import { renderItalie } from './italie.js';
+import { klikaci } from './slova.js';
 import { renderPrehled, radekDoporuceni } from './prehled.js';
 import { vsechnyFotky, ulozFoto, blobNaDataUrl, dataUrlNaBlob } from './fotky.js';
 import { zaznamKarty, zaznamDril, tezkeKarty, doporuceni, spustDoporuceni, mozna, TEMATA } from './pamet.js';
@@ -212,7 +213,7 @@ function viewHome() {
     <section class="card phrase">
       <span class="label">Fráze dne</span>
       <div class="phrase-row">
-        <div><p class="phrase-it">${esc(f.it)}</p><p class="muted">${esc(f.cs)}</p></div>
+        <div><p class="phrase-it">${klikaci(f.it)}</p><p class="muted">${esc(f.cs)}</p></div>
         ${sayBtn(f.it)}
       </div>
     </section>
@@ -288,7 +289,7 @@ function viewList(deck) {
       <h2>${esc(topic)}</h2>
       <div class="card list">${items.map(it => `
         <div class="list-row">
-          <div><b>${esc(it.it)}</b><br><span class="muted small">${esc(it.cs)}</span></div>
+          <div><b>${klikaci(it.it)}</b><br><span class="muted small">${esc(it.cs)}</span></div>
           <div class="row" style="gap:6px">${sayBtn(it.it)}${deck === 'moje' ? `<button class="icon-btn" data-del="${esc(it.it)}" aria-label="Smazat">${ICON.close}</button>` : ''}</div>
         </div>`).join('')}
       </div>`).join('')}
@@ -342,9 +343,9 @@ function viewSession(queue, title, backHash) {
       </div>
       <div class="card flash" id="flash">
         <div class="topic">${esc(title === 'Dnešní lekce' ? DECKS[card.deck].name : it.topic)}${card.fresh ? ' · <span class="new">nové</span>' : ''}</div>
-        <div class="front">${esc(front)}</div>
-        <div class="back" id="back" hidden>${esc(back)}</div>
-        <div class="flip-hint" id="hint">Vybav si ${dir === 'it-cs' ? 'význam' : 'italsky'}, pak klepni</div>
+        <div class="front">${dir === 'it-cs' ? klikaci(front) : esc(front)}</div>
+        <div class="back" id="back" hidden>${dir === 'cs-it' ? klikaci(back) : esc(back)}</div>
+        <div class="flip-hint" id="hint">Vybav si ${dir === 'it-cs' ? 'význam' : 'italsky'}, pak klepni na kartu.${dir === 'it-cs' ? '<br>Neznámé slovo? Klepni přímo na něj.' : ''}</div>
         <div class="flash-say">${sayBtn(it.it)}</div>
       </div>
       <button class="btn primary block big" id="show">Ukázat odpověď</button>

@@ -4,6 +4,7 @@ import { ICON, esc, toast } from './ui.js';
 import { speak, stopSpeaking } from './speech.js';
 import { nactiTop, nazevKategorie } from './top1000.js';
 import { ulozFoto, nactiFoto, smazFoto, zmensi } from './fotky.js';
+import { klikaci } from './slova.js';
 
 const ITALIE = [[36.4, 6.6], [47.1, 18.6]];
 const NOMINATIM = 'https://nominatim.openstreetmap.org';
@@ -173,9 +174,9 @@ function ukazZajimavost(t, box, map) {
   const p = panel(`
     <span class="label">${esc(nazevKategorie(t.kat))}${t.region ? ` · ${esc(t.region)}` : ''}</span>
     <h2 style="margin:4px 0 0">${esc(t.e || '')} ${esc(t.cs)}</h2>
-    <p class="it-name">${esc(t.it)}</p>
+    <p class="it-name">${klikaci(t.it)}</p>
     <p>${esc(t.dcs)}</p>
-    <details class="it-text"><summary>🇮🇹 Italsky</summary><p>${esc(t.dit)}</p></details>
+    <details class="it-text"><summary>🇮🇹 Italsky</summary><p>${klikaci(t.dit)}</p></details>
     <div class="res-actions">
       <button class="pill-btn" id="say">${ICON.speaker} Přečíst</button>
       <button class="pill-btn primary" id="byl">${ICON.check} Byl jsem tu</button>

@@ -649,3 +649,23 @@ nav.tabs a.center i { width: 50px; height: 50px; margin-top: -14px; border-width
 /* Vystouplé tlačítko Přeložit leží nad trikolórovým proužkem lišty (proužek ho nesmí přeškrtnout). */
 nav.tabs a.center { position: relative; z-index: 1; }
 nav.tabs a.center i { box-shadow: 0 0 0 4px var(--surface), var(--sh-color); border: 0; }
+
+/* ---------- Klepací slovníček ---------- */
+.w { cursor: pointer; border-radius: 5px; text-decoration: underline dotted color-mix(in srgb, currentColor 35%, transparent); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: background .15s; }
+.w.w-on { background: color-mix(in srgb, var(--it-green) 22%, transparent); text-decoration-color: var(--it-green); }
+.msg.me .w { text-decoration: none; }
+.slovo-pop {
+  position: fixed; z-index: 900; left: 12px; right: 12px; max-width: 520px; margin: 0 auto;
+  bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 12px);
+  background: var(--surface); border-radius: 22px; padding: 16px 18px 14px; box-shadow: 0 12px 40px rgba(0,0,0,.22);
+  animation: rise .2s ease; overflow: hidden;
+}
+body.focus .slovo-pop, body.chat .slovo-pop { bottom: calc(env(safe-area-inset-bottom) + 14px); }
+body.chat .slovo-pop { bottom: calc(env(safe-area-inset-bottom) + 90px); }
+.slovo-pop::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--tricolore); }
+.slovo-pop.out { opacity: 0; transform: translateY(10px); transition: all .18s; }
+.sp-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.sp-head b { font-size: 24px; font-weight: 800; letter-spacing: -.02em; color: var(--it-green); }
+.sp-cs { font-size: 19px; font-weight: 700; margin: 0 0 6px; }
+.sp-actions { margin-top: 10px; }
+.kv, .w { display: inline !important; }

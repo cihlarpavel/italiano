@@ -18,3 +18,4 @@ Popis a nasazení viz README.md.
 - Top 1000: zdroj jsou `data/top/*.json` (po kategoriích, každá prošla nezávislou kontrolou faktů). `node tools/sloucit_top.mjs` je spojí do `data/top1000.json` (deduplikace, sjednocení regionů, kontrola souřadnic). Aplikace čte jen `data/top1000.json`.
 - Mapa: `js/mapa.js` (Leaflet z cdnjs, dlaždice OSM; CARTO chce klíč). Místa v `localStorage.mista`, fotky v IndexedDB (`js/fotky.js`), záloha fotek volitelně.
 - Ikona: `tools/ikona.py` (bílá bublina s velkým P a malým „italiano“ na pozadí vlajky). Barvy: proměnné `--it-green`, `--it-red`, `--tricolore` ve `styles.css`.
+- Klepací slovníček: `js/slova.js` + `js/tokeny.js`. Pro obsah kurzu je offline `data/slovnik.json` (klíč = věta, pole slov ve stejném pořadí jako `tokeny()`). Při přidání nových frází ho doplň, jinak se význam dotáže Clauda (Sonnet) a uloží do `slovaCache`. Italský text se klepacím dělá funkcí `klikaci(text)`.
