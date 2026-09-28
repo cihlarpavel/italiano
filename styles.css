@@ -646,3 +646,6 @@ nav.tabs::before { left: 0; right: 0; top: 0; height: 3px; border-radius: 0; opa
 nav.tabs a { height: var(--tab-h); }
 nav.tabs a.center i { width: 50px; height: 50px; margin-top: -14px; border-width: 3px; border-color: var(--surface); }
 .toast { bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 16px); }
+/* Vystouplé tlačítko Přeložit leží nad trikolórovým proužkem lišty (proužek ho nesmí přeškrtnout). */
+nav.tabs a.center { position: relative; z-index: 1; }
+nav.tabs a.center i { box-shadow: 0 0 0 4px var(--surface), var(--sh-color); border: 0; }
