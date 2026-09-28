@@ -15,7 +15,7 @@ export function save(key, value) {
 export const today = () => new Date().toLocaleDateString('sv'); // YYYY-MM-DD v místním čase
 
 export const DEFAULT_SETTINGS = {
-  jmeno: 'Paolo',
+  jmeno: '',
   hlas: 'iphone',          // 'iphone' | 'eleven'
   elKey: '',
   elVoice: '',
@@ -41,8 +41,11 @@ export const DEFAULT_SETTINGS = {
 };
 
 export function settings() {
-  const s = { ...DEFAULT_SETTINGS, ...load('settings', {}) };
+  const ulozene = load('settings', {});
+  const s = { ...DEFAULT_SETTINGS, ...ulozene };
   if (s.jmeno === 'Pablo') s.jmeno = 'Paolo'; // aplikace se přejmenovala z Pablo na Paolo italiano
+  // Dřív bylo výchozí jméno „Paolo“. Kdo úvod prošel bez uloženého jména, zůstane Paolem.
+  if (!('jmeno' in ulozene) && load('onboarded', false)) s.jmeno = 'Paolo';
   return s;
 }
 

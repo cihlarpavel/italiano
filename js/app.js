@@ -129,12 +129,20 @@ function ring(value, max, size = 76, stroke = 8) {
 
 // ---------- Úvod při prvním spuštění ----------
 function viewUvod(step = 0) {
-  const dots = `<div class="dots">${[0, 1, 2, 3].map(i => `<i class="${i === step ? 'on' : ''}"></i>`).join('')}</div>`;
+  const dots = `<div class="dots">${[0, 1, 2, 3, 4].map(i => `<i class="${i === step ? 'on' : ''}"></i>`).join('')}</div>`;
   const next = () => viewUvod(step + 1);
   const steps = [
     () => `
+      <div class="hero-mark">👋</div>
+      <h1 class="display">Ciao! Come ti chiami?</h1>
+      <p class="lead">Jak ti mám říkat? Jméno uvidíš v pozdravu a Giulia tě jím bude oslovovat.</p>
+      <form id="jmenoForm">
+        <input type="text" id="jmenoVstup" placeholder="Tvoje jméno" value="${esc(settings().jmeno)}" autocomplete="given-name" autocapitalize="words" enterkeyhint="next">
+        <button class="btn primary block big">Pokračovat</button>
+      </form>`,
+    () => `
       <div class="hero-mark">🇮🇹</div>
-      <h1 class="display">Benvenuto, ${esc(settings().jmeno || 'amico')}!</h1>
+      <h1 class="display">Benvenuto${settings().jmeno ? `, ${esc(settings().jmeno)}` : ''}!</h1>
       <p class="lead">Italštinu se tu naučíš po malých kouscích, stačí pár minut denně.</p>
       <div class="feature">${ic('cards', 'coral')}<div><b>Kartičky</b><p>Slovíčka, vazby a fráze. Co nevíš, uvidíš brzy znovu.</p></div></div>
       <div class="feature">${ic('translate', 'blue')}<div><b>Překladač</b><p>Řekni větu česky nebo italsky, nebo vyfoť italský text.</p></div></div>
@@ -163,6 +171,12 @@ function viewUvod(step = 0) {
   ];
   h(`<div class="onboarding">${dots}${steps[step]()}</div>`);
   $('go') && ($('go').onclick = next);
+  $('jmenoForm') && ($('jmenoForm').onsubmit = e => {
+    e.preventDefault();
+    setSettings({ jmeno: $('jmenoVstup').value.trim() });
+    next();
+  });
+  if ($('jmenoVstup') && !$('jmenoVstup').value) $('jmenoVstup').focus();
   $('play') && ($('play').onclick = () => { stopSpeaking(); speak('Ciao! Io sono Giulia. Benvenuto! Impariamo insieme l’italiano.'); });
   app.querySelectorAll('.choice').forEach(b => b.onclick = () => { setSettings({ newPerDay: +b.dataset.n, goal: +b.dataset.g }); next(); });
   ['done1', 'done2'].forEach(id => $(id) && $(id).addEventListener('click', () => save('onboarded', true)));
