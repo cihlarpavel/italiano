@@ -20,7 +20,8 @@ x = (S - sum(widths)) / 2
 base = 640
 pos = []
 for p, w in zip(parts, widths):
-    d.text((x, base), p, font=bold, fill=ink, anchor='ls')
+    # přeškrtnuté „r“ je vybledlé, ať nad ním vynikne ručně připsané „o“
+    d.text((x, base), p, font=bold, fill=(205, 198, 190) if p == 'r' else ink, anchor='ls')
     pos.append((x, w)); x += w
 rx, rw = pos[1]
 # červený škrt jen přes r
@@ -35,10 +36,10 @@ for (px, py) in [(x1, y1), (x2, y2)]:
 # zelené ručně psané o nad r – mírně nakloněná elipsa s přesahem tahu
 lay = Image.new('RGBA', (400, 400), (0, 0, 0, 0))
 ld = ImageDraw.Draw(lay)
-ld.ellipse([110, 100, 290, 300], outline=(0, 150, 75, 255), width=30)
-ld.arc([100, 92, 300, 300], start=250, end=330, fill=(0, 150, 75, 255), width=30)
+ld.ellipse([118, 112, 282, 288], outline=(0, 146, 70, 255), width=34)
+ld.arc([108, 104, 292, 292], start=250, end=330, fill=(0, 146, 70, 255), width=34)
 lay = lay.rotate(-14, resample=Image.BICUBIC)
-img.paste(lay, (int(cx - 200), int(base - 330 - 200 + 30)), lay)
+img.paste(lay, (int(cx - 200 + 4), int(base - 118 - 200)), lay)
 small = ImageFont.truetype('/System/Library/Fonts/Supplemental/Futura.ttc', 140, index=0)
 d = ImageDraw.Draw(img)
 d.text((S/2, base + 185), 'italiano', font=small, fill=(206, 43, 55), anchor='ms')

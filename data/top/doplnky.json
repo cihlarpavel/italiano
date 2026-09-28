@@ -1,0 +1,167 @@
+[
+ {
+  "kat": "jidlo",
+  "e": "🥩",
+  "cs": "Saltimbocca po římsku",
+  "it": "I saltimbocca alla romana",
+  "dcs": "Římská klasika z tenkých plátků telecího masa, na které se položí list šalvěje a plátek syrové šunky a vše se sepne párátkem. Maso se krátce opeče na másle a podlije bílým vínem. Název znamená „skoč do pusy“, protože jsou prý tak dobré.",
+  "dit": "Un classico romano: sottili fettine di vitello su cui si mettono una foglia di salvia e una fetta di prosciutto crudo, fermate con uno stuzzicadenti. La carne si rosola brevemente nel burro e si sfuma con il vino bianco. Il nome significa “salta in bocca”, perché si dice che siano così buoni.",
+  "lat": 41.8933,
+  "lon": 12.4829,
+  "region": "Lazio"
+ },
+ {
+  "kat": "jidlo",
+  "e": "🍕",
+  "cs": "Pizza na kousky",
+  "it": "La pizza al taglio",
+  "dcs": "Pizza pečená na velkých obdélníkových plechech a prodávaná po kouscích, obvykle na váhu. Prodavač ji ukrojí nůžkami, zváží a ohřeje. Do Říma ji nejspíš přinesl roku 1958 Gianni Giochi z umbrijského Terni. Je to rychlý a levný oběd, když se člověk toulá městem.",
+  "dit": "Pizza cotta in grandi teglie rettangolari e venduta a pezzi, di solito a peso. Il pizzaiolo la taglia con le forbici, la pesa e la riscalda. A Roma la portò probabilmente nel 1958 Gianni Giochi, originario di Terni, in Umbria. È un pranzo veloce ed economico quando si gira per la città.",
+  "lat": 41.9028,
+  "lon": 12.4964,
+  "region": "Lazio"
+ },
+ {
+  "kat": "jidlo",
+  "e": "🐟",
+  "cs": "Bottarga",
+  "it": "La bottarga",
+  "dcs": "Solené a sušené jikry cipala, kterým se přezdívá sardinský kaviár. Nejproslulejší pochází z lagun u Cabrasu na západním pobřeží Sardinie. Strouhá se na těstoviny a klasikou jsou spaghetti alla bottarga s olivovým olejem a česnekem.",
+  "dit": "Uova di muggine salate ed essiccate, soprannominate il caviale dei sardi. La più famosa viene dagli stagni di Cabras, sulla costa occidentale della Sardegna. Si grattugia sulla pasta e un classico sono gli spaghetti alla bottarga con olio d’oliva e aglio.",
+  "lat": 39.9297,
+  "lon": 8.5347,
+  "region": "Sardinie"
+ },
+ {
+  "kat": "pamatky",
+  "e": "🥚",
+  "cs": "Castel dell’Ovo",
+  "it": "Castel dell’Ovo",
+  "dcs": "Nejstarší hrad v Neapoli stojí na ostrůvku Megaride, který s nábřežím spojuje most. Podle legendy do jeho základů ukryl básník Vergilius kouzelné vejce: kdyby se rozbilo, hrad by se zřítil do moře a na město by dopadlo neštěstí. Odtud jeho jméno – Hrad vejce.",
+  "dit": "Il castello più antico di Napoli sorge sull’isolotto di Megaride, collegato al lungomare da un ponte. Secondo la leggenda il poeta Virgilio nascose nelle sue fondamenta un uovo magico: se si rompesse, il castello crollerebbe in mare e sulla città si abbatterebbero sventure. Da qui il suo nome, Castello dell’Uovo.",
+  "lat": 40.8282,
+  "lon": 14.2477,
+  "region": "Kampánie"
+ },
+ {
+  "kat": "pamatky",
+  "e": "❄️",
+  "cs": "Bazilika Santa Maria Maggiore",
+  "it": "La Basilica di Santa Maria Maggiore",
+  "dcs": "Jedna ze čtyř papežských bazilik v Římě, zasvěcená Panně Marii. Podle legendy místo pro ni určil sníh, který tu napadl 5. srpna. Uvnitř jsou mozaiky z 5. století a od roku 2025 je tu pohřben papež František. Každého 5. srpna se náměstí před bazilikou pokryje umělým sněhem.",
+  "dit": "Una delle quattro basiliche papali di Roma, dedicata alla Madonna. Secondo la leggenda il luogo fu indicato da una nevicata caduta il 5 agosto. All’interno ci sono mosaici del V secolo e dal 2025 vi è sepolto papa Francesco. Ogni 5 agosto la piazza davanti alla basilica si copre di neve artificiale.",
+  "lat": 41.8976,
+  "lon": 12.4984,
+  "region": "Lazio"
+ },
+ {
+  "kat": "priroda",
+  "e": "🏝️",
+  "cs": "Egadské ostrovy",
+  "it": "Le Isole Egadi",
+  "dcs": "Souostroví u západního cípu Sicílie, kam se jezdí trajektem nebo rychlým křídlovým člunem z Trapani. Tvoří ho Favignana, Levanzo a Marettimo. Okolní moře je největší mořskou rezervací Středomoří a na Levanzu je jeskyně Grotta del Genovese s pravěkými rytinami zvířat.",
+  "dit": "Arcipelago al largo della punta occidentale della Sicilia, che si raggiunge in traghetto o in aliscafo da Trapani. È formato da Favignana, Levanzo e Marettimo. Il mare intorno è la più grande riserva marina del Mediterraneo e a Levanzo si trova la Grotta del Genovese, con incisioni preistoriche di animali.",
+  "lat": 37.931,
+  "lon": 12.327,
+  "region": "Sicílie"
+ },
+ {
+  "kat": "napoje",
+  "e": "🧙",
+  "cs": "Strega",
+  "it": "lo Strega",
+  "dcs": "Žlutý bylinný likér z Beneventa v Kampánii, který rodina Albertiových vyrábí od roku 1860. Tajný recept obsahuje asi 70 bylin a koření a zlatou barvu mu dává šafrán. Jméno (strega = čarodějnice) odkazuje na beneventské legendy o čarodějnicích a po likéru se jmenuje i literární cena Premio Strega.",
+  "dit": "Liquore giallo alle erbe di Benevento, in Campania, che la famiglia Alberti produce dal 1860. La ricetta segreta contiene circa 70 erbe e spezie e il colore dorato viene dallo zafferano. Il nome richiama le leggende sulle streghe di Benevento e dal liquore prende il nome anche il premio letterario Premio Strega.",
+  "lat": 41.1298,
+  "lon": 14.7826,
+  "region": "Kampánie"
+ },
+ {
+  "kat": "umeni",
+  "e": "🏛️",
+  "cs": "Athénská škola",
+  "it": "La Scuola di Atene",
+  "dcs": "Raffaelova freska z let 1509–1511 v Raffaelových stancích ve Vatikánských muzeích. Shromažďuje antické filozofy kolem Platóna a Aristotela. Platón má rysy Leonarda da Vinciho, zamyšlený Hérakleitos Michelangela a na pravém okraji namaloval Raffael i sám sebe, v černém baretu.",
+  "dit": "Affresco di Raffaello del 1509–1511 nelle Stanze di Raffaello dei Musei Vaticani. Riunisce i filosofi antichi intorno a Platone e Aristotele. Platone ha il volto di Leonardo da Vinci, il pensieroso Eraclito quello di Michelangelo e sul margine destro Raffaello ha dipinto anche sé stesso, con un berretto nero.",
+  "lat": 41.9064,
+  "lon": 12.4545,
+  "region": "Vatikán"
+ },
+ {
+  "kat": "hudba_film",
+  "e": "🥂",
+  "cs": "La traviata",
+  "it": "La traviata",
+  "dcs": "Verdiho opera o pařížské kurtizáně Violettě, inspirovaná Dámou s kaméliemi od Alexandra Dumase mladšího. Premiéru měla roku 1853 v benátském divadle La Fenice a dnes patří k nejhranějším operám světa. Nejslavnější scénou je přípitek „Libiamo ne’ lieti calici“.",
+  "dit": "Opera di Verdi sulla cortigiana parigina Violetta, ispirata alla Signora delle camelie di Alexandre Dumas figlio. Debuttò nel 1853 al Teatro La Fenice di Venezia e oggi è tra le opere più rappresentate al mondo. La scena più celebre è il brindisi “Libiamo ne’ lieti calici”.",
+  "lat": 45.4336,
+  "lon": 12.3336,
+  "region": "Benátsko"
+ },
+ {
+  "kat": "veda",
+  "e": "🌋",
+  "cs": "Vesuvská observatoř",
+  "it": "L’Osservatorio Vesuviano",
+  "dcs": "Nejstarší vulkanologická observatoř na světě, kterou roku 1841 založil král Ferdinand II. Bourbonský. Původní neoklasická budova stojí na svahu Vesuvu ve výšce 608 metrů a sídlí v ní muzeum. Dnes vědci hlídají Vesuv i Campi Flegrei z nového sídla v Neapoli.",
+  "dit": "Il più antico osservatorio vulcanologico del mondo, fondato nel 1841 dal re Ferdinando II di Borbone. L’edificio neoclassico originale sorge sulle pendici del Vesuvio a 608 metri di altezza e ospita un museo. Oggi gli scienziati sorvegliano il Vesuvio e i Campi Flegrei dalla nuova sede di Napoli.",
+  "lat": 40.8219,
+  "lon": 14.397,
+  "region": "Kampánie"
+ },
+ {
+  "kat": "sport",
+  "e": "🤼",
+  "cs": "Historický florentský fotbal",
+  "it": "Il calcio storico fiorentino",
+  "dcs": "Drsná florentská hra, směs fotbalu, ragby a zápasu, ve které hrají týmy po 27 hráčích. Každý červen se na písku náměstí Santa Croce utkají čtyři historické čtvrti a finále je 24. června, na svátek patrona Florencie svatého Jana. Připomíná zápas z roku 1530, kdy město obléhala císařská vojska.",
+  "dit": "Un gioco fiorentino durissimo, un misto di calcio, rugby e lotta, con squadre di 27 giocatori. Ogni giugno, sulla sabbia di piazza Santa Croce, si sfidano i quattro quartieri storici e la finale si gioca il 24 giugno, festa di San Giovanni, patrono di Firenze. Ricorda la partita del 1530, quando la città era assediata dalle truppe imperiali.",
+  "lat": 43.7686,
+  "lon": 11.2626,
+  "region": "Toskánsko"
+ },
+ {
+  "kat": "kultura",
+  "e": "🥁",
+  "cs": "Noc tarantule",
+  "it": "La Notte della Taranta",
+  "dcs": "Největší festival lidové hudby v Itálii, který od roku 1998 oživuje pizziku, rychlý tanec ze Salenta. V srpnu putuje po vesnicích kolem Lecce a vrcholí velkým koncertem v Melpignanu, kam přijdou desetitisíce lidí. Podle tradice pizzika léčila ženy „pokousané“ tarantulí.",
+  "dit": "Il più grande festival di musica popolare in Italia, che dal 1998 fa rivivere la pizzica, danza veloce del Salento. Ad agosto gira per i paesi intorno a Lecce e culmina nel grande concertone di Melpignano, con decine di migliaia di persone. Secondo la tradizione la pizzica guariva le donne “morse” dalla taranta.",
+  "lat": 40.1553,
+  "lon": 18.2917,
+  "region": "Apulie"
+ },
+ {
+  "kat": "znacky",
+  "e": "🛣️",
+  "cs": "Autogrill",
+  "it": "Autogrill",
+  "dcs": "Síť dálničních odpočívadel s restauracemi, kterou Italové znají z každé cesty autem. Začala roku 1947 u Novary, kde výrobce sušenek Mario Pavesi otevřel stánek u dálnice Turín–Milán. Od roku 1959 vznikaly slavné autogrily ve tvaru mostu nad dálnicí; první v Evropě stojí ve Fiorenzuole d’Arda.",
+  "dit": "La catena di aree di ristoro autostradali che gli italiani conoscono da ogni viaggio in auto. Cominciò nel 1947 vicino a Novara, dove il produttore di biscotti Mario Pavesi aprì un punto vendita sull’autostrada Torino–Milano. Dal 1959 nacquero i famosi autogrill a ponte sopra l’autostrada: il primo d’Europa è a Fiorenzuola d’Arda.",
+  "lat": 44.9268,
+  "lon": 9.9102,
+  "region": "Emilie-Romaňa"
+ },
+ {
+  "kat": "mesta",
+  "e": "🌉",
+  "cs": "Pavia",
+  "it": "Pavia",
+  "dcs": "Univerzitní město na řece Ticino jižně od Milána, přezdívané město sta věží. Bylo hlavním městem langobardského království, univerzita tu vznikla roku 1361 a učil na ní Alessandro Volta. Symbolem města je krytý most Ponte Coperto, postavený znovu po druhé světové válce.",
+  "dit": "Città universitaria sul Ticino, a sud di Milano, soprannominata la città delle cento torri. Fu la capitale del regno longobardo, la sua università nacque nel 1361 e vi insegnò Alessandro Volta. Il simbolo della città è il Ponte Coperto, ricostruito dopo la Seconda guerra mondiale.",
+  "lat": 45.1847,
+  "lon": 9.1582,
+  "region": "Lombardie"
+ },
+ {
+  "kat": "historie",
+  "e": "🧳",
+  "cs": "Grand Tour",
+  "it": "Il Grand Tour",
+  "dcs": "Dlouhá vzdělávací cesta mladých šlechticů, hlavně Britů, která vrcholila v 17. a 18. století. Hlavním cílem byla Itálie: Benátky, Florencie, Řím a Neapol s antickými památkami. Nejznámějším cestovatelem je Goethe, který svůj pobyt z let 1786–1788 popsal v knize Italská cesta.",
+  "dit": "Il lungo viaggio di formazione dei giovani aristocratici, soprattutto britannici, che raggiunse il culmine tra Seicento e Settecento. La meta principale era l’Italia: Venezia, Firenze, Roma e Napoli, con i loro monumenti antichi. Il viaggiatore più noto è Goethe, che raccontò il suo soggiorno del 1786–1788 nel Viaggio in Italia.",
+  "lat": null,
+  "lon": null,
+  "region": ""
+ }
+]

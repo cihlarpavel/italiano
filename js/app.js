@@ -6,6 +6,7 @@ import { toast, ICON, ic } from './ui.js';
 import { renderPreklad } from './preklad.js';
 import { renderItalie } from './italie.js';
 import { renderPrehled, radekDoporuceni } from './prehled.js';
+import { vsechnyFotky, ulozFoto, blobNaDataUrl, dataUrlNaBlob } from './fotky.js';
 import { zaznamKarty, zaznamDril, tezkeKarty, doporuceni, spustDoporuceni, mozna, TEMATA } from './pamet.js';
 import { renderPrizpusobit } from './prizpusobit.js';
 
@@ -521,7 +522,7 @@ function viewDril() {
 // ---------- Záloha ----------
 const TAJNE = ['apiKey', 'elKey'];
 
-async function zalohuj() {
+async function zalohuj(sFotkami = false) {
   const data = {};
   try {
     for (let i = 0; i < localStorage.length; i++) {
@@ -530,8 +531,14 @@ async function zalohuj() {
     }
   } catch { toast('Zálohu se nepodařilo připravit'); return; }
   if (data.settings) data.settings = Object.fromEntries(Object.entries(data.settings).filter(([k]) => !TAJNE.includes(k)));
-  const nazev = `paolo-italiano-zaloha-${today()}.json`;
-  const file = new File([JSON.stringify({ app: 'paolo-italiano', verze: 1, datum: new Date().toISOString(), data })], nazev, { type: 'application/json' });
+  let fotky;
+  if (sFotkami) {
+    toast('Připravuji zálohu s fotkami…');
+    fotky = {};
+    for (const [id, blob] of Object.entries(await vsechnyFotky().catch(() => ({})))) fotky[id] = await blobNaDataUrl(blob);
+  }
+  const nazev = `paolo-italiano-zaloha-${today()}${sFotkami ? '-s-fotkami' : ''}.json`;
+  const file = new File([JSON.stringify({ app: 'paolo-italiano', verze: 1, datum: new Date().toISOString(), data, fotky })], nazev, { type: 'application/json' });
   // Na iPhonu otevře nabídku Sdílet → „Uložit do Souborů“.
   if (navigator.canShare?.({ files: [file] })) {
     try { await navigator.share({ files: [file], title: 'Záloha Paolo italiano' }); return; } catch (e) { if (e.name === 'AbortError') return; }
@@ -552,6 +559,7 @@ async function obnov(file) {
     for (const [k, v] of Object.entries(zal.data)) localStorage.setItem(k, JSON.stringify(v));
   } catch { toast('Obnova se nepodařila'); return; }
   setSettings(klice); // klíče k API zůstanou ty současné
+  for (const [id, url] of Object.entries(zal.fotky || {})) await ulozFoto(id, await dataUrlNaBlob(url)).catch(() => {});
   toast('Záloha obnovena');
   setTimeout(() => location.reload(), 600);
 }
@@ -676,6 +684,7 @@ function viewNastaveni() {
         <button class="btn" id="zaloha">Zálohovat</button>
         <button class="btn" id="obnova">Obnovit ze zálohy</button>
       </div>
+      <button class="btn block" id="zalohaFoto" style="margin-top:10px">Zálohovat i s fotkami z mapy</button>
       <input type="file" id="obnovaSoubor" accept="application/json,.json" hidden>
     </div>
 
@@ -725,7 +734,8 @@ function viewNastaveni() {
   $('goal').onchange = e => { setSettings({ goal: +e.target.value }); saved(); };
   $('test').onclick = () => { stopSpeaking(); speak('Ciao! Sono Giulia. Come stai oggi?'); };
   $('intro').onclick = () => (location.hash = '#/vitej');
-  $('zaloha').onclick = zalohuj;
+  $('zaloha').onclick = () => zalohuj(false);
+  $('zalohaFoto').onclick = () => zalohuj(true);
   $('obnova').onclick = () => $('obnovaSoubor').click();
   $('obnovaSoubor').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f) obnov(f); };
   $('jmeno').onchange = e => { setSettings({ jmeno: e.target.value.trim() }); saved(); };
