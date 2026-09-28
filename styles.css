@@ -670,3 +670,8 @@ body.chat .slovo-pop { bottom: calc(env(safe-area-inset-bottom) + 90px); }
 .sp-actions { margin-top: 10px; }
 .kv, .w { display: inline !important; }
 .sp-btns { display: flex; gap: 8px; }
+
+/* Ikonky v řádcích seznamů musí zůstat vystředěné čtverečky (obecné pravidlo .list-row span je dělalo blokem). */
+.list-row .ic, .list-row .emoji-ic, .setup-card .ic, .quick-item .ic { display: inline-flex !important; align-items: center; justify-content: center; }
+.list-row .ic svg { width: 22px; height: 22px; }
+.zaloha-card { width: 100%; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; box-shadow: 0 0 0 2px var(--it-red), var(--sh-1); }

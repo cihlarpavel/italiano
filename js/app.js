@@ -21,6 +21,9 @@ const bindSay = root => root.querySelectorAll('[data-say]').forEach(b => b.oncli
 
 document.addEventListener('pointerdown', unlockSpeech, { once: true });
 
+// Požádá prohlížeč, aby data aplikace nemazal při nedostatku místa.
+try { navigator.storage?.persist?.(); } catch { /* nepodporováno */ }
+
 // ---------- Opakování v intervalech (Leitnerovy krabičky) ----------
 const INTERVALY = [0, 1, 3, 7, 14, 30, 60]; // dny podle krabičky
 const DAY = 86400000;
@@ -200,6 +203,7 @@ function viewHome() {
       <div class="hero-ring">${ring(done, goal(), 92, 9)}<span>cíl ${done}/${goal()}</span></div>
     </section>
 
+    ${pripominkaZalohy()}
     <div class="quick">
       <a href="#/preklad" class="quick-item">${ic('translate', 'blue')}<b>Přeložit</b></a>
       <a href="#/mluveni" class="quick-item">${ic('chat', 'green')}<b>Giulia</b></a>
@@ -239,6 +243,15 @@ function viewOpakovani() {
   if (f.tema === 'tezke') fronta = tezkeKarty(20).map(x => ({ deck: x.deck, it: x.item, fresh: false }));
   else fronta = shuffle(DECKS.slovicka.items.filter(it => it.topic === f.tema)).slice(0, 20).map(it => ({ deck: 'slovicka', it, fresh: !st[cardId('slovicka', it)] }));
   viewSession(fronta, f.nazev || 'Opakování', '#/');
+}
+
+// Připomínka zálohy: když je co ztratit a poslední záloha je starší než 14 dní.
+function pripominkaZalohy() {
+  const karet = Object.keys(srs()).length + load('mista', []).length;
+  const posledni = load('posledniZaloha', 0);
+  if (karet < 15 || Date.now() - posledni < 14 * DAY) return '';
+  return `<button class="card setup-card zaloha-card" onclick="location.hash='#/nastaveni'">${ic('book', 'amber')}
+    <div><b>Zálohuj si postup</b><span>${posledni ? `Poslední záloha ${new Date(posledni).toLocaleDateString('cs-CZ')}.` : 'Zatím žádná záloha.'} Pojistka pro případ, že by se data smazala.</span></div>${ICON.chevron}</button>`;
 }
 
 const DECK_IC = { slovicka: ['book', 'coral'], vazby: ['cards', 'violet'], fraze: ['chat', 'green'], moje: ['plus', 'blue'] };
@@ -542,10 +555,11 @@ async function zalohuj(sFotkami = false) {
   const file = new File([JSON.stringify({ app: 'paolo-italiano', verze: 1, datum: new Date().toISOString(), data, fotky })], nazev, { type: 'application/json' });
   // Na iPhonu otevře nabídku Sdílet → „Uložit do Souborů“.
   if (navigator.canShare?.({ files: [file] })) {
-    try { await navigator.share({ files: [file], title: 'Záloha Paolo italiano' }); return; } catch (e) { if (e.name === 'AbortError') return; }
+    try { await navigator.share({ files: [file], title: 'Záloha Paolo italiano' }); save('posledniZaloha', Date.now()); toast('Záloha uložena ✓'); return; } catch (e) { if (e.name === 'AbortError') return; }
   }
   const a = document.createElement('a');
   a.href = URL.createObjectURL(file); a.download = nazev; a.click();
+  save('posledniZaloha', Date.now());
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
 }
 

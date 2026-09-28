@@ -81,6 +81,7 @@ export const profil = () => ({ ...PRAZDNY, ...load('profil', {}) });
 export function ulozProfil(p) { save('profil', p); }
 
 const TYPY = ['dril', 'karty', 'giulia', 'nove'];
+const VERZE = 2; // zvýšit, když se změní zadání profilu – starý profil se pak obnoví
 export const TEMATA = [...new Set(VOCAB.map(v => v.topic))];
 
 const SCHEMA = {
@@ -119,12 +120,14 @@ function systemProfil() {
 - silne: nejvýš 5 věcí, které mu jdou.
 - o_mne: nejvýš 12 osobních faktů, které student SÁM řekl o sobě v rozhovorech (práce, rodina, koníčky, cesty, plány). Česky, krátce. Jen z jeho vlastních zpráv.
 - probrano: nejvýš 12 témat a situací, které už procvičoval.
-- doporuceni: přesně 3 různé, konkrétní kroky na příště, tykej. Typy:
+- doporuceni: přesně 3 různé, konkrétní kroky na příště. V nazev a proc oslovuj studenta přímo ve 2. osobě a tykej („Zopakuj si…“, „Máš rozpracováno 60 kartiček…“), nikdy ve 3. osobě. Typy:
   • "dril" – procvičení časování; casy jen z [${Object.keys(CASY).join(', ')}], slovesa jen z [${SLOVESA.map(v => v.inf).join(', ')}] (prázdné = všechna).
   • "karty" – opakování; tema = "tezke" (kartičky, které mu nejdou) nebo jedno z témat slovíček [${TEMATA.join(', ')}].
   • "giulia" – rozhovor; scenar jen z [${SCENARE.map(s => s.id).join(', ')}], zamereni = krátký pokyn pro Giulii česky, na co se v rozhovoru zaměřit.
   • "nove" – pokračovat v nových kartičkách (když jde všechno dobře).
-  Nepoužitá pole vyplň prázdně. nazev nejvýš 6 slov, proc jedna věta s odkazem na konkrétní data.`;
+  Nepoužitá pole vyplň prázdně. nazev nejvýš 6 slov, proc jedna věta s odkazem na konkrétní data.
+
+Veškerá čeština musí být bezchybná: pravopis, diakritika, skloňování po číslovkách (5 kartiček, 2 kartičky). Před odpovědí si text zkontroluj.`;
 }
 
 function novaData(p) {
@@ -172,9 +175,10 @@ export function aktualizujProfil() {
       content: `Dosavadní profil:\n${JSON.stringify({ shrnuti: p.shrnuti, slabiny: p.slabiny, silne: p.silne, o_mne: p.o_mne, probrano: p.probrano })}\n\nNová data z aplikace:\n${JSON.stringify(novaData(p))}`,
       schema: SCHEMA,
       effort: 'medium',
+      kvalita: 'vysoka',
     });
     const now = Date.now();
-    const novy = { ...p, ...out, doporuceni: validujDoporuceni(out.doporuceni), aktualizovano: now, zpracovano: now };
+    const novy = { ...p, ...out, doporuceni: validujDoporuceni(out.doporuceni), aktualizovano: now, zpracovano: now, verze: VERZE };
     ulozProfil(novy);
     save('pametNove', 0);
     return novy;
@@ -189,6 +193,7 @@ export function mozna(force = false) {
   const p = profil();
   const nove = load('pametNove', 0);
   const stare = Date.now() - p.aktualizovano > 6 * 3600000;
+  if (p.aktualizovano && p.verze !== VERZE) return aktualizujProfil().catch(() => null);
   if (force ? nove >= 3 : (nove >= 15 && stare) || (nove >= 5 && !p.aktualizovano)) {
     return aktualizujProfil().catch(() => null);
   }
@@ -208,7 +213,7 @@ export function kontextProGiulii() {
 // ---------- Doporučení ----------
 export function doporuceni() {
   const p = profil();
-  if (p.doporuceni.length && Date.now() - p.aktualizovano < 4 * DEN) return p.doporuceni;
+  if (p.doporuceni.length && p.verze === VERZE && Date.now() - p.aktualizovano < 4 * DEN) return p.doporuceni;
   return lokalniDoporuceni();
 }
 
@@ -258,6 +263,7 @@ export async function hodnoceniObdobi(klic, od, stat) {
     }),
     schema: HODNOCENI,
     effort: 'medium',
+    kvalita: 'vysoka',
   });
   const s = load('souhrny', {});
   s[klic] = { ...out, d: Date.now() };
