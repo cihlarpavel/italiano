@@ -231,6 +231,7 @@ async function ukazMisto(id, box) {
     if (!confirm(`Smazat „${m.nazev}“ i s fotkami?`)) return;
     for (const f of m.fotky || []) await smazFoto(f).catch(() => {});
     ulozMista(mista().filter(x => x.id !== id));
+    save('mistaSmazana', [...load('mistaSmazana', []), id]);
     p.close(); toast('Smazáno'); renderMapa(box);
   };
 }
@@ -366,7 +367,7 @@ function pridatMisto(v, box) {
       stav.fotky.push(fid);
     }
     for (const f of stav.smazat || []) await smazFoto(f).catch(() => {});
-    const zaznam = { id, nazev, lat: stav.lat, lon: stav.lon, datum, popis: $('#popis').value.trim(), region: stav.region || '', fotky: stav.fotky, zdroj: stav.zdroj || '' };
+    const zaznam = { id, nazev, lat: stav.lat, lon: stav.lon, datum, popis: $('#popis').value.trim(), region: stav.region || '', fotky: stav.fotky, zdroj: stav.zdroj || '', upd: Date.now() };
     const vse = mista().filter(x => x.id !== id);
     vse.push(zaznam);
     ulozMista(vse);

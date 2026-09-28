@@ -10,6 +10,8 @@ export function load(key, fallback) {
 
 export function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* bez uložení */ }
+  // Oznámení pro synchronizaci mezi zařízeními (sync.js).
+  try { window.dispatchEvent(new CustomEvent('paolo-save', { detail: key })); } catch { /* mimo prohlížeč */ }
 }
 
 export const today = () => new Date().toLocaleDateString('sv'); // YYYY-MM-DD v místním čase
@@ -50,7 +52,7 @@ export function settings() {
 }
 
 export function setSettings(patch) {
-  save('settings', { ...settings(), ...patch });
+  save('settings', { ...settings(), ...patch, _upd: Date.now() });
 }
 
 // Denní aktivita pro přehled a sérii dnů.

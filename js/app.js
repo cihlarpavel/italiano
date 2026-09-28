@@ -6,6 +6,7 @@ import { toast, ICON, ic } from './ui.js';
 import { renderPreklad } from './preklad.js';
 import { renderItalie } from './italie.js';
 import { klikaci } from './slova.js';
+import { synchronizuj, syncNastaveni, syncStav, zapnout, vypnout } from './sync.js';
 import { renderPrehled, radekDoporuceni } from './prehled.js';
 import { vsechnyFotky, ulozFoto, blobNaDataUrl, dataUrlNaBlob } from './fotky.js';
 import { zaznamKarty, zaznamDril, tezkeKarty, doporuceni, spustDoporuceni, mozna, TEMATA } from './pamet.js';
@@ -97,7 +98,7 @@ function grade(card, g) {
   const { box, days } = nextStep(card, g);
   const id = cardId(card.deck, card.it);
   const prev = st[id] || {};
-  st[id] = { box, due: Date.now() + days * DAY - 3600000, lapses: (prev.lapses || 0) + (g === 'znovu' ? 1 : 0), zalozeno: prev.zalozeno || Date.now() };
+  st[id] = { box, due: Date.now() + days * DAY - 3600000, lapses: (prev.lapses || 0) + (g === 'znovu' ? 1 : 0), zalozeno: prev.zalozeno || Date.now(), upd: Date.now() };
   save('srs', st);
   zaznamKarty();
   if (card.fresh) {
@@ -324,6 +325,7 @@ function viewList(deck) {
   bindSay(app);
   app.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
     save('moje', load('moje', []).filter(m => m.it !== b.dataset.del));
+    save('mojeSmazane', [...load('mojeSmazane', []), b.dataset.del]);
     toast('Smazáno');
     DECKS.moje.items.length ? viewList('moje') : (location.hash = '#/karticky');
   });
@@ -706,6 +708,27 @@ function viewNastaveni() {
       <button class="btn block" id="test">${ICON.speaker} Vyzkoušet</button>
     </div>
 
+    <h2>Synchronizace iPhone ↔ Mac</h2>
+    <div class="card">
+      ${syncNastaveni() ? `
+        <p style="margin-top:0"><span class="pill ok">✓ zapnuto</span> ${esc(syncNastaveni().repo)}</p>
+        <p class="small muted">${syncStav().cas ? `Naposledy ${new Date(syncStav().cas).toLocaleString('cs-CZ', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' })}.` : 'Zatím neproběhla.'}${syncStav().chyba && (syncStav().chybaCas || 0) > (syncStav().cas || 0) ? ` <span style="color:var(--bad)">Chyba: ${esc(syncStav().chyba)}</span>` : ''}</p>
+        <div class="row"><button class="btn" id="syncTed">Synchronizovat teď</button><button class="btn danger" id="syncVyp">Vypnout</button></div>` : `
+        <p class="small muted" style="margin-top:0">Stejná data na iPhonu i na Macu. Ukládají se do tvého soukromého repozitáře <b>italiano-data</b> na GitHubu a slučují se chytře, takže se učení na dvou zařízeních nepřepíše. Fotky z mapy a klíče k API se nesynchronizují.</p>
+        <div class="field"><label for="syncToken">Přístupový token GitHubu</label>
+          <input type="password" id="syncToken" placeholder="github_pat_…" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <details style="margin-bottom:14px"><summary>Jak token získat (3 minuty, stačí jednou)</summary>
+          <ol class="small steps">
+            <li>Na github.com vpravo nahoře profil → <b>Settings</b> → úplně dole <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</li>
+            <li>Název třeba „Paolo italiano“, platnost (Expiration) co nejdelší.</li>
+            <li><b>Repository access</b> → <b>Only select repositories</b> → vyber <b>italiano-data</b>.</li>
+            <li><b>Permissions</b> → Repository permissions → <b>Contents</b> → <b>Read and write</b>.</li>
+            <li><b>Generate token</b> → zkopíruj ho a vlož sem. Na druhém zařízení vlož stejný token (nebo si vytvoř druhý stejným postupem).</li>
+          </ol>
+          <p class="note small">Repozitář italiano-data musí na GitHubu existovat a být soukromý. Když chybí, vytvoř ho na github.com/new (Private).</p></details>
+        <button class="btn primary block" id="syncZap">Zapnout synchronizaci</button>`}
+    </div>
+
     <h2>Záloha</h2>
     <div class="card">
       <p class="small muted" style="margin-top:0">Všechno je uložené jen v tomto telefonu. Záloha uloží postup, paměť, rozhovory a nastavení do souboru (třeba na iCloud Drive). Klíče k API se do zálohy neukládají.</p>
@@ -763,6 +786,23 @@ function viewNastaveni() {
   $('goal').onchange = e => { setSettings({ goal: +e.target.value }); saved(); };
   $('test').onclick = () => { stopSpeaking(); speak('Ciao! Sono Giulia. Come stai oggi?'); };
   $('intro').onclick = () => (location.hash = '#/vitej');
+  $('syncZap') && ($('syncZap').onclick = async () => {
+    const t = $('syncToken').value.trim();
+    if (!t) { $('syncToken').focus(); return; }
+    const b = $('syncZap'); b.disabled = true; b.textContent = 'Ověřuji…';
+    try {
+      await zapnout(t);
+      b.textContent = 'Synchronizuji…';
+      await synchronizuj();
+      toast('Synchronizace zapnuta ✓');
+      viewNastaveni();
+    } catch (e) { toast(e.message); b.disabled = false; b.textContent = 'Zapnout synchronizaci'; }
+  });
+  $('syncTed') && ($('syncTed').onclick = async () => {
+    try { const r = await synchronizuj(); toast(r?.zmenaLokalne ? 'Staženo z druhého zařízení ✓' : 'Vše je aktuální ✓'); } catch (e) { toast(e.message); }
+    viewNastaveni();
+  });
+  $('syncVyp') && ($('syncVyp').onclick = () => { if (confirm('Vypnout synchronizaci na tomto zařízení? Data zůstanou.')) { vypnout(); viewNastaveni(); } });
   $('zaloha').onclick = () => zalohuj(false);
   $('zalohaFoto').onclick = () => zalohuj(true);
   $('obnova').onclick = () => $('obnovaSoubor').click();
@@ -806,6 +846,17 @@ function route() {
 }
 window.addEventListener('hashchange', route);
 route();
+
+// Synchronizace: při spuštění stáhnout a sloučit; když přišla data z druhého zařízení, překreslit
+// obrazovku – ale ne uprostřed lekce, drilu nebo rozhovoru.
+function poSynchronizaci() {
+  const view = location.hash.split('/')[1] || '';
+  const arg = location.hash.split('/')[2];
+  const bezpecne = ['', 'nastaveni', 'prehled', 'italie', 'seznam'].includes(view) || (['karticky', 'mluveni'].includes(view) && !arg);
+  if (bezpecne) route();
+}
+window.addEventListener('paolo-sync', poSynchronizaci);
+synchronizuj().then(r => r?.zmenaLokalne && poSynchronizaci()).catch(() => {});
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   navigator.serviceWorker.register('sw.js').catch(() => {});
