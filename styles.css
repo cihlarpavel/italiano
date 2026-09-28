@@ -512,3 +512,29 @@ body.chat nav.tabs { display: none; }
 .sources { font-size: 12px; color: var(--muted); margin: 10px 0 0; }
 .sources a { color: var(--muted); }
 .chips.scroll .chip.on { background: var(--grad); color: #fff; }
+
+/* ---------- Přehled a paměť ---------- */
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.stat { background: var(--surface); border-radius: 18px; box-shadow: var(--sh-1); padding: 14px 8px; text-align: center; }
+.stat b { display: block; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+.stat span { display: block; font-size: 12px; color: var(--muted); line-height: 1.25; margin-top: 2px; }
+.bars { display: flex; align-items: flex-end; gap: 6px; height: 140px; margin: 10px 0 6px; }
+.bars.month { gap: 2px; }
+.bar-col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
+.bar-stack { width: 100%; max-width: 30px; min-height: 3px; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column-reverse; background: var(--surface-2); }
+.bar-stack i { display: block; min-height: 0; }
+.bar-col span { font-size: 10px; color: var(--muted); height: 12px; }
+.b-karty { background: #ff5a36; } .b-tvary { background: #f5a524; } .b-vety { background: #12b76a; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.memory .mem-row { display: flex; gap: 8px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.memory .mem-row:last-child { border-bottom: 0; }
+.memory .mem-row b, .memory .mem-row span { display: block; }
+.memory .mem-row span { font-size: 15px; }
+.memory .mem-row i { color: var(--muted); }
+.memory.amber .label { color: #f58a07; } .memory.green .label { color: var(--ok); } .memory.violet .label { color: #6d4ef5; } .memory.blue .label { color: #2563eb; }
+.icon-btn.plain.small { width: 30px; height: 30px; }
+.icon-btn.plain.small svg { width: 16px; height: 16px; color: var(--muted); }
+ul.tight { margin: 0; padding-left: 18px; }
+ul.tight li { margin-bottom: 4px; }
+button.list-row { cursor: pointer; }

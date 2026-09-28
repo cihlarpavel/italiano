@@ -5,6 +5,8 @@ import { renderChat, MODELY, usageThisMonth } from './chat.js';
 import { toast, ICON, ic } from './ui.js';
 import { renderPreklad } from './preklad.js';
 import { renderItalie } from './italie.js';
+import { renderPrehled, radekDoporuceni } from './prehled.js';
+import { zaznamKarty, zaznamDril, tezkeKarty, doporuceni, spustDoporuceni, mozna, TEMATA } from './pamet.js';
 import { renderPrizpusobit } from './prizpusobit.js';
 
 const app = document.getElementById('app');
@@ -88,8 +90,11 @@ function kdy(days) {
 function grade(card, g) {
   const st = srs();
   const { box, days } = nextStep(card, g);
-  st[cardId(card.deck, card.it)] = { box, due: Date.now() + days * DAY - 3600000 };
+  const id = cardId(card.deck, card.it);
+  const prev = st[id] || {};
+  st[id] = { box, due: Date.now() + days * DAY - 3600000, lapses: (prev.lapses || 0) + (g === 'znovu' ? 1 : 0), zalozeno: prev.zalozeno || Date.now() };
   save('srs', st);
+  zaznamKarty();
   if (card.fresh) {
     const n = load('newToday', {});
     const fresh = n.date === today() ? n : { date: today() };
@@ -176,7 +181,7 @@ function viewHome() {
   h(`
     <header class="top">
       <div><p class="eyebrow">${datum}</p><h1 class="display">${hour < 12 ? 'Buongiorno' : hour < 18 ? 'Ciao' : 'Buonasera'}${settings().jmeno ? `, ${esc(settings().jmeno)}` : ''}</h1></div>
-      <a class="icon-btn plain" href="#/nastaveni" aria-label="Nastavení">${ICON.gear}</a>
+      <div class="row" style="gap:2px"><a class="icon-btn plain" href="#/prehled" aria-label="Přehled">${ICON.chart}</a><a class="icon-btn plain" href="#/nastaveni" aria-label="Nastavení">${ICON.gear}</a></div>
     </header>
 
     <section class="hero ${queue.length ? '' : 'done'}">
@@ -200,6 +205,9 @@ function viewHome() {
       <a href="#/prizpusobit" class="quick-item">${ic('sparkles', 'violet')}<b>Upravit</b></a>
     </div>
 
+    <div class="section-head"><h2 style="margin-top:4px">Doporučeno pro tebe</h2><a class="link" href="#/prehled">Přehled</a></div>
+    <div class="card list" id="doporuceni">${doporuceni().map(radekDoporuceni).join('')}</div>
+
     <section class="card phrase">
       <span class="label">Fráze dne</span>
       <div class="phrase-row">
@@ -212,6 +220,23 @@ function viewHome() {
     <div class="card list">${Object.keys(DECKS).map(deckTile).join('')}</div>
   `);
   bindSay(app);
+  const napoj = () => app.querySelectorAll('[data-dop]').forEach(b => b.onclick = () => { location.hash = spustDoporuceni(doporuceni()[+b.dataset.dop]); });
+  napoj();
+  // Když se nasbíralo dost nových dat, Claude na pozadí aktualizuje profil a doporučení.
+  mozna()?.then(p => {
+    const box = document.getElementById('doporuceni');
+    if (p && box) { box.innerHTML = doporuceni().map(radekDoporuceni).join(''); napoj(); }
+  });
+}
+
+// Cílené opakování z doporučení: kartičky, které nejdou, nebo jedno téma.
+function viewOpakovani() {
+  const f = load('kartyFocus', { tema: 'tezke', nazev: 'Kartičky, které ti nejdou' });
+  const st = srs();
+  let fronta;
+  if (f.tema === 'tezke') fronta = tezkeKarty(20).map(x => ({ deck: x.deck, it: x.item, fresh: false }));
+  else fronta = shuffle(DECKS.slovicka.items.filter(it => it.topic === f.tema)).slice(0, 20).map(it => ({ deck: 'slovicka', it, fresh: !st[cardId('slovicka', it)] }));
+  viewSession(fronta, f.nazev || 'Opakování', '#/');
 }
 
 const DECK_IC = { slovicka: ['book', 'coral'], vazby: ['cards', 'violet'], fraze: ['chat', 'green'], moje: ['plus', 'blue'] };
@@ -409,16 +434,25 @@ const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').repla
 const normKeepAccents = s => s.toLowerCase().normalize('NFC').replace(/[’`]/g, "'").replace(/\s+/g, ' ').trim();
 
 function viewDril() {
-  const casy = load('drillCasy', ['presente']);
+  const focus = load('drillFocus', null);
+  if (focus) save('drillFocus', null);
+  const casy = focus?.casy?.length ? focus.casy : load('drillCasy', ['presente']);
   if (!casy.length) return (location.hash = '#/casy');
+  const slovesa = focus?.slovesa?.length ? SLOVESA.filter(v => focus.slovesa.includes(v.inf)) : SLOVESA;
+  // Kombinace, ve kterých chybuješ, přicházejí častěji.
+  const stat = load('drillStats', {});
+  const vaha = (v, c) => { const x = stat[`${v.inf}|${c}`]; return x ? 1 + 3 * (x.bad / (x.ok + x.bad)) : 1.5; };
+  const kombinace = slovesa.flatMap(v => casy.map(c => ({ v, c, w: vaha(v, c) })));
+  const soucet = kombinace.reduce((n, k) => n + k.w, 0);
   const score = { ok: 0, bad: 0 };
   let last = '';
 
   function ask() {
     let v, cas, i, key;
     do {
-      v = SLOVESA[Math.floor(Math.random() * SLOVESA.length)];
-      cas = casy[Math.floor(Math.random() * casy.length)];
+      let r = Math.random() * soucet;
+      const k = kombinace.find(k => (r -= k.w) <= 0) || kombinace[0];
+      v = k.v; cas = k.c;
       i = Math.floor(Math.random() * 6);
       key = v.inf + cas + i;
     } while (key === last);
@@ -427,7 +461,7 @@ function viewDril() {
     h(`
       <div class="session-top">
         <button class="icon-btn" id="close" aria-label="Ukončit">${ICON.close}</button>
-        <div style="flex:1"></div>
+        <div style="flex:1" class="muted small">${focus?.nazev ? esc(focus.nazev) : ''}</div>
         <span class="score"><span class="ok">✓ ${score.ok}</span><span class="bad">✗ ${score.bad}</span></span>
       </div>
       <div class="card">
@@ -456,6 +490,8 @@ function viewDril() {
       const exact = !gaveUp && answers.some(a => normKeepAccents(a) === normKeepAccents(val));
       const loose = !gaveUp && answers.some(a => norm(a) === norm(val));
       if (exact || loose) score.ok++; else score.bad++;
+      zaznamDril(v.inf, cas, exact || loose);
+      if (exact || loose) logActivity('tvaryOk');
       app.querySelector('.score').innerHTML = `<span class="ok">✓ ${score.ok}</span><span class="bad">✗ ${score.bad}</span>`;
       input.readOnly = true;
       app.querySelector('.accents').hidden = true;
@@ -480,6 +516,44 @@ function viewDril() {
     };
   }
   ask();
+}
+
+// ---------- Záloha ----------
+const TAJNE = ['apiKey', 'elKey'];
+
+async function zalohuj() {
+  const data = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      data[k] = JSON.parse(localStorage.getItem(k));
+    }
+  } catch { toast('Zálohu se nepodařilo připravit'); return; }
+  if (data.settings) data.settings = Object.fromEntries(Object.entries(data.settings).filter(([k]) => !TAJNE.includes(k)));
+  const nazev = `paolo-italiano-zaloha-${today()}.json`;
+  const file = new File([JSON.stringify({ app: 'paolo-italiano', verze: 1, datum: new Date().toISOString(), data })], nazev, { type: 'application/json' });
+  // Na iPhonu otevře nabídku Sdílet → „Uložit do Souborů“.
+  if (navigator.canShare?.({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: 'Záloha Paolo italiano' }); return; } catch (e) { if (e.name === 'AbortError') return; }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(file); a.download = nazev; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+async function obnov(file) {
+  let zal;
+  try { zal = JSON.parse(await file.text()); } catch { toast('Soubor není platná záloha'); return; }
+  if (zal?.app !== 'paolo-italiano' || typeof zal.data !== 'object') { toast('Soubor není záloha této aplikace'); return; }
+  if (!confirm(`Obnovit zálohu z ${new Date(zal.datum).toLocaleString('cs-CZ')}? Současný postup se nahradí.`)) return;
+  const klice = Object.fromEntries(TAJNE.map(k => [k, settings()[k]]));
+  try {
+    localStorage.clear();
+    for (const [k, v] of Object.entries(zal.data)) localStorage.setItem(k, JSON.stringify(v));
+  } catch { toast('Obnova se nepodařila'); return; }
+  setSettings(klice); // klíče k API zůstanou ty současné
+  toast('Záloha obnovena');
+  setTimeout(() => location.reload(), 600);
 }
 
 // ---------- Nastavení ----------
@@ -595,6 +669,16 @@ function viewNastaveni() {
       <button class="btn block" id="test">${ICON.speaker} Vyzkoušet</button>
     </div>
 
+    <h2>Záloha</h2>
+    <div class="card">
+      <p class="small muted" style="margin-top:0">Všechno je uložené jen v tomto telefonu. Záloha uloží postup, paměť, rozhovory a nastavení do souboru (třeba na iCloud Drive). Klíče k API se do zálohy neukládají.</p>
+      <div class="row">
+        <button class="btn" id="zaloha">Zálohovat</button>
+        <button class="btn" id="obnova">Obnovit ze zálohy</button>
+      </div>
+      <input type="file" id="obnovaSoubor" accept="application/json,.json" hidden>
+    </div>
+
     <h2>Učení</h2>
     <div class="card">
       <div class="field">
@@ -609,6 +693,8 @@ function viewNastaveni() {
         <label for="goal">Denní cíl (počet kartiček)</label>
         <select id="goal">${[15, 30, 45, 60, 100].map(n => `<option ${n === s.goal ? 'selected' : ''}>${n}</option>`).join('')}</select>
       </div>
+      <a class="btn block" href="#/prehled">${ICON.chart} Přehled a paměť</a>
+      <p></p>
       <button class="btn block" id="intro">Znovu projít úvod</button>
       <p></p>
       <button class="btn block danger" id="reset">Smazat postup v kartičkách</button>
@@ -639,6 +725,9 @@ function viewNastaveni() {
   $('goal').onchange = e => { setSettings({ goal: +e.target.value }); saved(); };
   $('test').onclick = () => { stopSpeaking(); speak('Ciao! Sono Giulia. Come stai oggi?'); };
   $('intro').onclick = () => (location.hash = '#/vitej');
+  $('zaloha').onclick = zalohuj;
+  $('obnova').onclick = () => $('obnovaSoubor').click();
+  $('obnovaSoubor').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f) obnov(f); };
   $('jmeno').onchange = e => { setSettings({ jmeno: e.target.value.trim() }); saved(); };
   $('reset').onclick = () => {
     if (confirm('Opravdu smazat postup ve všech kartičkách? Nejde to vrátit.')) { save('srs', {}); save('newToday', {}); toast('Postup smazán'); }
@@ -653,10 +742,10 @@ function route() {
   app.scrollTop = 0;
   const [, view = '', arg] = location.hash.split('/');
   if (!load('onboarded', false) && view !== 'vitej' && view !== 'nastaveni') return (location.hash = '#/vitej');
-  const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', preklad: 'preklad', italie: 'italie', casy: 'home', dril: 'home', sloveso: 'home', mluveni: 'mluveni', nastaveni: 'home', prizpusobit: 'home' }[view] || 'home';
+  const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', preklad: 'preklad', italie: 'italie', prehled: 'home', opakovani: 'home', casy: 'home', dril: 'home', sloveso: 'home', mluveni: 'mluveni', nastaveni: 'home', prizpusobit: 'home' }[view] || 'home';
   document.querySelectorAll('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab));
   // Při lekci a drilu lišta ruší – schová se, zavírá se křížkem.
-  document.body.classList.toggle('focus', ['lekce', 'dril', 'vitej'].includes(view) || (view === 'karticky' && !!arg));
+  document.body.classList.toggle('focus', ['lekce', 'dril', 'vitej', 'opakovani'].includes(view) || (view === 'karticky' && !!arg));
   document.body.classList.toggle('chat', view === 'mluveni' && !!arg);
   switch (view) {
     case 'vitej': return viewUvod();
@@ -670,6 +759,8 @@ function route() {
     case 'nastaveni': return viewNastaveni();
     case 'preklad': return renderPreklad(app);
     case 'italie': return renderItalie(app, arg);
+    case 'prehled': return renderPrehled(app, arg);
+    case 'opakovani': return viewOpakovani();
     case 'prizpusobit': return renderPrizpusobit(app);
     default: return viewHome();
   }

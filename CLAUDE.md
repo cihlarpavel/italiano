@@ -1,4 +1,4 @@
-# Pablo italiano – výuková aplikace italštiny (osobní projekt)
+# Paolo italiano – výuková aplikace italštiny (osobní projekt)
 
 Statická PWA pro iPhone, bez build kroku. Uživatel je Čech, začátečník (A1–A2). Rozhraní i vysvětlivky česky.
 Popis a nasazení viz README.md.
@@ -13,3 +13,5 @@ Popis a nasazení viz README.md.
 - Hlas: `speech.js` → ElevenLabs (klíč zadává uživatel v Nastavení, volání přímo z prohlížeče, CORS povoluje), při chybě automaticky hlas iPhonu. Vygenerované věty se ukládají do Cache Storage `pablo-hlas` (SW ji nemaže).
 - Obsah záložky Itálie je statický: `js/italie_top.js` prošel kontrolou faktů, `js/italie_cesta.js` má u každé sekce zdroje a datum `stav`. Při aktualizaci cen změň i `stav`.
 - Stránka (`body`) se nikdy neposouvá, posouvá se jen `#app` (`position: fixed`, `overflow-y: auto`). Na iPhonu jinak „pružení“ stránky posouvalo spodní lištu. Pro posun používej `app.scrollTo`, ne `window.scrollTo`.
+- Paměť: `pamet.js`. Lokální záznamy: `opravy`, `drillStats`, `srs[].lapses/zalozeno`, `stats.days`. Profil (`profil`) aktualizuje Claude na pozadí (`mozna()`) po rozhovoru nebo po nasbírání dat. Doporučení od modelu se vždy validují (`validujDoporuceni`), bez klíče se počítají lokálně.
+- Mezipaměť hlasu se jmenuje `pablo-hlas` (historický název). Nepřejmenovávat, jinak se ztratí už vygenerované nahrávky.

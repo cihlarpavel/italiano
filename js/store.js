@@ -15,7 +15,7 @@ export function save(key, value) {
 export const today = () => new Date().toLocaleDateString('sv'); // YYYY-MM-DD v místním čase
 
 export const DEFAULT_SETTINGS = {
-  jmeno: 'Pablo',
+  jmeno: 'Paolo',
   hlas: 'iphone',          // 'iphone' | 'eleven'
   elKey: '',
   elVoice: '',
@@ -41,7 +41,9 @@ export const DEFAULT_SETTINGS = {
 };
 
 export function settings() {
-  return { ...DEFAULT_SETTINGS, ...load('settings', {}) };
+  const s = { ...DEFAULT_SETTINGS, ...load('settings', {}) };
+  if (s.jmeno === 'Pablo') s.jmeno = 'Paolo'; // aplikace se přejmenovala z Pablo na Paolo italiano
+  return s;
 }
 
 export function setSettings(patch) {

@@ -1,4 +1,4 @@
-# Pablo italiano – aplikace na výuku italštiny
+# Paolo italiano – aplikace na výuku italštiny
 
 Webová aplikace pro iPhone, která se připne na plochu a pak se chová jako normální aplikace.
 Nepotřebuje App Store ani Xcode.
@@ -7,6 +7,9 @@ Nepotřebuje App Store ani Xcode.
 - **Kartičky**: slovíčka (215), vazby (43), fráze (55). Opakují se v intervalech: co nevíš, uvidíš brzy znovu, co umíš, až za dny či týdny.
 - **Časy**: dril časování 20 nejčastějších sloves (presente, passato prossimo, imperfetto, futuro), tabulky a vysvětlení.
 - **Překladač**: řekneš větu česky nebo italsky a dostaneš ji přeloženou textem; nebo vyfotíš italský text (menu, cedule) a dostaneš překlad i slovíčka. Cokoli jde jedním klepnutím přidat do balíčku Moje slovíčka.
+- **Paměť a doporučení**: aplikace si zapisuje, které kartičky, časy a slovesa ti nejdou a jaké chyby ti Giulia opravila. Claude z toho sestaví profil (slabiny, silné stránky, co jsi Giulii řekl o sobě) a navrhuje 3 kroky na dnešek. Giulia si pamatuje, co jsi jí vyprávěl, a nenápadně procvičuje tvoje slabiny. Dril časů častěji dává kombinace, ve kterých chybuješ.
+- **Přehled**: týden a měsíc, graf aktivity, hodnocení od Giulie a profil „Co o tobě vím“, ze kterého jde cokoli smazat.
+- **Záloha**: postup, paměť i rozhovory do souboru (bez klíčů k API) a obnova z něj.
 - **Itálie**: Top 100 zajímavostí (místa, historie, příroda, jídlo, kultura, umění, značky…) s popisem česky i italsky a praktické tipy **Na cestu** (auto, mýtné, palivo, pravidla, vlaky, ceny v obchodech a restauracích, pláže, zdraví). Údaje jsou ke dni 28. 9. 2026 a u každé sekce je zdroj.
 - **Mluvení s Giulií**: konverzace nahlas s avatarkou v 7 situacích. Opraví chyby a přeloží, co řekla.
 - **✨ Přizpůsobit**: přání česky („dávej mi častěji opakování“, „Giulia ať mluví delšími větami“). Claude ho převede na změny nastavení nebo na pokyny pro Giulii. Změny se ukážou předem, dají se vrátit a co aplikace neumí, uloží se do seznamu přání pro další verzi.
@@ -55,6 +58,9 @@ a otevřít http://localhost:8765.
 - `js/claude.js` – společné volání Claude API (model, útrata, chybové hlášky)
 - `js/preklad.js` – překladač hlasem, textem a z fotky; balíček Moje slovíčka
 - `js/italie.js` + `italie_top.js` + `italie_cesta.js` – záložka Itálie (obsah je statický)
+- `js/pamet.js` – záznamy, profil studenta, doporučení, hodnocení období
+- `js/prehled.js` – obrazovka Přehled
+- `tools/ikona.py` – generátor ikony „Parlo → Paolo italiano“
 - `js/ui.js` – ikony a sdílené prvky rozhraní
 - `js/chat.js` – konverzace s Giulií, avatar, volání Claude API, počítání útraty
 - `js/prizpusobit.js` – úpravy aplikace přáním; seznam laditelných parametrů je `PARAMS`

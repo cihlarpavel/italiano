@@ -5,6 +5,7 @@ import { SCENARE } from './data.js';
 import { load, save, settings, logActivity } from './store.js';
 import { toast, ICON, ic } from './ui.js';
 import { speak, stopSpeaking, onSpeechActivity, isSpeaking, canListen, listen } from './speech.js';
+import { zaznamOpravy, zaznamUdalosti, kontextProGiulii, mozna } from './pamet.js';
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -74,10 +75,12 @@ function uciSe() {
 function systemPrompt(sc) {
   const s = settings();
   const slova = uciSe();
+  const pamet = kontextProGiulii();
+  const zamereni = load('chatFocus:' + sc.id, '');
   return `Jsi Giulia, 32letá Italka z Boloně. Trpělivě a vlídně mluvíš s Čechem${s.jmeno ? ` jménem ${s.jmeno} (oslovuj ho tak)` : ''}, který se učí italsky (úroveň ${s.giuliaLevel}). Svou italštinu přizpůsob této úrovni. Rozhovor probíhá nahlas: jeho věty přicházejí z rozpoznávání řeči a tvé odpovědi telefon předčítá.
 
 Situace: ${sc.prompt}
-
+${zamereni ? `\nZaměření tohoto rozhovoru (doporučení podle toho, co uživateli nejde): ${zamereni}\n` : ''}${pamet ? `\nCo víš o uživateli z dřívějška:\n${pamet}\n` : ''}
 Pravidla pro tvou repliku:
 - Mluv jednoduchou italštinou: ${DELKA[s.giuliaLength] || DELKA.kratke}, běžná slovní zásoba.
 - Skoro vždy skonči jednoduchou otázkou, ať rozhovor pokračuje.
@@ -154,6 +157,12 @@ const STOP_SVG = '<svg width="24" height="24" viewBox="0 0 24 24"><rect x="6" y=
 
 function renderConversation(app, sc) {
   const key = 'chat:' + sc.id;
+  // Po odchodu z rozhovoru si Giulia na pozadí zapíše poznámky (profil, slabiny, co jsi o sobě řekl).
+  // Zaměření z doporučení platí jen pro tenhle rozhovor.
+  window.addEventListener('hashchange', () => {
+    try { localStorage.removeItem('chatFocus:' + sc.id); } catch { /* nic */ }
+    mozna(true)?.then(p => p && toast('Giulia si zapsala poznámky o tvém pokroku'));
+  }, { once: true });
   let history = load(key, []); // {role, text, hidden?}
   let state = 'idle'; // idle | listening | thinking
   let listening = null;
@@ -296,9 +305,12 @@ function renderConversation(app, sc) {
       const text = msg.content.filter(b => b.type === 'text').map(b => b.text).join('').trim();
       speakReady(text, true);
       addUsage(msg.model || params.model, msg.usage || {});
-      history.push({ role: 'assistant', text });
+      history.push({ role: 'assistant', text, d: Date.now() });
       save(key, history);
-      showHints(fillHer(el, text).hints);
+      const vysledek = fillHer(el, text);
+      showHints(vysledek.hints);
+      const posledni = [...history].reverse().find(m => m.role === 'user' && !m.hidden);
+      if (vysledek.fix && posledni) zaznamOpravy({ sc: sc.id, user: posledni.text, fix: vysledek.fix });
       logActivity('vety');
     } catch (e) {
       el.remove();
@@ -330,7 +342,8 @@ function renderConversation(app, sc) {
     text = text.trim();
     if (!text || state === 'thinking') return;
     stopSpeaking();
-    history.push({ role: 'user', text });
+    history.push({ role: 'user', text, d: Date.now() });
+    zaznamUdalosti();
     save(key, history);
     bubble({ role: 'user', text });
     txt.value = '';
