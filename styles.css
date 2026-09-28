@@ -42,7 +42,9 @@
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; min-height: 100%; }
+/* Stránka se neposouvá – posouvá se jen obsah v pevném rámu #app. Jinak iPhone při „pružení“
+   posouvá i spodní lištu přichycenou k oknu. */
+html, body { margin: 0; height: 100%; overflow: hidden; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -58,10 +60,12 @@ svg { flex: none; }
 [hidden] { display: none !important; }
 
 #app {
-  min-height: 100vh;
-  padding: calc(env(safe-area-inset-top) + 14px) 18px calc(var(--tab-h) + var(--tab-gap) + env(safe-area-inset-bottom) + 28px);
-  max-width: 640px;
-  margin: 0 auto;
+  --gutter: max(18px, calc((100vw - 640px) / 2));
+  position: fixed; inset: 0;
+  overflow-y: auto; overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: calc(env(safe-area-inset-top) + 14px) var(--gutter) calc(var(--tab-h) + var(--tab-gap) + env(safe-area-inset-bottom) + 28px);
 }
 #app > * { animation: rise .28s ease both; }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -354,8 +358,8 @@ nav.tabs a.center svg { width: 26px; height: 26px; }
 
 /* ---------- Giulia – rozhovor ---------- */
 .chat-head {
-  position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 8px;
-  margin: calc(-1 * env(safe-area-inset-top) - 14px) -18px 14px; padding: calc(env(safe-area-inset-top) + 8px) 12px 10px;
+  position: sticky; top: calc(-1 * env(safe-area-inset-top) - 14px); z-index: 3; display: flex; align-items: center; gap: 8px;
+  margin: calc(-1 * env(safe-area-inset-top) - 14px) calc(-1 * var(--gutter)) 14px; padding: calc(env(safe-area-inset-top) + 8px) max(12px, var(--gutter)) 10px;
   background: color-mix(in srgb, var(--bg) 85%, transparent);
   backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--line);

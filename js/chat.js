@@ -145,7 +145,7 @@ function renderScenarios(app) {
     <h2>O čem si popovídáte?</h2>
     <div class="card list">${scen}</div>`;
   animateAvatar(app.querySelector('.avatar'));
-  window.scrollTo(0, 0);
+  app.scrollTop = 0;
 }
 
 const MIC_SVG = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
@@ -184,7 +184,7 @@ function renderConversation(app, sc) {
   const statusEl = app.querySelector('#status');
   const hintsEl = app.querySelector('#hints');
 
-  const scrollDown = () => requestAnimationFrame(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+  const scrollDown = () => requestAnimationFrame(() => app.scrollTo({ top: app.scrollHeight, behavior: 'smooth' }));
 
   // Jedno tlačítko: prázdné pole = mikrofon, s textem = odeslat, při poslechu = stop.
   function refresh() {

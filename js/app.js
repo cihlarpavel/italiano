@@ -9,7 +9,7 @@ import { renderPrizpusobit } from './prizpusobit.js';
 
 const app = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const h = html => { app.innerHTML = html; window.scrollTo(0, 0); };
+const h = html => { app.innerHTML = html; app.scrollTop = 0; };
 const $ = id => document.getElementById(id);
 const sayBtn = (text, label = 'Přehrát') => `<button class="icon-btn" data-say="${esc(text)}" aria-label="${label}">${ICON.speaker}</button>`;
 const bindSay = root => root.querySelectorAll('[data-say]').forEach(b => b.onclick = e => { e.stopPropagation(); stopSpeaking(); speak(b.dataset.say); });
@@ -650,6 +650,7 @@ function viewNastaveni() {
 // ---------- Směrování ----------
 function route() {
   stopSpeaking();
+  app.scrollTop = 0;
   const [, view = '', arg] = location.hash.split('/');
   if (!load('onboarded', false) && view !== 'vitej' && view !== 'nastaveni') return (location.hash = '#/vitej');
   const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', preklad: 'preklad', italie: 'italie', casy: 'home', dril: 'home', sloveso: 'home', mluveni: 'mluveni', nastaveni: 'home', prizpusobit: 'home' }[view] || 'home';
