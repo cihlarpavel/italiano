@@ -8,7 +8,7 @@ export { Anthropic };
 export const MODELY = {
   'claude-opus-5': { name: 'Opus 5 – nejlepší · ≈ 0,3 Kč', in: 5, out: 25 },
   'claude-sonnet-5': { name: 'Sonnet 5 – levnější · ≈ 0,12 Kč', in: 2, out: 10 },
-  'claude-haiku-4-5': { name: 'Haiku 4.5 – nejlevnější · ≈ 0,06 Kč', in: 1, out: 5 },
+  'claude-haiku-4-5': { name: 'Haiku 4.5 – nejlevnější, slabší čeština · ≈ 0,06 Kč', in: 1, out: 5 },
 };
 const KC_ZA_USD = 22;
 
@@ -37,9 +37,11 @@ export function client() {
 }
 
 // Parametry podle zvoleného modelu: effort jen u modelů, které ho umí; u Opus 5 záložní model při odmítnutí.
-export function modelParams(effort) {
+// kvalita 'vysoka': úlohy, kde záleží na bezchybné češtině (překlady) – místo Haiku se použije Sonnet 5.
+export function modelParams(effort, kvalita) {
   const s = settings();
-  const model = s.model in MODELY ? s.model : 'claude-opus-5';
+  let model = s.model in MODELY ? s.model : 'claude-opus-5';
+  if (kvalita === 'vysoka' && model === 'claude-haiku-4-5') model = 'claude-sonnet-5';
   const p = { model };
   if (model !== 'claude-haiku-4-5' && effort) p.output_config = { effort };
   if (model === 'claude-opus-5') { p.betas = ['server-side-fallback-2026-07-01']; p.fallbacks = 'default'; }
@@ -47,8 +49,8 @@ export function modelParams(effort) {
 }
 
 // Jedno volání se strukturovaným výstupem (JSON podle schématu).
-export async function callJSON({ system, content, schema, effort = 'low' }) {
-  const params = modelParams(effort);
+export async function callJSON({ system, content, schema, effort = 'low', kvalita }) {
+  const params = modelParams(effort, kvalita);
   params.output_config = { ...(params.output_config || {}), format: { type: 'json_schema', schema } };
   const msg = await client().beta.messages.create({
     ...params,

@@ -33,7 +33,8 @@ const TEXT_SYSTEM = `Jsi překladatel mezi češtinou a italštinou pro Čecha, 
 - Vstup často pochází z rozpoznávání řeči: chybí interpunkce, mohou v něm být překlepy. Do pole text vrať vyčištěný zdrojový text (interpunkce, velká písmena, zjevné chyby rozpoznání).
 - Překlad ať je přirozený a hovorový, jak by to řekl rodilý mluvčí.
 - varianty: nejvýš 2 další běžné možnosti překladu (např. tykání/vykání, hovorovější tvar), jinak prázdné pole.
-- poznamka: jedna krátká česká poznámka užitečná pro učení (zvláštní slovo, gramatika, výslovnost), nebo prázdný řetězec.`;
+- poznamka: jedna krátká česká poznámka užitečná pro učení (zvláštní slovo, gramatika, výslovnost), nebo prázdný řetězec.
+- Čeština musí být bezchybná: správný pravopis a diakritika (tenké, ne „tonké“; těsto, ne „tésto“), správné skloňování a přirozené české výrazy. Před odpovědí si český text po sobě zkontroluj.`;
 
 const FOTO_SCHEMA = {
   type: 'object',
@@ -54,7 +55,8 @@ const FOTO_SCHEMA = {
 
 const FOTO_SYSTEM = `Uživatel (Čech, začátečník v italštině) vyfotil text, typicky italský: cedule, jídelní lístek, etiketa, leták, dopis.
 - text_it: věrný přepis textu z fotky, zachovej řádky a strukturu (položky menu na samostatných řádcích). Nečitelné části označ […].
-- preklad_cs: přirozený český překlad se stejnou strukturou řádků.
+- preklad_cs: přirozený český překlad se stejnou strukturou řádků. Pokud je stejná položka na fotce ve více jazycích (italsky, anglicky, německy…), přelož ji jen jednou – žádné zdvojené řádky. Názvy jídel překládej tak, jak by je napsal český jídelní lístek; ustálené italské názvy (bigoli, tagliatelle, risotto) nech italsky s krátkým vysvětlením.
+- Čeština musí být bezchybná: správný pravopis a diakritika (tenké, ne „tonké“; těsto, ne „tésto“), správné skloňování, velká písmena jen na začátku (NE CELÉ VERZÁLKAMI, i když je originál verzálkami). Před odpovědí si český text po sobě zkontroluj.
 - jazyk: jazyk textu česky (např. „italština“).
 - slovicka: 3–8 nejužitečnějších slov nebo frází z textu pro začátečníka; podstatná jména se členem (il, la, l'…), cs = český význam.
 - poznamka: krátká užitečná česká poznámka (např. co znamená zkratka, kulturní souvislost), nebo prázdný řetězec.
@@ -62,7 +64,7 @@ const FOTO_SYSTEM = `Uživatel (Čech, začátečník v italštině) vyfotil tex
 
 async function prelozText(text, jazyk) {
   const hint = jazyk === 'cs' ? '(Uživatel mluvil česky.)\n' : jazyk === 'it' ? '(Uživatel mluvil italsky.)\n' : '';
-  return callJSON({ system: TEXT_SYSTEM, content: hint + text, schema: TEXT_SCHEMA, effort: 'low' });
+  return callJSON({ system: TEXT_SYSTEM, content: hint + text, schema: TEXT_SCHEMA, effort: 'low', kvalita: 'vysoka' });
 }
 
 // Fotka z iPhonu má klidně 12 Mpx – zmenšíme ji, ať je přenos rychlý a levný.
@@ -88,6 +90,7 @@ async function prelozFotku(data) {
     ],
     schema: FOTO_SCHEMA,
     effort: 'medium',
+    kvalita: 'vysoka',
   });
 }
 

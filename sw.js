@@ -1,7 +1,7 @@
 // Offline režim: aplikace se načte i bez signálu (kartičky a časy fungují, konverzace a překlad potřebují internet).
 // Strategie „nejdřív síť“: s internetem se vždy načte aktuální verze všech souborů najednou
 // (jinak by se po aktualizaci mohly smíchat nové a staré moduly), mezipaměť je jen záloha bez signálu.
-const CACHE = 'paolo-v14';
+const CACHE = 'paolo-v15';
 const SHELL = ['./', 'index.html', 'styles.css', 'manifest.webmanifest', 'js/app.js', 'js/data.js',
   'js/store.js', 'js/speech.js', 'js/chat.js', 'js/ui.js', 'js/prizpusobit.js', 'js/claude.js', 'js/preklad.js', 'js/italie.js', 'js/italie_top.js', 'js/italie_cesta.js', 'js/pamet.js', 'js/prehled.js', 'js/mapa.js', 'js/fotky.js', 'js/top1000.js',
   'icons/icon-180.png', 'icons/icon-192.png'];
