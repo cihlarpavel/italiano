@@ -11,3 +11,4 @@ Popis a nasazení viz README.md.
 - Uživatel posílá „přání na další verzi“ z obrazovky Přizpůsobit. To jsou požadavky na nové funkce.
 - Nasazení: GitHub Pages z větve `main` (repo cihlarpavel/italiano, https://cihlarpavel.github.io/italiano/). Aktualizace = zvýšit `CACHE` v `sw.js`, commit, `git push`; Pages se sestaví samy do ~1 min. `gh` je v `~/.local/bin/gh`.
 - Hlas: `speech.js` → ElevenLabs (klíč zadává uživatel v Nastavení, volání přímo z prohlížeče, CORS povoluje), při chybě automaticky hlas iPhonu. Vygenerované věty se ukládají do Cache Storage `pablo-hlas` (SW ji nemaže).
+- Obsah záložky Itálie je statický: `js/italie_top.js` prošel kontrolou faktů, `js/italie_cesta.js` má u každé sekce zdroje a datum `stav`. Při aktualizaci cen změň i `stav`.

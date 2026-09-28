@@ -4,6 +4,7 @@ import { speak, unlockSpeech, italianVoices, stopSpeaking, elevenFetch } from '.
 import { renderChat, MODELY, usageThisMonth } from './chat.js';
 import { toast, ICON, ic } from './ui.js';
 import { renderPreklad } from './preklad.js';
+import { renderItalie } from './italie.js';
 import { renderPrizpusobit } from './prizpusobit.js';
 
 const app = document.getElementById('app');
@@ -651,7 +652,7 @@ function route() {
   stopSpeaking();
   const [, view = '', arg] = location.hash.split('/');
   if (!load('onboarded', false) && view !== 'vitej' && view !== 'nastaveni') return (location.hash = '#/vitej');
-  const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', preklad: 'preklad', casy: 'casy', dril: 'casy', sloveso: 'casy', mluveni: 'mluveni', nastaveni: 'home', prizpusobit: 'home' }[view] || 'home';
+  const tab = { '': 'home', lekce: 'home', karticky: 'karticky', seznam: 'karticky', preklad: 'preklad', italie: 'italie', casy: 'home', dril: 'home', sloveso: 'home', mluveni: 'mluveni', nastaveni: 'home', prizpusobit: 'home' }[view] || 'home';
   document.querySelectorAll('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab));
   // Při lekci a drilu lišta ruší – schová se, zavírá se křížkem.
   document.body.classList.toggle('focus', ['lekce', 'dril', 'vitej'].includes(view) || (view === 'karticky' && !!arg));
@@ -667,6 +668,7 @@ function route() {
     case 'mluveni': return renderChat(app, arg);
     case 'nastaveni': return viewNastaveni();
     case 'preklad': return renderPreklad(app);
+    case 'italie': return renderItalie(app, arg);
     case 'prizpusobit': return renderPrizpusobit(app);
     default: return viewHome();
   }
