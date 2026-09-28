@@ -75,9 +75,11 @@ async function ukaz(el) {
     document.body.appendChild(pop);
   }
   const cisty = slovo.replace(/[’']$/, '');
-  pop.innerHTML = `<div class="sp-head"><b>${esc(slovo)}</b><button class="icon-btn" data-sp="say" aria-label="Přehrát">${ICON.speaker}</button></div>
+  pop.innerHTML = `<div class="sp-head"><b>${esc(slovo)}</b>
+      <div class="sp-btns"><button class="icon-btn" data-sp="say" aria-label="Přehrát">${ICON.speaker}</button><button class="icon-btn" data-sp="close" aria-label="Zavřít">${ICON.close}</button></div></div>
     <div class="sp-body"><span class="typing"><i></i><i></i><i></i></span></div>`;
   pop.querySelector('[data-sp=say]').onclick = () => { stopSpeaking(); speak(cisty); };
+  pop.querySelector('[data-sp=close]').onclick = zavri;
   speak(cisty);
   try {
     const v = await vyznam(veta, i, slovo);

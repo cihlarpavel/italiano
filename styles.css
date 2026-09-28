@@ -669,3 +669,4 @@ body.chat .slovo-pop { bottom: calc(env(safe-area-inset-bottom) + 90px); }
 .sp-cs { font-size: 19px; font-weight: 700; margin: 0 0 6px; }
 .sp-actions { margin-top: 10px; }
 .kv, .w { display: inline !important; }
+.sp-btns { display: flex; gap: 8px; }
