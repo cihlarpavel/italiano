@@ -675,3 +675,7 @@ body.chat .slovo-pop { bottom: calc(env(safe-area-inset-bottom) + 90px); }
 .list-row .ic, .list-row .emoji-ic, .setup-card .ic, .quick-item .ic { display: inline-flex !important; align-items: center; justify-content: center; }
 .list-row .ic svg { width: 22px; height: 22px; }
 .zaloha-card { width: 100%; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; box-shadow: 0 0 0 2px var(--it-red), var(--sh-1); }
+/* Kolečka s číslem a fajfkou v řádcích balíčků: vystředit (obecné .list-row span je dělalo blokem). */
+.list-row .badge { display: inline-flex !important; align-items: center; justify-content: center; flex: none; width: auto; min-width: 30px; height: 30px; }
+.list-row .badge.done { width: 30px; padding: 0; }
+.list-row .badge svg { width: 16px; height: 16px; display: block; }
