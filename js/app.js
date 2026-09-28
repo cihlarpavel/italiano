@@ -1,6 +1,6 @@
 import { DECKS, FRAZE, SLOVESA, OSOBY, CASY, tvary } from './data.js';
 import { load, save, settings, setSettings, logActivity, streak, todayCount, today } from './store.js';
-import { speak, unlockSpeech, italianVoices, stopSpeaking } from './speech.js';
+import { speak, unlockSpeech, italianVoices, stopSpeaking, elevenFetch } from './speech.js';
 import { renderChat, MODELY, usageThisMonth } from './chat.js';
 import { toast, ICON, ic } from './ui.js';
 import { renderPreklad } from './preklad.js';
@@ -123,7 +123,7 @@ function viewUvod(step = 0) {
   const steps = [
     () => `
       <div class="hero-mark">🇮🇹</div>
-      <h1 class="display">Benvenuto!</h1>
+      <h1 class="display">Benvenuto, ${esc(settings().jmeno || 'amico')}!</h1>
       <p class="lead">Italštinu se tu naučíš po malých kouscích, stačí pár minut denně.</p>
       <div class="feature">${ic('cards', 'coral')}<div><b>Kartičky</b><p>Slovíčka, vazby a fráze. Co nevíš, uvidíš brzy znovu.</p></div></div>
       <div class="feature">${ic('translate', 'blue')}<div><b>Překladač</b><p>Řekni větu česky nebo italsky, nebo vyfoť italský text.</p></div></div>
@@ -174,7 +174,7 @@ function viewHome() {
   const datum = new Date().toLocaleDateString('cs-CZ', { weekday: 'long', day: 'numeric', month: 'long' });
   h(`
     <header class="top">
-      <div><p class="eyebrow">${datum}</p><h1 class="display">${hour < 12 ? 'Buongiorno' : hour < 18 ? 'Buon pomeriggio' : 'Buonasera'}</h1></div>
+      <div><p class="eyebrow">${datum}</p><h1 class="display">${hour < 12 ? 'Buongiorno' : hour < 18 ? 'Ciao' : 'Buonasera'}${settings().jmeno ? `, ${esc(settings().jmeno)}` : ''}</h1></div>
       <a class="icon-btn plain" href="#/nastaveni" aria-label="Nastavení">${ICON.gear}</a>
     </header>
 
@@ -482,6 +482,30 @@ function viewDril() {
 }
 
 // ---------- Nastavení ----------
+// Seznam hlasů z účtu ElevenLabs; italské hlasy dopředu.
+const elVoices = () => load('elVoices', []);
+
+async function nactiHlasy() {
+  const btn = $('elload');
+  if (btn) { btn.disabled = true; btn.textContent = 'Načítám…'; }
+  try {
+    const { voices } = await (await elevenFetch('/voices')).json();
+    const it = v => /ital/i.test([v.labels?.accent, v.labels?.language, v.name, v.description].join(' ')) || v.labels?.language === 'it';
+    const list = voices.map(v => ({
+      id: v.voice_id,
+      label: `${v.name}${it(v) ? ' 🇮🇹' : ''}${v.labels?.gender ? ` · ${v.labels.gender === 'female' ? 'žena' : v.labels.gender === 'male' ? 'muž' : v.labels.gender}` : ''}`,
+      it: it(v), female: v.labels?.gender === 'female',
+    })).sort((a, b) => (b.it - a.it) || (b.female - a.female) || a.label.localeCompare(b.label));
+    save('elVoices', list);
+    const s = settings();
+    if (!list.some(v => v.id === s.elVoice) && list[0]) setSettings({ elVoice: list[0].id, elVoiceName: list[0].label });
+    toast(`Načteno ${list.length} hlasů`);
+  } catch (e) {
+    toast(`Nepodařilo se načíst hlasy: ${e.message}`);
+  }
+  if (location.hash.includes('nastaveni')) viewNastaveni();
+}
+
 function viewNastaveni() {
   const s = settings();
   const voices = italianVoices();
@@ -521,22 +545,61 @@ function viewNastaveni() {
 
     <h2>Hlas</h2>
     <div class="card">
-      <div class="field">
-        <label for="voice">Italský hlas</label>
-        <select id="voice">${voices.length ? voices.map(v =>
-          `<option value="${esc(v.voiceURI)}" ${v.voiceURI === s.voice ? 'selected' : ''}>${esc(v.name)}</option>`).join('')
-          : '<option value="">Výchozí</option>'}</select>
+      <div class="seg" style="margin-bottom:14px">
+        <button class="${s.hlas !== 'eleven' ? 'on' : ''}" data-hlas="iphone">iPhone · zdarma</button>
+        <button class="${s.hlas === 'eleven' ? 'on' : ''}" data-hlas="eleven">Přirozený · ElevenLabs</button>
       </div>
+      ${s.hlas === 'eleven' ? `
+        <div class="field">
+          <label for="elkey">Klíč k ElevenLabs ${s.elKey ? '<span class="pill ok">✓ uložen</span>' : '<span class="pill">chybí</span>'}</label>
+          <input type="password" id="elkey" value="${esc(s.elKey)}" placeholder="sk_…" autocomplete="off" autocapitalize="off" spellcheck="false">
+        </div>
+        <details ${s.elKey ? '' : 'open'} style="margin-bottom:14px">
+          <summary>Jak klíč získat (5 minut, začít jde zdarma)</summary>
+          <ol class="small steps">
+            <li>Zaregistruj se na <b>elevenlabs.io</b>. Tarif Free má 10 000 kreditů měsíčně, Starter (6 USD/měsíc) 30 000.</li>
+            <li>Vlevo dole svůj profil → <b>API Keys</b> → <b>Create API Key</b>. Stačí oprávnění <i>Text to Speech</i> a <i>Voices: Read</i>.</li>
+            <li>Klíč vlož sem a klepni na <b>Načíst hlasy</b>.</li>
+            <li>Rodilá italská výslovnost: v ElevenLabs otevři <b>Voices → Explore</b>, vyfiltruj jazyk <i>Italian</i>, u hlasu, který se ti líbí, dej <b>Add</b> a tady znovu načti hlasy. (Některé hlasy z knihovny vyžadují placený tarif.)</li>
+          </ol>
+          <p class="note small">Každá věta se generuje jen jednou a pak se přehrává z paměti telefonu. Kartičky tak kredit spotřebují jen poprvé.</p>
+        </details>
+        <div class="field">
+          <label for="elvoice">Hlas</label>
+          <div class="row">
+            <select id="elvoice">${elVoices().length ? elVoices().map(v => `<option value="${esc(v.id)}" ${v.id === s.elVoice ? 'selected' : ''}>${esc(v.label)}</option>`).join('') : `<option value="">${s.elVoiceName ? esc(s.elVoiceName) : 'nejdřív načti hlasy'}</option>`}</select>
+            <button class="btn" id="elload" style="flex:0 0 auto">Načíst hlasy</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="elmodel">Kvalita</label>
+          <select id="elmodel">
+            <option value="eleven_flash_v2_5" ${s.elModel === 'eleven_flash_v2_5' ? 'selected' : ''}>Rychlá (Flash) · šetří kredit</option>
+            <option value="eleven_multilingual_v2" ${s.elModel === 'eleven_multilingual_v2' ? 'selected' : ''}>Nejvěrnější (Multilingual) · 2× dražší</option>
+            <option value="eleven_v3" ${s.elModel === 'eleven_v3' ? 'selected' : ''}>Nejživější (v3) · 2× dražší, pomalejší</option>
+          </select>
+        </div>
+        <p class="small muted" id="elusage"></p>` : `
+        <div class="field">
+          <label for="voice">Italský hlas iPhonu</label>
+          <select id="voice">${voices.length ? voices.map(v =>
+            `<option value="${esc(v.voiceURI)}" ${v.voiceURI === s.voice ? 'selected' : ''}>${esc(v.name)}</option>`).join('')
+            : '<option value="">Výchozí</option>'}</select>
+        </div>
+        <p class="note small">Méně robotický hlas iPhonu: Nastavení iPhonu → Zpřístupnění → Předčítaný obsah → Hlasy → Italština → stáhni hlas označený <b>Premium</b> nebo <b>vylepšený</b> a vyber ho tady. Nejpřirozenější je ale volba ElevenLabs nahoře.</p>`}
       <div class="field">
         <label for="rate">Rychlost řeči</label>
         <div class="row"><span class="small">🐢</span><input type="range" id="rate" min="0.6" max="1.2" step="0.05" value="${s.rate}" style="flex:1"><span class="small">🐇</span></div>
       </div>
       <button class="btn block" id="test">${ICON.speaker} Vyzkoušet</button>
-      <p class="note small" style="margin-top:12px">Hezčí hlas: Nastavení iPhonu → Zpřístupnění → Předčítaný obsah → Hlasy → Italština → „vylepšený“.</p>
     </div>
 
     <h2>Učení</h2>
     <div class="card">
+      <div class="field">
+        <label for="jmeno">Tvoje jméno (Giulia tě tak oslovuje)</label>
+        <input type="text" id="jmeno" value="${esc(s.jmeno)}" autocomplete="given-name">
+      </div>
       <div class="field">
         <label for="npd">Nových kartiček denně (v každém balíčku)</label>
         <select id="npd">${[5, 10, 15, 20, 30].map(n => `<option ${n === s.newPerDay ? 'selected' : ''}>${n}</option>`).join('')}</select>
@@ -555,12 +618,27 @@ function viewNastaveni() {
   $('eye').onclick = () => { $('key').type = $('key').type === 'password' ? 'text' : 'password'; };
   $('model').onchange = e => { setSettings({ model: e.target.value }); saved(); };
   $('cz').onchange = e => { setSettings({ showCz: e.target.checked }); saved(); };
-  $('voice').onchange = e => { setSettings({ voice: e.target.value }); stopSpeaking(); speak('Ciao, sono Giulia!'); };
+  $('voice') && ($('voice').onchange = e => { setSettings({ voice: e.target.value }); stopSpeaking(); speak('Ciao, sono Giulia!'); });
+  app.querySelectorAll('[data-hlas]').forEach(b => b.onclick = () => { stopSpeaking(); setSettings({ hlas: b.dataset.hlas }); viewNastaveni(); });
+  $('elkey') && ($('elkey').onchange = e => { setSettings({ elKey: e.target.value.trim() }); saved(); nactiHlasy(); });
+  $('elload') && ($('elload').onclick = nactiHlasy);
+  $('elvoice') && ($('elvoice').onchange = e => {
+    const v = elVoices().find(x => x.id === e.target.value);
+    setSettings({ elVoice: e.target.value, elVoiceName: v?.label || '' });
+    stopSpeaking(); speak('Ciao! Sono Giulia. Piacere di conoscerti!');
+  });
+  $('elmodel') && ($('elmodel').onchange = e => { setSettings({ elModel: e.target.value }); stopSpeaking(); speak('Ciao! Come stai oggi?'); });
+  if ($('elusage') && s.elKey) {
+    elevenFetch('/user/subscription').then(r => r.json()).then(u => {
+      if ($('elusage')) $('elusage').textContent = `Kredit ElevenLabs tento měsíc: ${u.character_count.toLocaleString('cs')} z ${u.character_limit.toLocaleString('cs')} využito.`;
+    }).catch(() => {});
+  }
   $('rate').onchange = e => { setSettings({ rate: +e.target.value }); stopSpeaking(); speak('Piacere di conoscerti.'); };
   $('npd').onchange = e => { setSettings({ newPerDay: +e.target.value }); saved(); };
   $('goal').onchange = e => { setSettings({ goal: +e.target.value }); saved(); };
   $('test').onclick = () => { stopSpeaking(); speak('Ciao! Sono Giulia. Come stai oggi?'); };
   $('intro').onclick = () => (location.hash = '#/vitej');
+  $('jmeno').onchange = e => { setSettings({ jmeno: e.target.value.trim() }); saved(); };
   $('reset').onclick = () => {
     if (confirm('Opravdu smazat postup ve všech kartičkách? Nejde to vrátit.')) { save('srs', {}); save('newToday', {}); toast('Postup smazán'); }
   };

@@ -1,4 +1,4 @@
-# Italiano – aplikace na výuku italštiny
+# Pablo italiano – aplikace na výuku italštiny
 
 Webová aplikace pro iPhone, která se připne na plochu a pak se chová jako normální aplikace.
 Nepotřebuje App Store ani Xcode.
@@ -16,7 +16,7 @@ Postup, slovíčka i nastavení se ukládají jen v telefonu. Kartičky a časy 
 
 | Část | Co ji zajišťuje | Cena |
 |---|---|---|
-| Předčítání italsky | hlas iPhonu (Web Speech API) | zdarma |
+| Předčítání italsky | hlas iPhonu (Web Speech API), nebo přirozený hlas ElevenLabs s vlastním klíčem | zdarma / ElevenLabs Free 10 000 kreditů měsíčně |
 | Rozpoznání řeči | iPhone (Web Speech API), jinak diktování na klávesnici | zdarma |
 | Giuliiny odpovědi | Claude API (model Claude Opus 5, v nastavení lze zvolit levnější) | cca 0,3 Kč za odpověď |
 
@@ -37,7 +37,7 @@ HTTPS, takže ji musí servírovat hosting s HTTPS, například **GitHub Pages**
 2. Settings → Pages → Deploy from branch → `main` / root.
 3. Na iPhonu otevřít adresu v **Safari** → Sdílet → **Přidat na plochu**.
 
-Když změníš soubory, zvyš verzi `CACHE` v `sw.js`. Jinak telefon drží starou verzi z mezipaměti.
+Service worker načítá soubory nejdřív ze sítě, mezipaměť je jen záloha pro režim bez signálu. Po změně souborů zvyš `CACHE` v `sw.js`.
 
 Lokální vyzkoušení na Macu:
 
@@ -56,6 +56,6 @@ a otevřít http://localhost:8765.
 - `js/ui.js` – ikony a sdílené prvky rozhraní
 - `js/chat.js` – konverzace s Giulií, avatar, volání Claude API, počítání útraty
 - `js/prizpusobit.js` – úpravy aplikace přáním; seznam laditelných parametrů je `PARAMS`
-- `js/speech.js` – předčítání a rozpoznání řeči
+- `js/speech.js` – předčítání (iPhone nebo ElevenLabs s mezipamětí `pablo-hlas`) a rozpoznání řeči
 - `js/store.js` – ukládání v telefonu
 - `sw.js` – offline režim

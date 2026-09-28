@@ -15,6 +15,12 @@ export function save(key, value) {
 export const today = () => new Date().toLocaleDateString('sv'); // YYYY-MM-DD v místním čase
 
 export const DEFAULT_SETTINGS = {
+  jmeno: 'Pablo',
+  hlas: 'iphone',          // 'iphone' | 'eleven'
+  elKey: '',
+  elVoice: '',
+  elVoiceName: '',
+  elModel: 'eleven_flash_v2_5',
   apiKey: '',
   model: 'claude-opus-5',
   rate: 0.9,
